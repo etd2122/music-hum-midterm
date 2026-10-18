@@ -93,6 +93,9 @@ h3{font:650 1.2rem/1.25 var(--f-display);margin:0}
 .listen a::before{content:"▶ ";color:var(--accent);font-size:.75em}
 .listen a:hover{border-color:var(--accent);color:var(--accent)}
 .listen a.search::before{content:"⌕ "}
+.ulterms{margin:14px 0 0;padding:10px 14px 10px 30px;background:var(--accent-soft);border-radius:8px;font-size:.93rem}
+.ulterms .ullabel{font-weight:700;color:var(--accent)}
+.ulterms b{text-decoration:underline;text-underline-offset:2px}
 details.q{margin-top:12px;border:1px solid var(--rule);border-radius:8px;background:var(--bg)}
 details.q summary{cursor:pointer;padding:9px 12px;font-size:.92rem;font-weight:600}
 details.q div{padding:0 12px 10px;font-size:.92rem}
@@ -245,7 +248,7 @@ const ERAS = {
 };
 
 const PIECES = [
-{ id:"viderunt", era:"Medieval", composer:"Anonymous", title:"Viderunt Omnes", date:"Gregorian chant · in a 10th-c. manuscript",
+{ id:"viderunt", ul:'<b>notation</b> (visual representation of musical sound) · <b>Gregorian Chant</b> (standardized chant for the Catholic Mass &amp; Office) · <b>text-setting</b> (relationship of syllables to notes) · <b>syllabic</b> (one note per syllable) · <b>melismatic</b> (many notes per syllable)', era:"Medieval", composer:"Anonymous", title:"Viderunt Omnes", date:"Gregorian chant · in a 10th-c. manuscript",
   tags:{Genre:"Gregorian chant (Mass for Christmas Day)",Texture:"Monophony",Forces:"Men’s voices, unaccompanied",Language:"Latin"},
   hear:["One melody line, no harmony or instruments (a male choir singing in unison)","Free-flowing rhythm with no steady beat or meter","Opening “Vi-de-runt” moves note-per-syllable, then long melismas stretch single syllables","Calm, mostly conjunct (stepwise) melody in a narrow range"],
   facts:["Paraphrases Psalm 98 (“Sing to the Lord a new song”), sung on Christmas Day","Gregorian chant is the standardized chant of the Catholic Mass and Office; it came out of new notation, Charlemagne’s centralizing rule, and monastery culture","Before notation (Isidore of Seville): sounds “perish, because they cannot be written down”","Later elaborated into polyphony by Perotin (ca. 1200)"],
@@ -253,7 +256,7 @@ const PIECES = [
   q:"What’s the text-setting at the start of this excerpt?", a:"Both. The opening syllables are <b>syllabic</b> (one note per syllable) and then turn <b>melismatic</b> (many notes on one syllable). Also expect: texture = <b>monophony</b>.",
   links:[["Lecture clip (Chant slides)","P722HAduQO8"]] },
 
-{ id:"euchari", era:"Medieval", composer:"Hildegard von Bingen", title:"O Euchari", date:"ca. 1150",
+{ id:"euchari", ul:'<b>notation</b> (visual representation of musical sound) · <b>Gregorian Chant</b> (standardized chant for the Catholic Mass &amp; Office) · <b>text-setting</b> (relationship of syllables to notes) · <b>syllabic</b> (one note per syllable) · <b>melismatic</b> (many notes per syllable)', era:"Medieval", composer:"Hildegard von Bingen", title:"O Euchari", date:"ca. 1150",
   tags:{Genre:"Sacred song (Symphonia)",Texture:"Monophony (sometimes over a drone)",Forces:"Women’s voice(s)",Language:"Latin"},
   hear:["Women’s voices (a contrast to Viderunt’s men’s choir)","Single melodic line that soars: very <b>wide range</b> with big leaps","Highly expressive melismas","No meter; floating, ecstatic feel"],
   facts:["Hildegard (1098–1179): abbess, theologian, preacher, scientist, artist, composer, mystic","Had visions (Scivias); named a Doctor of the Church in 2012","About 70 of her compositions survive; her music is known for expressive melismas and wide range","Praises St. Eucharius, who walked with Christ and laid the “foundation of the Church”; preserved in the Riesencodex / Symphonia armonie"],
@@ -261,7 +264,7 @@ const PIECES = [
   q:"How is this different from Viderunt Omnes, even though both are monophonic chant?", a:"Hildegard’s melody has a much <b>wider range</b> and more leaps (more <b>disjunct</b>), with dramatic, expressive <b>melismas</b>. It’s also sung by women and was written by a named composer.",
   links:[["Lecture clip (O Euchari)","HRDI_rJr32E"]] },
 
-{ id:"josquin", era:"Renaissance", composer:"Josquin des Prez", title:"Ave Maria", date:"ca. 1485",
+{ id:"josquin", ul:'<b>motet</b> (polyphonic piece with a Latin text) · <b>imitative polyphony</b> (each voice sings the same melody but starts at a different time, imitating the previous voice)', era:"Renaissance", composer:"Josquin des Prez", title:"Ave Maria", date:"ca. 1485",
   tags:{Genre:"Motet",Texture:"Imitative polyphony ↔ homophony",Forces:"4-part unaccompanied choir",Language:"Latin"},
   hear:["Opens with <b>imitative polyphony</b>: one voice sings “A-ve Ma-ri-a” and each new voice enters copying it","Clear, balanced, consonant Renaissance harmony (no instruments)","Switches textures: paired voices, then block-chord <b>homophony</b>","A section in <b>triple meter</b>; ends with a slow, homophonic “O Mater Dei, memento mei”"],
   facts:["<b>Motet</b>: polyphonic piece with a Latin text","Likely written for his patron, Cardinal Ascanio Sforza, in Milan in the 1480s (patronage system)","Text is a Latin prayer; each stanza is about an event in the Virgin Mary’s life (and its feast day)","Takes melodic inspiration from an older Gregorian chant","Balances complexity and simplicity, structure and variation, music and text"],
@@ -269,7 +272,7 @@ const PIECES = [
   q:"What texture does the excerpt begin with, and what does it mean?", a:"<b>Imitative polyphony</b>: each voice sings the same melody, entering at a different time and “imitating” the voice before. (Later sections can be <b>homophonic</b>, and one is in <b>triple meter</b>.)",
   links:[["Lecture clip (Ave Maria)","qXMZoKofu7g"],["Ave Maria (alt. clip, slide 13)","2gl-UdGHPEY"]] },
 
-{ id:"gesualdo", era:"Renaissance", composer:"Carlo Gesualdo", title:"Moro, lasso (I die, alas)", date:"pub. 1611 (Book 6 of madrigals)",
+{ id:"gesualdo", ul:'<b>madrigal</b> (musical setting of Italian secular poetry, popular in the Renaissance) · <b>word painting</b> (musical elements reflect the literal meaning of the lyrics)', era:"Renaissance", composer:"Carlo Gesualdo", title:"Moro, lasso (I die, alas)", date:"pub. 1611 (Book 6 of madrigals)",
   tags:{Genre:"Madrigal",Texture:"Shifts between homophony & polyphony",Forces:"5 unaccompanied voices",Language:"Italian"},
   hear:["Very slow, eerie opening on “Mo-ro, las-so”: strange <b>chromatic</b> chord shifts that sound unstable and wrong","Lots of <b>dissonance</b>; harmony is the giveaway","Sudden contrasts: slow, anguished sections against quick, busy ones","Small vocal ensemble, no instruments"],
   facts:["Italian nobleman. His independent wealth freed him to experiment, especially with <b>harmony</b>","Retreated to his castle in 1595 to devote himself to music; published collections in 1603 and 1611","Text: “I die, alas, in my suffering, and she who could give me life… gives me death”","Charles Burney (1776–89) called it “harsh, crude, and licentious… shocking and disgusting to the ear”","Vincenzo Galilei mocked word painting (words like “to die” making voices fall silent)"],
@@ -277,7 +280,7 @@ const PIECES = [
   q:"What musical element makes this piece so distinctive?", a:"<b>Harmony</b>: unusually chromatic and <b>dissonant</b> chord progressions that create tension and paint the text’s anguish (<b>word painting</b>). Genre: <b>madrigal</b>.",
   links:[["Lecture clip (Moro, lasso)","kx-1JOM9qS8"]] },
 
-{ id:"strozzi", era:"Renaissance", composer:"Barbara Strozzi", title:"Che si può fare (What can you do)", date:"1664 (Arie, Op. 8)",
+{ id:"strozzi", ul:'<b>madrigal</b> (musical setting of Italian secular poetry, popular in the Renaissance) · <b>word painting</b> (musical elements reflect the literal meaning of the lyrics)', era:"Renaissance", composer:"Barbara Strozzi", title:"Che si può fare (What can you do)", date:"1664 (Arie, Op. 8)",
   tags:{Genre:"Aria / solo song (lament)",Texture:"Homophony (melody + accompaniment)",Forces:"Solo soprano + continuo (e.g. theorbo, harpsichord, cello)",Language:"Italian"},
   hear:["<b>One female solo voice</b> over a small accompaniment: totally different from the choral pieces","A slow, repeating <b>descending bass line</b> underneath (a lament bass)","Refrain “Che si può fa-re?” keeps coming back","Ornamented, virtuosic, emotionally expressive singing"],
   facts:["Venetian composer and singer (1619–1677); contemporaries called her “the most virtuosic singer”","One of very few women of the period to have a career as a composer with public recognition (Ellen Rosand)","Prolific publisher in a growing public market for printed music; inconsistent patronage","Text by Gaudenzio Brunacci: the stars have no pity; “disasters keep raining down on me”","Listed with Renaissance on the exam sheet, though it dates from the mid-1600s (Baroque style)"],
@@ -285,7 +288,7 @@ const PIECES = [
   q:"What’s the texture, and how does the music reflect the text?", a:"<b>Homophony</b> (melody with accompaniment). <b>Word painting</b>: the descending bass and falling lines match the hopelessness and the disasters “raining down.”",
   links:[["Lecture clip (Che si può fare)","2yL_65orJgQ"]] },
 
-{ id:"orfeo", era:"Baroque", composer:"Claudio Monteverdi", title:"Orfeo", date:"1607 · Mantua",
+{ id:"orfeo", ul:'<b>rhetoric</b> (the art of persuasion) · <b>opera</b> (theater where most characters sing most of the time) · <b>arias</b> (songs) · <b>recitatives</b> (musical imitation of speech)', era:"Baroque", composer:"Claudio Monteverdi", title:"Orfeo", date:"1607 · Mantua",
   tags:{Genre:"Opera",Texture:"Homophony (solo voice + continuo/orchestra)",Forces:"Solo singers (tenor Orfeo), early orchestra, continuo",Language:"Italian"},
   hear:["A solo singer delivering text clearly: either speech-like <b>recitative</b> or a tuneful <b>aria</b>","Early Baroque instruments: plucked strings, harpsichord/organ continuo, viols, recorders, brass in the overture-like Toccata","Emotion is front and center (joy vs. grief)","Two common excerpts: “Vi ricorda, o boschi ombrosi” (joyful, dance-like) and “Tu se’ morta” (grieving recitative). Check which one is on the playlist."],
   facts:["The first major surviving opera; commissioned by Duke Vincenzo Gonzaga of Mantua, where Monteverdi was chief musician","Performed for a local academic/intellectual society","Inspired by Renaissance humanist efforts to revive ancient Greek musical theater","Loose, early form: a mix of arias, duets, and dances","Doctrine of Affections: music arouses specific passions (Descartes: wonder, love, hatred, desire, joy, sadness)","Orpheus story fits opera perfectly: it’s about the power of music itself"],
@@ -293,7 +296,7 @@ const PIECES = [
   q:"Is this an aria or recitative, and which of Descartes’ passions do you hear?", a:"<b>Aria</b> = song with a shaped melody; <b>recitative</b> = musical imitation of speech. Name the passion (e.g. <b>joy</b> in “Vi ricorda,” <b>sadness</b> in “Tu se’ morta”) and point to how the music shows it (tempo, rhythm, melody shape).",
   links:[["Orfeo aria (slide 12, clip 1)","A9e96mkCHmA"],["Orfeo aria (slide 12, clip 2)","Uzu-DTgiqXM"],["Orfeo (slide 13)","u0qkP1kvEdQ"],["Orfeo (slide 14)","FLltP_uZIbA"]] },
 
-{ id:"prelude", era:"Baroque", composer:"J.S. Bach", title:"Prelude in C Major (Well-Tempered Clavier, Bk. I)", date:"1722",
+{ id:"prelude", ul:'<b>fugue</b> (compositional technique based on imitation; from <i>fugere</i>, “to flee”) · <b>subject</b> (the main musical idea in a fugue)', era:"Baroque", composer:"J.S. Bach", title:"Prelude in C Major (Well-Tempered Clavier, Bk. I)", date:"1722",
   tags:{Genre:"Prelude (keyboard)",Texture:"Homophony (broken chords)",Forces:"Solo keyboard (piano / harpsichord)",Language:"Instrumental"},
   hear:["Solo keyboard playing nonstop <b>broken chords</b> (arpeggios)","The same <b>8-note figure, played twice in every measure</b>; only the harmony changes","No real tune; it’s all harmony, gently shifting between consonance and tension","Steady, even rhythm and calm mood"],
   facts:["From the <b>Well-Tempered Clavier</b>: a prelude and fugue in each of the 24 major and minor keys","Written for keyboard (harpsichord, organ, or early piano in Bach’s day)","Glenn Gould’s Prelude &amp; Fugue in C is on the <b>Voyager Golden Record</b>","Crumey novel quote: “This little prelude is the whole universe, made easy enough for a child to play”"],
@@ -301,7 +304,7 @@ const PIECES = [
   q:"How would you describe the texture and what drives the music forward?", a:"<b>Homophonic</b>: one repeating broken-chord pattern, no independent melodies. <b>Harmony</b> is what changes and drives it forward (that’s the contrast with the polyphonic Fugue).",
   links:[["Bach lecture clip (slide 2)","qr0f6t2UbOo"],["Bach lecture clip (slide 3)","hPk0GGL0i0w"]] },
 
-{ id:"fugue", era:"Baroque", composer:"J.S. Bach", title:"Fugue in C Major (Well-Tempered Clavier, Bk. I)", date:"1722",
+{ id:"fugue", ul:'<b>fugue</b> (compositional technique based on imitation; from <i>fugere</i>, “to flee”) · <b>subject</b> (the main musical idea in a fugue)', era:"Baroque", composer:"J.S. Bach", title:"Fugue in C Major (Well-Tempered Clavier, Bk. I)", date:"1722",
   tags:{Genre:"Fugue (keyboard)",Texture:"Polyphony (imitative)",Forces:"Solo keyboard",Language:"Instrumental"},
   hear:["Starts with <b>one line alone</b>: the subject. Then a second voice enters with the same tune, then more","Several independent melodies at once: dense <b>polyphony</b>","The subject keeps reappearing in different voices, sometimes overlapping","Follows the Prelude in C on the same keyboard. If it’s one line that multiplies, it’s the fugue."],
   facts:["<b>Fugue</b>: compositional technique based on imitation, from Latin <i>fugere</i>, “to flee”","<b>Subject</b>: the main musical idea in a fugue","Bach’s life: music as family trade; worked for court and church; out of step with the Enlightenment; famous mainly after death","Scheibe (1737) criticized exactly this kind of complexity as “turgid and confused” (see Part II)"],
@@ -309,7 +312,7 @@ const PIECES = [
   q:"What is a fugue’s “subject,” and what’s the texture?", a:"The <b>subject</b> is the main musical idea that each voice imitates. Texture: <b>polyphony</b> (imitative). Fugue comes from <i>fugere</i>, “to flee.”",
   links:[["Lecture clip (Fugue in C)","qfJAiCSZgzU"]] },
 
-{ id:"bologne", era:"Classical", composer:"Joseph Bologne (Chevalier de Saint-Georges)", title:"Violin Concerto No. 2 in A Major, III (Rondeau)", date:"1770s · Paris",
+{ id:"bologne", ul:'<b>rondeau/rondo</b> (form where the opening material, A, keeps returning between contrasting episodes)', era:"Classical", composer:"Joseph Bologne (Chevalier de Saint-Georges)", title:"Violin Concerto No. 2 in A Major, III (Rondeau)", date:"1770s · Paris",
   tags:{Genre:"Violin concerto",Texture:"Homophony",Forces:"Solo violin + orchestra",Language:"Instrumental"},
   hear:["Bright, elegant orchestra plus a <b>solo violin</b> showing off (high notes, fast runs)","A catchy main tune (A) that <b>keeps coming back</b> between contrasting episodes: <b>rondeau</b>","Balanced, singable phrases; clear homophony","Classical “clarity and variety”: sudden dynamic contrasts"],
   facts:["Born 1745 in Guadeloupe to a French aristocratic enslaver father and enslaved Senegal-born mother, Anne Dennevau (freed 1748)","Famous as both a fencer and violinist; led the Concert des Amateurs orchestra by 1773","One of the first French composers of string quartets; also operas","Blocked from directing the Paris Opéra (1775) after singers’ petition; fought in the Revolution, imprisoned during the Terror","Died 1799; Napoleon reinstated slavery in 1802","<b>Violin concerto</b>: showpiece for a virtuoso soloist accompanied by orchestra"],
@@ -317,7 +320,7 @@ const PIECES = [
   q:"What is the form of this movement?", a:"<b>Rondeau/rondo</b>: the opening material (A) keeps returning, interspersed with contrasting episodes (A B A C A…). Genre: <b>violin concerto</b>; it’s the 3rd <b>movement</b>.",
   links:[["Lecture clip (Concerto 2, III)","teEWVFRHOeI"]] },
 
-{ id:"porgi", era:"Classical", composer:"W.A. Mozart", title:"“Porgi, amor” from The Marriage of Figaro", date:"1786 · Vienna",
+{ id:"porgi", ul:'<b>opera buffa</b> (comic opera) · <b>aria</b> (solo song) · <b>recitative</b> (imitation of speech, links arias, accompanied by harpsichord) · <b>duet</b> (2 singers) · <b>ensemble</b> (3+ singers)', era:"Classical", composer:"W.A. Mozart", title:"“Porgi, amor” from The Marriage of Figaro", date:"1786 · Vienna",
   tags:{Genre:"Opera buffa · aria",Texture:"Homophony",Forces:"Solo soprano (the Countess) + orchestra",Language:"Italian"},
   hear:["Starts with a slow, gentle orchestral intro (warm winds: clarinets, bassoons, horns)","Then a <b>solo soprano</b>: sad, dignified, lyrical, with a long, singable melody","Slow tempo, soft dynamics, sighing phrases","An <b>aria</b>, not recitative: no harpsichord-only speechlike sections"],
   facts:["The Countess, opening Act II, mourns her husband the Count’s lost love (“Grant, love, some comfort”)","<b>Opera buffa</b> (comic opera): mix of high and low class characters, satire, ends with resolution","Libretto by <b>Lorenzo Da Ponte</b>, later Columbia’s first professor of Italian","Figaro deals with class and gender on the eve of the French Revolution; the abusive aristocrat is punished","Mozart: child prodigy from Salzburg, left the Archbishop’s patronage to freelance in Vienna, died at 35"],
@@ -325,7 +328,7 @@ const PIECES = [
   q:"Is this an aria, recitative, duet, or ensemble? How does Mozart create character?", a:"<b>Aria</b> (solo song). Slow tempo, soft dynamics, and a long sighing melody show the Countess’s dignified sorrow. Genre: <b>opera buffa</b>.",
   links:[["Lecture clip (Figaro, slide 10)","xoMEEZtB7V4"],["Figaro Overture (slide 2)","lT7iLG-UCdE"]] },
 
-{ id:"beet5", era:"Classical", composer:"Ludwig van Beethoven", title:"Symphony No. 5, I", date:"1808",
+{ id:"beet5", ul:'<b>sonata form</b> (two contrasting themes, three sections) · <b>exposition</b> (introduces t1 &amp; t2 in different keys) · <b>development</b> (themes developed, harmonic exploration) · <b>recapitulation</b> (themes recapped; t2 moves into the home key of t1)', era:"Classical", composer:"Ludwig van Beethoven", title:"Symphony No. 5, I", date:"1808",
   tags:{Genre:"Symphony",Texture:"Homophony, with imitative passages",Forces:"Full orchestra",Language:"Instrumental"},
   hear:["The famous <b>short-short-short-LONG</b> opening (da-da-da-DUM)","That motif is everywhere: passed around the orchestra, stacked, driven forward","C minor, loud, urgent, stormy; sudden dynamic contrasts","A gentler second theme (horn call, then strings) offers contrast before the motif returns"],
   facts:["Extremely <b>motivic</b>: built almost entirely from one melodic cell (motif)","Written shortly after the <b>Heiligenstadt Testament</b> (1802)","In <b>sonata form</b>: Exposition (t1 &amp; t2 in different keys, often repeated) → Development → Recapitulation (t2 moves into the home key)","The symphony moves from C minor to triumphant C major in mvt IV: “Joy follows sorrow, sunshine, rain”","Central figure in the move from Classical to Romantic (E.T.A. Hoffmann: “the machinery of awe, of fear, of terror, of pain”)"],
@@ -485,7 +488,8 @@ $("#pieces").innerHTML = PIECES.map(p=>{
   <div class="tags">${Object.entries(p.tags).map(([k,v])=>`<span class="tag"><b>${k}</b>${v}</span>`).join("")}</div>
   <div class="cols"><div><h4>What you’ll hear</h4><ul>${p.hear.map(x=>`<li>${x}</li>`).join("")}</ul></div>
   <div><h4>Context &amp; key facts</h4><ul>${p.facts.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
-  <div class="tags"><span class="tag"><b>Terms</b>${p.terms.join(" · ")}</span></div>
+  <ul class="ulterms"><li><span class="ullabel">Underlined on the slides:</span> ${p.ul}</li></ul>
+  <div class="tags"><span class="tag"><b>Related terms</b>${p.terms.join(" · ")}</span></div>
   <details class="q"><summary>Practice follow-up: ${p.q}</summary><div><p>${p.a}</p></div></details>
   <div class="listen">${p.links.map(([l,id])=>`<a href="${yt(id)}" target="_blank" rel="noopener">${l}</a>`).join("")}
     <a class="search" href="https://open.spotify.com/search/${q}" target="_blank" rel="noopener">Search Spotify</a></div>
