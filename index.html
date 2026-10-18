@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Music Hum Midterm Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,650;1,8..60,500&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --ink:#1d1b18; --muted:#5f5a52; --rule:#ddd8ce;
+  --accent:#7a2e2e; --accent-soft:#f4e7e4; --tip:#7a5a00; --tip-soft:#fbf2dc;
+  --ok:#2c6e49; --ok-soft:#e3f1e8;
+  --med:#5b4a8a; --ren:#2f6b5e; --bar:#8a5a1f; --cla:#2d5a8a;
+  --f-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15130f; --surface:#1e1b17; --ink:#ece7de; --muted:#a59e92; --rule:#36312a;
+  --accent:#e09a8c; --accent-soft:#3a2420; --tip:#e7c06a; --tip-soft:#33291a;
+  --ok:#86c9a0; --ok-soft:#1b3326; --med:#b4a5e6; --ren:#8fd0bf; --bar:#e2b071; --cla:#97bfe8; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#15130f; --surface:#1e1b17; --ink:#ece7de; --muted:#a59e92; --rule:#36312a;
+  --accent:#e09a8c; --accent-soft:#3a2420; --tip:#e7c06a; --tip-soft:#33291a;
+  --ok:#86c9a0; --ok-soft:#1b3326; --med:#b4a5e6; --ren:#8fd0bf; --bar:#e2b071; --cla:#97bfe8; color-scheme:dark; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);padding-inline:16px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.shell{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:230px minmax(0,1fr);gap:40px}
+nav.rail{position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto;padding-block:28px}
+.rail .brand{font:650 1.1rem/1.25 var(--f-display);margin:0 0 4px}
+.rail .sub{font-size:.8rem;color:var(--muted);margin:0 0 18px}
+.rail h4{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+.rail a{display:block;text-decoration:none;color:var(--ink);font-size:.9rem;padding:3px 8px;border-left:2px solid transparent}
+.rail a:hover{border-left-color:var(--accent);color:var(--accent)}
+.rail .tools{margin-top:22px;display:flex;flex-direction:column;gap:8px}
+.rail .tools .btn{padding:9px 14px;border:1px solid var(--rule);justify-content:center}
+.rail .tools .btn.primary{border-color:var(--accent);color:#fff}
+main{padding-block:28px 80px;min-width:0}
+h1{font:650 2.3rem/1.12 var(--f-display);margin:0 0 10px;text-wrap:balance}
+h2{font:650 1.6rem/1.2 var(--f-display);margin:56px 0 6px;padding-top:8px;scroll-margin-top:12px}
+h3{font:650 1.2rem/1.25 var(--f-display);margin:0}
+.lede{color:var(--muted);max-width:68ch;margin:0 0 20px}
+.section-note{color:var(--muted);max-width:70ch;margin:0 0 18px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 .9rem var(--f-body);padding:9px 14px;border-radius:8px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.1);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.format{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
+.format .panel h3{font-size:1.05rem;margin-bottom:6px}
+.format .panel p{margin:0;font-size:.93rem;color:var(--muted)}
+.callout{background:var(--tip-soft);border-left:3px solid var(--tip);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:.94rem}
+.callout b{color:var(--tip)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 6px}
+.era{border-top:4px solid var(--c);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;border-left:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.era .name{font:650 1rem var(--f-display);color:var(--c)}
+.era .dates{font-size:.78rem;color:var(--muted);margin-bottom:8px}
+.era ul{margin:0;padding:0;list-style:none;font-size:.86rem}
+.era li{padding:3px 0;border-top:1px dashed var(--rule)}
+.era li:first-child{border-top:0}
+.era a{text-decoration:none;color:var(--ink)}
+.era a:hover{color:var(--accent)}
+/* piece cards */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 18px;padding:12px 14px;background:var(--surface);border:1px solid var(--rule);border-radius:10px}
+.toolbar label{font-size:.9rem;display:flex;align-items:center;gap:6px;cursor:pointer}
+.toolbar .progress{margin-left:auto;font-size:.85rem;color:var(--muted)}
+.piece{background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--c);border-radius:12px;padding:18px 20px;margin:0 0 18px;scroll-margin-top:12px}
+.piece header{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.chip{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);padding:2px 8px;border-radius:99px;margin-bottom:6px}
+.piece .who{font-size:.95rem;color:var(--muted);margin:2px 0 0}
+.piece .who b{color:var(--ink)}
+.mask .piece .idtext{filter:blur(7px);user-select:none;transition:filter .2s}
+.mask .piece.revealed .idtext{filter:none;user-select:auto}
+.reveal{display:none}
+.mask .reveal{display:inline-flex}
+.mask .piece.revealed .reveal{display:none}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.tag{font-size:.78rem;border:1px solid var(--rule);border-radius:6px;padding:2px 8px;background:var(--bg)}
+.tag b{font-weight:700;color:var(--muted);margin-right:4px;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
+.cols h4{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.cols ul{margin:0;padding-left:18px;font-size:.93rem}
+.cols li{margin:3px 0}
+.listen{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.listen a{font-size:.85rem;text-decoration:none;border:1px solid var(--rule);border-radius:99px;padding:5px 12px;background:var(--bg);color:var(--ink)}
+.listen a::before{content:"▶ ";color:var(--accent);font-size:.75em}
+.listen a:hover{border-color:var(--accent);color:var(--accent)}
+.listen a.search::before{content:"⌕ "}
+details.q{margin-top:12px;border:1px solid var(--rule);border-radius:8px;background:var(--bg)}
+details.q summary{cursor:pointer;padding:9px 12px;font-size:.92rem;font-weight:600}
+details.q div{padding:0 12px 10px;font-size:.92rem}
+details.q p{margin:6px 0}
+.got{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted);cursor:pointer;white-space:nowrap}
+.got input{accent-color:var(--ok);width:16px;height:16px}
+.piece.known{background:linear-gradient(0deg,var(--ok-soft),var(--ok-soft)) padding-box}
+/* compare table */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:720px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600}
+/* glossary */
+.search{width:100%;max-width:420px;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;font:inherit;background:var(--surface);color:var(--ink)}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:14px}
+.term{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:12px 14px}
+.term dt{font-weight:700}
+.term dt small{font-weight:400;color:var(--muted);font-size:.75rem;margin-left:6px}
+.term dd{margin:4px 0 0;font-size:.9rem;color:var(--muted)}
+/* elements */
+.elements{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.elements .panel h3{font-size:1.05rem;margin-bottom:4px}
+.elements .panel p{font-size:.9rem;color:var(--muted);margin:0 0 8px}
+.elements .listen{margin-top:6px}
+.elements .listen a{font-size:.78rem;padding:3px 10px}
+/* docs */
+.doc{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.doc .meta{font-size:.85rem;color:var(--muted);margin:2px 0 10px}
+.doc .clue{background:var(--accent-soft);border-radius:8px;padding:10px 12px;font-size:.9rem;margin-top:10px}
+.doc .clue b{color:var(--accent)}
+.doc .cols{margin-top:4px}
+footer{color:var(--muted);font-size:.82rem;margin-top:60px;border-top:1px solid var(--rule);padding-top:16px}
+.mock{display:grid;gap:12px}
+.mock .stage{font:650 1.25rem var(--f-display)}
+.mock .ans{display:none;border-top:1px dashed var(--rule);padding-top:10px}
+.mock.show .ans{display:block}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;gap:0}
+  nav.rail{position:static;max-height:none;padding-block:18px 0;border-bottom:1px solid var(--rule)}
+  .rail .links{display:flex;flex-wrap:wrap;gap:4px 10px}
+  .rail h4{display:none}
+  .rail a{border-left:0;padding:2px 0}
+  .rail .tools{flex-direction:row;flex-wrap:wrap;margin:12px 0 14px}
+  .timeline{grid-template-columns:1fr 1fr}
+  .cols{grid-template-columns:1fr}
+  h1{font-size:1.85rem}
+}
+@media (max-width:440px){ .timeline{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="shell" id="top">
+<nav class="rail" aria-label="Sections">
+  <p class="brand">Music Hum Midterm</p>
+  <p class="sub">Prof. Wermager · study guide</p>
+  <div class="links">
+    <h4>Overview</h4>
+    <a href="#format">Exam format</a>
+    <a href="#timeline">Timeline</a>
+    <h4>Part I · Listening</h4>
+    <a href="#listening">Listening IDs (11)</a>
+    <a href="#mock">Mock ID drill</a>
+    <a href="#compare">Side-by-side table</a>
+    <a href="#terms">Underlined terms</a>
+    <a href="#elements">Elements of music</a>
+    <h4>Part II · Documents</h4>
+    <a href="#documents">Document IDs (7)</a>
+    <h4>Extra</h4>
+    <a href="#extra">More lecture clips</a>
+  </div>
+  <div class="tools">
+    <a class="btn primary" href="https://open.spotify.com/playlist/19YFhDrqnqvQvUrDcdIgTR" target="_blank" rel="noopener">Spotify playlist</a>
+    <a class="btn" href="https://www.youtube.com/playlist?list=PLUXmdvXa4RAIGOG2WvUFP9cKpUFwkvxWZ" target="_blank" rel="noopener">YouTube playlist</a>
+  </div>
+</nav>
+
+<main>
+<h1>Music Humanities — Midterm Study Guide</h1>
+<p class="lede">Everything testable from the midterm sheet: the 11 listening IDs with links, the underlined terms from the slides, the elements of music, and the 7 document IDs. Built from the lecture decks (Elements → Beethoven).</p>
+<div class="row">
+  <a class="btn primary" href="https://open.spotify.com/playlist/19YFhDrqnqvQvUrDcdIgTR" target="_blank" rel="noopener">Open the exam playlist on Spotify</a>
+  <a class="btn" href="https://www.youtube.com/playlist?list=PLUXmdvXa4RAIGOG2WvUFP9cKpUFwkvxWZ" target="_blank" rel="noopener">Open the exam playlist on YouTube</a>
+</div>
+
+<h2 id="format">Exam format</h2>
+<div class="format">
+  <div class="panel"><h3>Part I · Composers &amp; Titles ID</h3><p>Hear a <b>30-second excerpt</b> from the playlist → name the <b>composer and title</b>. Each example has a <b>follow-up question</b>: either an underlined term from the slides, or a musical element in that excerpt (e.g. “What is the texture?”).</p></div>
+  <div class="panel"><h3>Part II · Document ID</h3><p>Read a short excerpt → identify it by its <b>author/title label</b>, then briefly explain its <b>context and/or importance</b> to the history we’ve studied.</p></div>
+</div>
+<div class="callout"><b>Recordings matter.</b> The exam uses the exact recordings on the professor’s Spotify/YouTube playlists. The “Lecture clip” links below come straight from the slides and may be different performances — do your final run-throughs on the playlist.</div>
+
+<h2 id="timeline">Timeline at a glance</h2>
+<p class="section-note">Grouped the way the midterm sheet groups them. Click a title to jump to its card.</p>
+<div class="timeline" id="timelineGrid"></div>
+
+<h2 id="listening">Part I · Listening IDs</h2>
+<p class="section-note">For each piece: what you’ll hear in the first 30 seconds, the context, the terms it’s tied to, and a practice follow-up question.</p>
+<div class="toolbar">
+  <label><input type="checkbox" id="maskToggle"> Quiz mode — hide composer &amp; title</label>
+  <button class="btn" id="resetKnown" type="button">Reset checkmarks</button>
+  <span class="progress" id="progress"></span>
+</div>
+<div id="pieces"></div>
+
+<h2 id="mock">Mock ID drill</h2>
+<p class="section-note">Gives you sound clues from a random piece. Name the composer, title, and answer the follow-up before revealing. For real ear practice, shuffle the Spotify playlist, skip to a random spot, and ID it in 30 seconds.</p>
+<div class="panel mock" id="mockBox">
+  <div class="stage" id="mockQ">Press “New question” to start.</div>
+  <div class="row">
+    <button class="btn primary" id="mockNew" type="button">New question</button>
+    <button class="btn" id="mockShow" type="button">Reveal answer</button>
+  </div>
+  <div class="ans" id="mockA"></div>
+</div>
+
+<h2 id="compare">Side-by-side: how they sound</h2>
+<p class="section-note">The fastest way to tell pieces apart is by texture, forces, and language.</p>
+<div class="tablewrap"><table id="compareTable"><thead><tr><th>Piece</th><th>Era / date</th><th>Forces (timbre)</th><th>Texture</th><th>Language</th><th>Dead giveaway</th></tr></thead><tbody></tbody></table></div>
+
+<h2 id="terms">Underlined terms from the slides</h2>
+<p class="section-note">These are the vocabulary pool for follow-up questions. Type to filter.</p>
+<input class="search" id="termSearch" type="search" placeholder="Filter terms… (e.g. texture, opera, form)" aria-label="Filter terms">
+<dl class="gloss" id="gloss"></dl>
+
+<h2 id="elements">Elements of music</h2>
+<p class="section-note">For the “what do you hear?” follow-ups. Clips are the examples linked in the Elements of Music slides.</p>
+<div class="elements" id="elementsGrid"></div>
+
+<h2 id="documents">Part II · Document IDs</h2>
+<p class="section-note">For each reading: what it is, the main argument, why it matters, and phrases that give it away.</p>
+<div id="docs"></div>
+
+<h2 id="extra">More lecture clips</h2>
+<p class="section-note">Other examples played in lecture — not on the ID list, but useful context.</p>
+<div class="elements" id="extraGrid"></div>
+
+<footer>Built from the Music Humanities lecture slides and midterm information sheet. Lecture-clip links are the YouTube links embedded in the slides. <a href="#top">Back to top ↑</a></footer>
+</main>
+</div>
+
+<script>
+const yt = id => "https://www.youtube.com/watch?v=" + id;
+const ERAS = {
+  Medieval:{c:"var(--med)",dates:"ca. 500–1400"},
+  Renaissance:{c:"var(--ren)",dates:"ca. 1400–1600"},
+  Baroque:{c:"var(--bar)",dates:"ca. 1600–1750"},
+  Classical:{c:"var(--cla)",dates:"ca. 1750–1815"}
+};
+
+const PIECES = [
+{ id:"viderunt", era:"Medieval", composer:"Anonymous", title:"Viderunt Omnes", date:"Gregorian chant · in a 10th-c. manuscript",
+  tags:{Genre:"Gregorian chant (Mass for Christmas Day)",Texture:"Monophony",Forces:"Men’s voices, unaccompanied",Language:"Latin"},
+  hear:["One melody line, no harmony or instruments (a male choir singing in unison)","Free-flowing rhythm with no steady beat or meter","Opening “Vi-de-runt” moves note-per-syllable, then long melismas stretch single syllables","Calm, mostly conjunct (stepwise) melody in a narrow range"],
+  facts:["Paraphrases Psalm 98 (“Sing to the Lord a new song”), sung on Christmas Day","Gregorian chant is the standardized chant of the Catholic Mass and Office; it came out of new notation, Charlemagne’s centralizing rule, and monastery culture","Before notation (Isidore of Seville): sounds “perish, because they cannot be written down”","Later elaborated into polyphony by Perotin (ca. 1200)"],
+  terms:["Gregorian chant","notation","text-setting","syllabic","melismatic","monophony"],
+  q:"What’s the text-setting at the start of this excerpt?", a:"Both. The opening syllables are <b>syllabic</b> (one note per syllable) and then turn <b>melismatic</b> (many notes on one syllable). Also expect: texture = <b>monophony</b>.",
+  links:[["Lecture clip (Chant slides)","P722HAduQO8"]] },
+
+{ id:"euchari", era:"Medieval", composer:"Hildegard von Bingen", title:"O Euchari", date:"ca. 1150",
+  tags:{Genre:"Sacred song (Symphonia)",Texture:"Monophony (sometimes over a drone)",Forces:"Women’s voice(s)",Language:"Latin"},
+  hear:["Women’s voices (a contrast to Viderunt’s men’s choir)","Single melodic line that soars: very <b>wide range</b> with big leaps","Highly expressive melismas","No meter; floating, ecstatic feel"],
+  facts:["Hildegard (1098–1179): abbess, theologian, preacher, scientist, artist, composer, mystic","Had visions (Scivias); named a Doctor of the Church in 2012","About 70 of her compositions survive; her music is known for expressive melismas and wide range","Praises St. Eucharius, who walked with Christ and laid the “foundation of the Church”; preserved in the Riesencodex / Symphonia armonie"],
+  terms:["melismatic","range","monophony"],
+  q:"How is this different from Viderunt Omnes, even though both are monophonic chant?", a:"Hildegard’s melody has a much <b>wider range</b> and more leaps (more <b>disjunct</b>), with dramatic, expressive <b>melismas</b>. It’s also sung by women and was written by a named composer.",
+  links:[["Lecture clip (O Euchari)","HRDI_rJr32E"]] },
+
+{ id:"josquin", era:"Renaissance", composer:"Josquin des Prez", title:"Ave Maria", date:"ca. 1485",
+  tags:{Genre:"Motet",Texture:"Imitative polyphony ↔ homophony",Forces:"4-part unaccompanied choir",Language:"Latin"},
+  hear:["Opens with <b>imitative polyphony</b>: one voice sings “A-ve Ma-ri-a” and each new voice enters copying it","Clear, balanced, consonant Renaissance harmony (no instruments)","Switches textures: paired voices, then block-chord <b>homophony</b>","A section in <b>triple meter</b>; ends with a slow, homophonic “O Mater Dei, memento mei”"],
+  facts:["<b>Motet</b>: polyphonic piece with a Latin text","Likely written for his patron, Cardinal Ascanio Sforza, in Milan in the 1480s (patronage system)","Text is a Latin prayer; each stanza is about an event in the Virgin Mary’s life (and its feast day)","Takes melodic inspiration from an older Gregorian chant","Balances complexity and simplicity, structure and variation, music and text"],
+  terms:["motet","imitative polyphony","polyphony","homophony","patronage","word painting"],
+  q:"What texture does the excerpt begin with, and what does it mean?", a:"<b>Imitative polyphony</b>: each voice sings the same melody, entering at a different time and “imitating” the voice before. (Later sections can be <b>homophonic</b>, and one is in <b>triple meter</b>.)",
+  links:[["Lecture clip (Ave Maria)","qXMZoKofu7g"],["Ave Maria (alt. clip, slide 13)","2gl-UdGHPEY"]] },
+
+{ id:"gesualdo", era:"Renaissance", composer:"Carlo Gesualdo", title:"Moro, lasso (I die, alas)", date:"pub. 1611 (Book 6 of madrigals)",
+  tags:{Genre:"Madrigal",Texture:"Shifts between homophony & polyphony",Forces:"5 unaccompanied voices",Language:"Italian"},
+  hear:["Very slow, eerie opening on “Mo-ro, las-so”: strange <b>chromatic</b> chord shifts that sound unstable and wrong","Lots of <b>dissonance</b>; harmony is the giveaway","Sudden contrasts: slow, anguished sections against quick, busy ones","Small vocal ensemble, no instruments"],
+  facts:["Italian nobleman. His independent wealth freed him to experiment, especially with <b>harmony</b>","Retreated to his castle in 1595 to devote himself to music; published collections in 1603 and 1611","Text: “I die, alas, in my suffering, and she who could give me life… gives me death”","Charles Burney (1776–89) called it “harsh, crude, and licentious… shocking and disgusting to the ear”","Vincenzo Galilei mocked word painting (words like “to die” making voices fall silent)"],
+  terms:["madrigal","word painting","dissonant","harmony","chromatic"],
+  q:"What musical element makes this piece so distinctive?", a:"<b>Harmony</b>: unusually chromatic and <b>dissonant</b> chord progressions that create tension and paint the text’s anguish (<b>word painting</b>). Genre: <b>madrigal</b>.",
+  links:[["Lecture clip (Moro, lasso)","kx-1JOM9qS8"]] },
+
+{ id:"strozzi", era:"Renaissance", composer:"Barbara Strozzi", title:"Che si può fare (What can you do)", date:"1664 (Arie, Op. 8)",
+  tags:{Genre:"Aria / solo song (lament)",Texture:"Homophony (melody + accompaniment)",Forces:"Solo soprano + continuo (e.g. theorbo, harpsichord, cello)",Language:"Italian"},
+  hear:["<b>One female solo voice</b> over a small accompaniment: totally different from the choral pieces","A slow, repeating <b>descending bass line</b> underneath (a lament bass)","Refrain “Che si può fa-re?” keeps coming back","Ornamented, virtuosic, emotionally expressive singing"],
+  facts:["Venetian composer and singer (1619–1677); contemporaries called her “the most virtuosic singer”","One of very few women of the period to have a career as a composer with public recognition (Ellen Rosand)","Prolific publisher in a growing public market for printed music; inconsistent patronage","Text by Gaudenzio Brunacci: the stars have no pity; “disasters keep raining down on me”","Listed with Renaissance on the exam sheet, though it dates from the mid-1600s (Baroque style)"],
+  terms:["word painting","homophony","aria"],
+  q:"What’s the texture, and how does the music reflect the text?", a:"<b>Homophony</b> (melody with accompaniment). <b>Word painting</b>: the descending bass and falling lines match the hopelessness and the disasters “raining down.”",
+  links:[["Lecture clip (Che si può fare)","2yL_65orJgQ"]] },
+
+{ id:"orfeo", era:"Baroque", composer:"Claudio Monteverdi", title:"Orfeo", date:"1607 · Mantua",
+  tags:{Genre:"Opera",Texture:"Homophony (solo voice + continuo/orchestra)",Forces:"Solo singers (tenor Orfeo), early orchestra, continuo",Language:"Italian"},
+  hear:["A solo singer delivering text clearly: either speech-like <b>recitative</b> or a tuneful <b>aria</b>","Early Baroque instruments: plucked strings, harpsichord/organ continuo, viols, recorders, brass in the overture-like Toccata","Emotion is front and center (joy vs. grief)","Two common excerpts: “Vi ricorda, o boschi ombrosi” (joyful, dance-like) and “Tu se’ morta” (grieving recitative). Check which one is on the playlist."],
+  facts:["The first major surviving opera; commissioned by Duke Vincenzo Gonzaga of Mantua, where Monteverdi was chief musician","Performed for a local academic/intellectual society","Inspired by Renaissance humanist efforts to revive ancient Greek musical theater","Loose, early form: a mix of arias, duets, and dances","Doctrine of Affections: music arouses specific passions (Descartes: wonder, love, hatred, desire, joy, sadness)","Orpheus story fits opera perfectly: it’s about the power of music itself"],
+  terms:["opera","aria","recitative","Doctrine of Affections","rhetoric"],
+  q:"Is this an aria or recitative, and which of Descartes’ passions do you hear?", a:"<b>Aria</b> = song with a shaped melody; <b>recitative</b> = musical imitation of speech. Name the passion (e.g. <b>joy</b> in “Vi ricorda,” <b>sadness</b> in “Tu se’ morta”) and point to how the music shows it (tempo, rhythm, melody shape).",
+  links:[["Orfeo aria (slide 12, clip 1)","A9e96mkCHmA"],["Orfeo aria (slide 12, clip 2)","Uzu-DTgiqXM"],["Orfeo (slide 13)","u0qkP1kvEdQ"],["Orfeo (slide 14)","FLltP_uZIbA"]] },
+
+{ id:"prelude", era:"Baroque", composer:"J.S. Bach", title:"Prelude in C Major (Well-Tempered Clavier, Bk. I)", date:"1722",
+  tags:{Genre:"Prelude (keyboard)",Texture:"Homophony (broken chords)",Forces:"Solo keyboard (piano / harpsichord)",Language:"Instrumental"},
+  hear:["Solo keyboard playing nonstop <b>broken chords</b> (arpeggios)","The same <b>8-note figure, played twice in every measure</b>; only the harmony changes","No real tune; it’s all harmony, gently shifting between consonance and tension","Steady, even rhythm and calm mood"],
+  facts:["From the <b>Well-Tempered Clavier</b>: a prelude and fugue in each of the 24 major and minor keys","Written for keyboard (harpsichord, organ, or early piano in Bach’s day)","Glenn Gould’s Prelude &amp; Fugue in C is on the <b>Voyager Golden Record</b>","Crumey novel quote: “This little prelude is the whole universe, made easy enough for a child to play”"],
+  terms:["harmony","chord","consonant","dissonant","homophony"],
+  q:"How would you describe the texture and what drives the music forward?", a:"<b>Homophonic</b>: one repeating broken-chord pattern, no independent melodies. <b>Harmony</b> is what changes and drives it forward (that’s the contrast with the polyphonic Fugue).",
+  links:[["Bach lecture clip (slide 2)","qr0f6t2UbOo"],["Bach lecture clip (slide 3)","hPk0GGL0i0w"]] },
+
+{ id:"fugue", era:"Baroque", composer:"J.S. Bach", title:"Fugue in C Major (Well-Tempered Clavier, Bk. I)", date:"1722",
+  tags:{Genre:"Fugue (keyboard)",Texture:"Polyphony (imitative)",Forces:"Solo keyboard",Language:"Instrumental"},
+  hear:["Starts with <b>one line alone</b>: the subject. Then a second voice enters with the same tune, then more","Several independent melodies at once: dense <b>polyphony</b>","The subject keeps reappearing in different voices, sometimes overlapping","Follows the Prelude in C on the same keyboard. If it’s one line that multiplies, it’s the fugue."],
+  facts:["<b>Fugue</b>: compositional technique based on imitation, from Latin <i>fugere</i>, “to flee”","<b>Subject</b>: the main musical idea in a fugue","Bach’s life: music as family trade; worked for court and church; out of step with the Enlightenment; famous mainly after death","Scheibe (1737) criticized exactly this kind of complexity as “turgid and confused” (see Part II)"],
+  terms:["fugue","subject","polyphony","imitative polyphony"],
+  q:"What is a fugue’s “subject,” and what’s the texture?", a:"The <b>subject</b> is the main musical idea that each voice imitates. Texture: <b>polyphony</b> (imitative). Fugue comes from <i>fugere</i>, “to flee.”",
+  links:[["Lecture clip (Fugue in C)","qfJAiCSZgzU"]] },
+
+{ id:"bologne", era:"Classical", composer:"Joseph Bologne (Chevalier de Saint-Georges)", title:"Violin Concerto No. 2 in A Major, III (Rondeau)", date:"1770s · Paris",
+  tags:{Genre:"Violin concerto",Texture:"Homophony",Forces:"Solo violin + orchestra",Language:"Instrumental"},
+  hear:["Bright, elegant orchestra plus a <b>solo violin</b> showing off (high notes, fast runs)","A catchy main tune (A) that <b>keeps coming back</b> between contrasting episodes: <b>rondeau</b>","Balanced, singable phrases; clear homophony","Classical “clarity and variety”: sudden dynamic contrasts"],
+  facts:["Born 1745 in Guadeloupe to a French aristocratic enslaver father and enslaved Senegal-born mother, Anne Dennevau (freed 1748)","Famous as both a fencer and violinist; led the Concert des Amateurs orchestra by 1773","One of the first French composers of string quartets; also operas","Blocked from directing the Paris Opéra (1775) after singers’ petition; fought in the Revolution, imprisoned during the Terror","Died 1799; Napoleon reinstated slavery in 1802","<b>Violin concerto</b>: showpiece for a virtuoso soloist accompanied by orchestra"],
+  terms:["rondeau / rondo","concerto","movement","form","genre"],
+  q:"What is the form of this movement?", a:"<b>Rondeau/rondo</b>: the opening material (A) keeps returning, interspersed with contrasting episodes (A B A C A…). Genre: <b>violin concerto</b>; it’s the 3rd <b>movement</b>.",
+  links:[["Lecture clip (Concerto 2, III)","teEWVFRHOeI"]] },
+
+{ id:"porgi", era:"Classical", composer:"W.A. Mozart", title:"“Porgi, amor” from The Marriage of Figaro", date:"1786 · Vienna",
+  tags:{Genre:"Opera buffa · aria",Texture:"Homophony",Forces:"Solo soprano (the Countess) + orchestra",Language:"Italian"},
+  hear:["Starts with a slow, gentle orchestral intro (warm winds: clarinets, bassoons, horns)","Then a <b>solo soprano</b>: sad, dignified, lyrical, with a long, singable melody","Slow tempo, soft dynamics, sighing phrases","An <b>aria</b>, not recitative: no harpsichord-only speechlike sections"],
+  facts:["The Countess, opening Act II, mourns her husband the Count’s lost love (“Grant, love, some comfort”)","<b>Opera buffa</b> (comic opera): mix of high and low class characters, satire, ends with resolution","Libretto by <b>Lorenzo Da Ponte</b>, later Columbia’s first professor of Italian","Figaro deals with class and gender on the eve of the French Revolution; the abusive aristocrat is punished","Mozart: child prodigy from Salzburg, left the Archbishop’s patronage to freelance in Vienna, died at 35"],
+  terms:["opera buffa","aria","recitative","duet","ensemble","overture","trouser role"],
+  q:"Is this an aria, recitative, duet, or ensemble? How does Mozart create character?", a:"<b>Aria</b> (solo song). Slow tempo, soft dynamics, and a long sighing melody show the Countess’s dignified sorrow. Genre: <b>opera buffa</b>.",
+  links:[["Lecture clip (Figaro, slide 10)","xoMEEZtB7V4"],["Figaro Overture (slide 2)","lT7iLG-UCdE"]] },
+
+{ id:"beet5", era:"Classical", composer:"Ludwig van Beethoven", title:"Symphony No. 5, I", date:"1808",
+  tags:{Genre:"Symphony",Texture:"Homophony, with imitative passages",Forces:"Full orchestra",Language:"Instrumental"},
+  hear:["The famous <b>short-short-short-LONG</b> opening (da-da-da-DUM)","That motif is everywhere: passed around the orchestra, stacked, driven forward","C minor, loud, urgent, stormy; sudden dynamic contrasts","A gentler second theme (horn call, then strings) offers contrast before the motif returns"],
+  facts:["Extremely <b>motivic</b>: built almost entirely from one melodic cell (motif)","Written shortly after the <b>Heiligenstadt Testament</b> (1802)","In <b>sonata form</b>: Exposition (t1 &amp; t2 in different keys, often repeated) → Development → Recapitulation (t2 moves into the home key)","The symphony moves from C minor to triumphant C major in mvt IV: “Joy follows sorrow, sunshine, rain”","Central figure in the move from Classical to Romantic (E.T.A. Hoffmann: “the machinery of awe, of fear, of terror, of pain”)"],
+  terms:["sonata form","exposition","development","recapitulation","motif","symphony","movement"],
+  q:"What form is this movement in? Name its three sections.", a:"<b>Sonata form</b>: <b>Exposition</b> (introduce theme 1 &amp; theme 2 in different keys), <b>Development</b> (themes broken up, harmonic exploration), <b>Recapitulation</b> (themes return, theme 2 now in the home key). The piece is built on one <b>motif</b>.",
+  links:[["Lecture clip (Sym. 5, I)","rRgXUFnfKIY"],["Sym. 5, III → IV (slides 14–16)","LT0lf8CFfzI"]] }
+];
+
+const COMPARE = {
+ viderunt:["Men’s voices, a cappella","Monophony","Latin","Unison men; no beat; melismas"],
+ euchari:["Women’s voice(s)","Monophony","Latin","Soaring wide range, female"],
+ josquin:["4-part choir, a cappella","Imitative polyphony → homophony","Latin","Staggered entries on “A-ve Ma-ri-a”"],
+ gesualdo:["5 voices, a cappella","Homophony ↔ polyphony","Italian","Weird chromatic, dissonant chords"],
+ strozzi:["Solo soprano + continuo","Homophony","Italian","Female solo over falling bass; refrain “Che si può fare?”"],
+ orfeo:["Solo voice + early orchestra/continuo","Homophony","Italian","Early-opera solo singing, plucked continuo"],
+ prelude:["Solo keyboard","Homophony (broken chords)","—","Same arpeggio figure every bar"],
+ fugue:["Solo keyboard","Imitative polyphony","—","One line alone, then voices pile in"],
+ bologne:["Solo violin + orchestra","Homophony","—","Bright violin; tune keeps returning (rondo)"],
+ porgi:["Solo soprano + orchestra","Homophony","Italian","Slow wind intro, sad lyrical soprano"],
+ beet5:["Full orchestra","Homophony","—","da-da-da-DUM"]
+};
+
+const TERMS = [
+ ["Melody","Elements","Something you can sing; an organized series of pitches. Has contour, phrases, climaxes, and cadences."],
+ ["Pitch","Elements","How high or low a sound is; measured in Hertz."],
+ ["Hertz","Elements","Measures frequency: vibrations per second."],
+ ["Interval","Elements","The space between two pitches."],
+ ["Octave","Elements","Interval between a pitch and one with half or double its frequency."],
+ ["Scales","Elements","Ways of subdividing the octave. Western: diatonic (8 notes), chromatic (12 notes)."],
+ ["Note","Elements","Arbitrary label assigned to certain pitches (A–G in Western music)."],
+ ["Notation","Elements / Chant","A visual representation of musical sound. Its emergence made standardized Gregorian chant possible."],
+ ["Conjunct / disjunct","Elements","Conjunct = notes close together (steps). Disjunct = leaps between pitches."],
+ ["Harmony","Elements","Simultaneous sounding of two or more pitches; adds color and creates tension/rest."],
+ ["Chord","Elements","A combination of two or more pitches."],
+ ["Consonant","Elements","Stable, pleasant, at rest, resolution."],
+ ["Dissonant","Elements","Unstable, clashing, tension."],
+ ["Texture","Elements","How the layers in a piece interact; how complex it is."],
+ ["Monophony","Elements","A single melody (multiple voices singing one melody is still monophony)."],
+ ["Homophony","Elements","“Same sound”: a main melody plus supporting accompaniment/harmony. Block-chord or melody-with-accompaniment."],
+ ["Polyphony","Elements","“Many sounds”: multiple independent melodies at once."],
+ ["Rhythm","Elements","Placement of sounds in musical time; long and short durations over a beat."],
+ ["Beat","Elements","The steady, unchanging pulse underneath the music."],
+ ["Meter","Elements","Grouping of beats into repeating units of strong and weak beats: duple (2) or triple (3). Listen to the bass."],
+ ["Timbre","Elements","Sound quality (“tone color”): what makes two sounds of the same pitch and loudness different."],
+ ["Instrumentation","Elements","Which voices/instruments are playing; a big part of timbre."],
+ ["Tempo","Elements","Speed of the music, in beats per minute (describe it qualitatively too)."],
+ ["Dynamics","Elements","Volume; measured in decibels; relative."],
+ ["Crescendo / decrescendo","Elements","Gradually getting louder / gradually getting quieter."],
+ ["Gregorian chant","Chant","Standardized chant providing music for the Catholic Mass and Office."],
+ ["Text-setting","Chant","How a text is set to music; the relationship of syllables to notes."],
+ ["Syllabic","Chant","One note per syllable."],
+ ["Melismatic","Chant","Many notes per syllable."],
+ ["Motet","Josquin","A polyphonic piece of music with a Latin text."],
+ ["Imitative polyphony","Josquin","Each voice sings the same melody but enters at a different time, imitating the previous voice."],
+ ["Madrigal","Madrigals","Musical setting of Italian secular poetry, popular during the Renaissance."],
+ ["Word painting","Madrigals","Composer uses musical elements to reflect the literal meaning of the lyrics (e.g. ascending on “heaven”)."],
+ ["Doctrine of Affections","Monteverdi","Idea that music can arouse specific emotions in the listener (Descartes’ six passions)."],
+ ["Rhetoric","Monteverdi","The art of persuasion; composers sought musical means to persuade and move listeners."],
+ ["Opera","Monteverdi","Theater in which most or all characters sing most or all of the time (Parker &amp; Abbate)."],
+ ["Aria","Monteverdi / Mozart","A solo song."],
+ ["Recitative","Monteverdi / Mozart","Musical imitation of speech; links arias; accompanied by harpsichord (in Mozart)."],
+ ["Duet","Mozart","Sung by 2 singers."],
+ ["Ensemble","Mozart","Sung by 3 or more singers."],
+ ["Opera buffa","Mozart","Comic opera: mix of high and low class characters, room for satire, ends happily."],
+ ["Overture","Mozart","“Opening”: orchestral piece that sets the stage for the rest of the show."],
+ ["Fugue","Bach","Compositional technique based on imitation; from Latin <i>fugere</i>, “to flee.”"],
+ ["Subject","Bach","The main musical idea in a fugue."],
+ ["Chorale-prelude","Bach","Short liturgical organ piece using a chorale as its basis (e.g. Durch Adams Fall, BWV 637)."],
+ ["Genre","Bologne","Category of musical work, determined by instrumentation, form, etc."],
+ ["Form","Bologne","The structure of a musical work; how ideas are organized."],
+ ["Movement","Bologne","Self-contained part of a multi-movement work."],
+ ["Rondeau / rondo","Bologne","Form where the opening material (A) keeps returning between contrasting episodes."],
+ ["Violin concerto","Bologne","Showpiece for a virtuoso soloist accompanied by orchestra."],
+ ["Classical vs. classical","Bologne","Classical = Western art music ca. 1750–1815; classical = umbrella term; classical = Greek/Roman antiquity."],
+ ["Sonata form","Beethoven","Hallmark Classical/Romantic form with two contrasting themes in three sections."],
+ ["Exposition","Beethoven","Introduces theme 1 &amp; theme 2 in different keys (often repeated)."],
+ ["Development","Beethoven","Themes developed; harmonic exploration."],
+ ["Recapitulation","Beethoven","Themes return, but theme 2 is now in the home key of theme 1."],
+ ["Motif","Beethoven","A short melodic cell (Sym. 5: short-short-short-long)."]
+];
+
+const ELEMENTS = [
+ ["Harmony","Consonant vs. dissonant; melody first, then harmony added.",[["Melody then harmony","l-35Dco-M1o"],["Generally consonant","NcJxDfrPDns"],["Generally dissonant","--r1sKARaRk"]]],
+ ["Monophony","A single melody, even if many people sing it.",[["Example 1","l-35Dco-M1o"],["Example 2","u6z79WMOPtk"]]],
+ ["Homophony","Main melody + supporting accompaniment (block-chord or melody-with-accompaniment).",[["Example 1","2X_2IdybTV0"],["Example 2","AWpsOqh8q0M"],["Example 3","lfAw693rYRQ"],["Example 4","wJ05fSC37dU"],["What’s the texture?","xG16sdjLtc0"]]],
+ ["Polyphony","Multiple independent melodies.",[["Example 1","UtIz_nSd48Y"],["Example 2","g1TSYDqmfuY"],["Example 3","zz3STktlBnc"]]],
+ ["Rhythm & beat","Tap the steady beat; hear rhythms layered over it.",[["Drum keeps the beat","BuzJ5NArvgw"],["Layered rhythms","xwTPvcPYaOo"]]],
+ ["Meter","Duple (1-2) vs. triple (1-2-3). Listen to the bass.",[["Meter example","xI-WVWM_GR0"],["Meter 2","_i39qX86cGY"],["Meter 3","suhlSjSzMUk"],["Meter 4","9LEZA9IQDDs"],["Meter 5","SnMzG29YX9w"]]],
+ ["Meter variations","5 beats (3+2), 7 beats (3+2+2), switching duple ↔ triple.",[["Variation 1","2aW7HweAf3o"],["Variation 2","vdvnOH060Qg"],["Variation 3","vmDDOFXSgAs"]]],
+ ["Timbre","Tone color; what voices/instruments, and their individual sound.",[["Timbre 1","4DcaNok-MFI"],["Timbre 2","b6QuaRxwtow"],["Timbre 3","lArnKBTe82I"]]],
+ ["Tempo & dynamics","Speed (BPM) and volume (relative; crescendo/decrescendo).",[]],
+ ["Skidmore v. Led Zeppelin","Copyright case: A-minor chord + descending chromatic scale are basic elements, not protectable.",[["Spirit, “Taurus”","xd8AVbwB_6E"],["“Stairway to Heaven”","X791IzOwt3Q"]]]
+];
+
+const DOCS = [
+ { title:"Plato on Music", meta:"Plato, Republic (Book III) · Athens, ca. 375 BCE",
+   what:["Music (with gymnastics) is the core of education for the guardians of the ideal state","Rhythm and harmony “sink into the inmost soul” and shape character","Good music imitates brave, temperate, orderly character; some modes are approved (Dorian, Phrygian)","Bad/dangerous: soft, lamenting, or effeminate modes; complexity and too many instruments; novelty can unsettle the state"],
+   why:["Earliest view in the course that music has ethical and political power, not just entertainment","Sets up a recurring theme: music can uplift <i>or</i> corrupt (Augustine, John of Salisbury, Pope John XXII)"],
+   clue:"Talk of the <b>soul, character, education, the state</b>, and <b>modes</b> (Dorian, Lydian…) → Plato." },
+ { title:"Hildegard, Letter to the Prelates at Mainz", meta:"Hildegard von Bingen · ca. 1178–79",
+   what:["Her convent was placed under <b>interdict</b> (forbidden to sing the Divine Office) after burying a nobleman the prelates said was excommunicated","She criticizes her superiors for silencing God’s praise, warning them they may answer to God for it","Music recalls the heavenly harmony and the voice Adam had before the Fall; humans sing to echo angelic praise","The devil hates music, so those who silence it unjustly do the devil’s work"],
+   why:["A woman boldly challenging the church hierarchy in the 12th c.","Shows how central music was to medieval worship and theology"],
+   clue:"<b>Adam’s voice</b>, the <b>Fall</b>, angels, the devil, being <b>forbidden to sing</b>, addressed to prelates → Hildegard." },
+ { title:"Augustine, Confessions", meta:"St. Augustine of Hippo · Book X, ca. 397–400",
+   what:["Loves music: he wept at the hymns in church after his conversion; singing can stir the soul to devotion","Fears it: the “pleasures of the ear” can seduce him; he sins when moved more by the singing than by the words","Considers banning song from church (like Athanasius’s near-spoken reading)","Leans toward allowing it so weaker minds can rise to devotion through the ear"],
+   why:["Classic statement of the tension between musical beauty and religious text","Ties to later complaints about elaborate church polyphony (John of Salisbury 1159, Pope John XXII 1323) and Josquin’s balance of music and text"],
+   clue:"First-person confession: <b>tears</b>, <b>sin</b>, “pleasure of the ear,” moved more by <b>the singing than the words</b> → Augustine." },
+ { title:"The Earliest Operas", meta:"Prefaces/accounts of the first operas, Florence &amp; Mantua · ca. 1600–1608",
+   what:["Opera began as an attempt to revive ancient Greek drama, which humanists believed was sung throughout","Composers describe a new speech-like singing style (recitative) between speech and song, to move the passions","Performed at court for elite occasions (e.g. Medici wedding festivities) and academies, funded by aristocratic patrons","2 of the 3 earliest operas tell the <b>Orpheus</b> story: a myth about music’s power to move even the gods of the underworld"],
+   why:["Explains the conditions (humanism, court patronage, academies) that produced Monteverdi’s Orfeo","Links to the Doctrine of Affections and Galilei’s call to recover ancient practice"],
+   clue:"<b>The ancients / Greeks</b>, a new style “between speech and song,” <b>Orpheus/Euridice</b>, princely <b>festivities</b> → The Earliest Operas." },
+ { title:"Scheibe on J.S. Bach", meta:"Johann Adolph Scheibe, Der critische Musikus · 1737",
+   what:["Praises Bach as an extraordinary performer on keyboard/organ","Criticizes his compositions as <b>turgid, confused, and over-artful</b>: too much complexity hides the beauty","All voices work equally hard so you can’t pick out the main melody; he writes out every ornament","Ideal music should be <b>natural, pleasing, simple</b>, melody-led"],
+   why:["Shows Bach out of step with Enlightenment taste: the shift from Baroque complexity to Classical clarity","Sets up Classical aesthetics (Batteux: art imitates beautiful nature for our pleasure; symmetry, balance)"],
+   clue:"Admires the <b>performer</b> but calls the music <b>bombastic/confused</b>, wants <b>naturalness</b> → Scheibe." },
+ { title:"Cuvelier on Joseph Bologne", meta:"J.-G.-A. Cuvelier, obituary for Saint-Georges · Paris, Year VII (1799)",
+   what:["Written by a friend after Bologne’s death","Praises him as a person: generous, kind, loyal, modest, beloved","Praises his musicianship: brilliant violinist, admired composer, and a famous fencer","Mourns him as a patriot of the Revolution"],
+   why:["Primary source on a Black composer whose archival record is often unreliable (his father obscured their relationship)","Shows his public fame in Paris’s new concert culture and Revolution-era life"],
+   clue:"Obituary tone, <b>“Saint-Georges,”</b> virtues of a <b>friend</b>, violin + fencing → Cuvelier." },
+ { title:"Beethoven, Heiligenstadt Testament", meta:"Ludwig van Beethoven, letter to his brothers · Heiligenstadt, October 1802",
+   what:["Confesses his growing deafness, which he had hidden","Devastated because hearing should be his most perfect sense as a musician, and because he must withdraw from society and seem misanthropic","Describes despair so deep he nearly gave up on life","What held him back: <b>his art</b>. He felt he couldn’t leave until he’d brought forth all he felt called to create"],
+   why:["Written just before Symphony No. 5; shapes the “struggle → triumph” reading of his music","Embodies the Romantic image of the suffering artist-genius"],
+   clue:"Addressed to his <b>brothers</b>, <b>deafness</b>, people thinking him hostile, <b>art</b> holding him back → Heiligenstadt Testament." }
+];
+
+const EXTRA = [
+ ["Chant → polyphony","Josquin lecture: how polyphony grew out of chant.",[["Perotin, Viderunt Omnes (ca. 1200)","KA6oq_UYbyA"],["Dufay (early 15th c.)","5XaPrbVpn7o"]]],
+ ["Hildegard, Columba aspexit","A closer look in the Riesencodex.",[["Clip 1","08kKARvbOBY"],["Clip 2","ctx5fo-8DTI"]]],
+ ["Word painting examples","Madrigals lecture.",[["Example 1","EZ8ixdXRCOo"],["Example 2","g6hNVizTDWA"],["Example 3","Elj6ZTEtko4"],["Example 4","ZcQeocF56Ck"],["Example 5","PSZxmZmBfnU"],["Example 6","vUHDR6Rg3Y4"],["Subtle 1","l3ODpqVUmWc"],["Subtle 2","c2Lf7v-sK7A"]]],
+ ["Handel & Farinelli","The opera star; castrati.",[["Handel, “Lascia ch’io pianga”","U3wI0ECUdHE"],["Farinelli clip","KLjvfqnD0ws"]]],
+ ["Bach, Durch Adams Fall, BWV 637","Chorale-prelude for organ.",[["Chorale","PVUWQaD8xak"],["Organ chorale-prelude","HfxWuoHNHnk"],["Bach lecture clip (slide 9)","pN7EuiE7SgI"]]],
+ ["Baroque → Classical","Bologne lecture opener + Classical aesthetics.",[["Comparison clip","ihRAMzyJFDM"],["Classical aesthetics example","6ASJMvFLYYI"]]],
+ ["Beethoven 5 in ads","Marketing Beethoven.",[["Commercial 1","JOkpg_MC6Vc"],["Commercial 2","S86Zsk85DBc"]]],
+ ["Beethoven 9, “Ode to Joy”","Theme & variations; an “empty signifier” (Žižek).",[["Mvt IV","ZrcyozAnjMM"],["Contemporary Japan / DCR","wzcKcgmGXyI"],["Berlin 1989","Hn0IS-vlwCI"],["Berlin 1942","cUCkoxOW_5s"]]]
+];
+
+/* ---------- render ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => s;
+const store = { get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}} };
+let known = new Set(store.get("mh-known") || []);
+
+// timeline
+$("#timelineGrid").innerHTML = Object.entries(ERAS).map(([era,e])=>`
+  <div class="era" style="--c:${e.c}"><div class="name">${era}</div><div class="dates">${e.dates}</div>
+  <ul>${PIECES.filter(p=>p.era===era).map(p=>`<li><a href="#${p.id}"><b>${p.composer.split(" (")[0]}</b><br>${p.title.split(" (")[0]}</a></li>`).join("")}</ul></div>`).join("");
+
+// pieces
+$("#pieces").innerHTML = PIECES.map(p=>{
+  const c = ERAS[p.era].c;
+  const q = encodeURIComponent(p.composer.split(" (")[0]+" "+p.title.split(" (")[0].replace(/[“”]/g,""));
+  return `<article class="piece" id="${p.id}" style="--c:${c}">
+  <header><div><span class="chip">${p.era} · ${p.date}</span>
+    <h3 class="idtext">${p.title}</h3><p class="who idtext"><b>${p.composer}</b></p></div>
+    <div class="row" style="align-items:center"><button class="btn reveal" type="button" data-reveal="${p.id}">Reveal</button>
+    <label class="got"><input type="checkbox" data-known="${p.id}"> I can ID this</label></div></header>
+  <div class="tags">${Object.entries(p.tags).map(([k,v])=>`<span class="tag"><b>${k}</b>${v}</span>`).join("")}</div>
+  <div class="cols"><div><h4>What you’ll hear</h4><ul>${p.hear.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+  <div><h4>Context &amp; key facts</h4><ul>${p.facts.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+  <div class="tags"><span class="tag"><b>Terms</b>${p.terms.join(" · ")}</span></div>
+  <details class="q"><summary>Practice follow-up: ${p.q}</summary><div><p>${p.a}</p></div></details>
+  <div class="listen">${p.links.map(([l,id])=>`<a href="${yt(id)}" target="_blank" rel="noopener">${l}</a>`).join("")}
+    <a class="search" href="https://open.spotify.com/search/${q}" target="_blank" rel="noopener">Search Spotify</a></div>
+</article>`}).join("");
+
+function refreshKnown(){
+  document.querySelectorAll("[data-known]").forEach(cb=>{cb.checked=known.has(cb.dataset.known); cb.closest(".piece").classList.toggle("known",cb.checked)});
+  $("#progress").textContent = `${known.size} / ${PIECES.length} pieces checked off`;
+}
+document.addEventListener("change",e=>{
+  if(e.target.dataset.known){ e.target.checked?known.add(e.target.dataset.known):known.delete(e.target.dataset.known); store.set("mh-known",[...known]); refreshKnown(); }
+});
+document.addEventListener("click",e=>{
+  const r=e.target.closest("[data-reveal]"); if(r){ r.closest(".piece").classList.add("revealed"); }
+});
+$("#resetKnown").onclick=()=>{known.clear();store.set("mh-known",[]);refreshKnown();};
+$("#maskToggle").onchange=e=>{ document.body.classList.toggle("mask",e.target.checked); document.querySelectorAll(".piece").forEach(p=>p.classList.remove("revealed")); };
+refreshKnown();
+
+// compare
+$("#compareTable tbody").innerHTML = PIECES.map(p=>{const c=COMPARE[p.id];return `<tr><td>${p.composer.split(" (")[0]}, <i>${p.title.split(" (")[0]}</i></td><td>${p.era}<br><span style="color:var(--muted)">${p.date}</span></td><td>${c[0]}</td><td>${c[1]}</td><td>${c[2]}</td><td>${c[3]}</td></tr>`}).join("");
+
+// glossary
+function renderGloss(f=""){
+  f=f.toLowerCase();
+  $("#gloss").innerHTML = TERMS.filter(t=>(t[0]+t[1]+t[2]).toLowerCase().includes(f)).map(t=>`<div class="term"><dt>${t[0]}<small>${t[1]}</small></dt><dd>${t[2]}</dd></div>`).join("") || `<p class="section-note">No matching terms.</p>`;
+}
+$("#termSearch").oninput=e=>renderGloss(e.target.value); renderGloss();
+
+// elements + extra
+const card = ([h,p,ls]) => `<div class="panel"><h3>${h}</h3><p>${p}</p>${ls.length?`<div class="listen">${ls.map(([l,id])=>`<a href="${yt(id)}" target="_blank" rel="noopener">${l}</a>`).join("")}</div>`:""}</div>`;
+$("#elementsGrid").innerHTML = ELEMENTS.map(card).join("");
+$("#extraGrid").innerHTML = EXTRA.map(card).join("");
+
+// docs
+$("#docs").innerHTML = DOCS.map(d=>`<article class="doc"><h3>${d.title}</h3><p class="meta">${d.meta}</p>
+  <div class="cols"><div><h4>What it says</h4><ul>${d.what.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+  <div><h4>Why it matters</h4><ul>${d.why.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+  <div class="clue"><b>How to spot it:</b> ${d.clue}</div></article>`).join("");
+
+// mock drill
+let cur=null;
+$("#mockNew").onclick=()=>{
+  const opts=PIECES.filter(p=>p.id!==(cur&&cur.id)); cur=opts[Math.floor(Math.random()*opts.length)];
+  const followups=[["What’s the texture?",cur.tags.Texture],["Name the genre.",cur.tags.Genre],[cur.q,cur.a]];
+  const f=followups[Math.floor(Math.random()*followups.length)];
+  $("#mockBox").classList.remove("show");
+  const clues=[...cur.hear].sort(()=>Math.random()-.5).slice(0,2).map(x=>x.replace(/“[^”]*”/g,"“…”"));
+  $("#mockQ").innerHTML=`You hear:<ul style="font:400 1rem/1.5 var(--f-body);margin:8px 0">${clues.map(c=>`<li>${c}</li>`).join("")}</ul><span style="font:400 1rem var(--f-body);color:var(--muted)">Name the composer &amp; title. Follow-up: ${f[0]}</span>`;
+  $("#mockA").innerHTML=`<p><b>${cur.composer}, ${cur.title}</b> (${cur.date})</p><p>${f[1]}</p><div class="listen">${cur.links.slice(0,1).map(([l,id])=>`<a href="${yt(id)}" target="_blank" rel="noopener">${l}</a>`).join("")}<a href="#${cur.id}">Go to card</a></div>`;
+};
+$("#mockShow").onclick=()=>{ if(cur) $("#mockBox").classList.add("show"); };
+</script>
+</body>
+</html>
