@@ -75,7 +75,7 @@ textarea{min-height:64px;resize:vertical}
 <div class="wrap">
 <div class="top"><a href="./">← Back to study guide</a><a href="practice.html">Listening test →</a></div>
 <h1>Document ID Practice Test</h1>
-<p class="lede">Like Part II: read a short passage, identify it by its <b>author/title label</b>, then briefly explain its <b>context and/or importance</b>.</p>
+<p class="lede">Like Part II: read a short passage, <b>type</b> what it is by its <b>author/title label</b>, then briefly explain its <b>context and/or importance</b>.</p>
 
 <div class="panel" id="startPanel">
   <div class="row"><button class="btn primary" id="startBtn">Start practice test</button></div>
@@ -91,7 +91,7 @@ textarea{min-height:64px;resize:vertical}
   <button class="btn hintbtn" id="hintBtn" type="button">Show a hint</button>
   <p class="status" id="hint"></p>
   <label class="f" for="guess">Author / title</label>
-  <select id="guess"><option value="">— choose —</option></select>
+  <input id="guess" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. Augustine, Confessions" style="width:100%;font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:9px;background:var(--surface);color:var(--ink)">
   <div id="ctxWrap">
     <label class="f" for="ctx">Context &amp; importance (2–3 sentences)</label>
     <textarea id="ctx" placeholder="Who wrote it, when/why, and why it matters to our course…"></textarea>
@@ -163,7 +163,29 @@ const DOCS = [
 const byId=Object.fromEntries(DOCS.map(d=>[d.id,d]));
 const $=s=>document.querySelector(s);
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-$("#guess").innerHTML+=shuffle(DOCS).map(d=>`<option value="${d.id}">${d.name}</option>`).join("");
+
+// ---- free-response grading: needs the composer/author AND the title/work; forgives small typos ----
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim();
+function lev(a,b){const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;const d=Array.from({length:m+1},(_,i)=>[i]);for(let j=1;j<=n;j++)d[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n];}
+function hasKey(text,key){
+  const t=norm(text), k=norm(key); if(!k) return false;
+  if((" "+t+" ").includes(" "+k+" ")||(k.length>=5&&t.includes(k))) return true;
+  const tw=t.split(" "), kw=k.split(" ");
+  // every word of the key must appear (allowing 1 typo, or 2 for long words)
+  return kw.every(w=>tw.some(x=>x===w||(w.length>=4&&lev(x,w)<=(w.length>=7?2:1))));
+}
+const anyKey=(text,keys)=>keys.some(k=>hasKey(text,k));
+function gradeFree(text,item){ const a=anyKey(text,item.who), t=anyKey(text,item.what); return {score:a&&t?1:(a||t?0.5:0),who:a,what:t}; }
+
+const KEYS={
+ plato:{who:["plato"],what:["music","republic"]},
+ hildegard:{who:["hildegard","bingen"],what:["letter","prelates","mainz"]},
+ augustine:{who:["augustine"],what:["confessions","confession"]},
+ operas:{who:["earliest","first","peri","caccini","gagliano"],what:["opera","operas"]},
+ scheibe:{who:["scheibe"],what:["bach"]},
+ cuvelier:{who:["cuvelier"],what:["bologne","saint georges","st georges","obituary"]},
+ heiligenstadt:{who:["beethoven"],what:["heiligenstadt","testament"]}
+};
 let queue=[],qi=0,results=[],cur=null;
 
 function start(){
@@ -177,7 +199,7 @@ function start(){
 function loadQ(){
   cur=queue[qi];
   $("#qNum").textContent=`Question ${qi+1} of ${queue.length}`;
-  $("#qScore").textContent=`${results.filter(r=>r.id).length} correct so far`;
+  $("#qScore").textContent=`${results.reduce((a,r)=>a+r.id,0)} correct so far`;
   $("#excerpt").textContent="“"+cur.p+"”";
   $("#hint").textContent="";$("#guess").value="";$("#ctx").value="";
   $("#result").className="result";$("#result").innerHTML="";$("#checkBtn").disabled=false;
@@ -185,24 +207,28 @@ function loadQ(){
 }
 $("#hintBtn").onclick=()=>{ $("#hint").textContent="Hint: "+cur.d.hint; cur.hinted=true; };
 $("#checkBtn").onclick=()=>{
-  const g=$("#guess").value; if(!g){$("#guess").focus();return;}
-  const ok=g===cur.d.id, long=$("#optLong").checked;
+  const g=$("#guess").value.trim(); if(!g){$("#guess").focus();return;}
+  const gr=gradeFree(g,KEYS[cur.d.id]), ok=gr.score, long=$("#optLong").checked;
   const r=$("#result"); r.className="result show "+(ok?"ok":"bad");
-  r.innerHTML=`<h3>${ok?"Correct!":"Not quite"}</h3><p><b>Answer:</b> ${cur.d.name}</p>
+  r.innerHTML=`<h3>${ok===1?"Correct!":ok===0.5?"Half right":"Not quite"}</h3><p><b>Answer:</b> ${cur.d.name}</p>
+   <p class="src">You wrote: ${g.replace(/</g,"&lt;")}</p>
+   ${ok===0.5?`<p>Half credit: include both the ${cur.d.id==="operas"?"label words (“Earliest” + “Operas”)":"author and the work"}.</p>`:""}
+   ${ok<1?`<div class="selfgrade"><button class="btn" data-ov="1">I actually had it right, count it</button></div>`:""}
    <div class="model"><p><b>Model context &amp; importance:</b></p><ul>${cur.d.ctx.map(x=>`<li>${x}</li>`).join("")}</ul></div>
    ${long?`<p>Did your answer cover the who/when, the main idea, and why it matters?</p><div class="selfgrade"><button class="btn" data-f="2">Yes, all of it</button><button class="btn" data-f="1">Partly</button><button class="btn" data-f="0">Missed it</button></div>`:""}
    <div class="row" style="margin-top:10px"><button class="btn primary" id="nextBtn">${qi+1<queue.length?"Next question →":"See results"}</button></div>`;
   cur.res={cur,guess:g,id:ok,ctx:null};
   $("#checkBtn").disabled=true;
+  r.querySelectorAll("[data-ov]").forEach(b=>b.onclick=()=>{cur.res.id=1; b.parentNode.innerHTML="<p>Counted as correct.</p>";});
   r.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{cur.res.ctx=+b.dataset.f; b.parentNode.innerHTML=`<p>Marked: ${["missed","partly","yes"][cur.res.ctx]}.</p>`;});
   $("#nextBtn").onclick=()=>{results.push(cur.res); qi++; qi<queue.length?loadQ():finish();};
 };
 function finish(){
   $("#qPanel").classList.add("hidden");$("#sumPanel").classList.remove("hidden");
-  const right=results.filter(r=>r.id).length, graded=results.filter(r=>r.ctx!==null);
+  const right=results.reduce((a,r)=>a+r.id,0), graded=results.filter(r=>r.ctx!==null);
   $("#sumScore").textContent=`${right} / ${results.length} IDs`;
   $("#sumNote").textContent=graded.length?`Context answers: ${graded.filter(r=>r.ctx===2).length} full, ${graded.filter(r=>r.ctx===1).length} partial, ${graded.filter(r=>r.ctx===0).length} missed (self-graded).`:"";
-  $("#sumBody").innerHTML=results.map((r,i)=>`<tr><td>${i+1}</td><td>${r.cur.d.name}</td><td>${byId[r.guess].name}</td><td>${r.id?"✓":"✗"}</td><td>${r.ctx===null?"—":["✗","½","✓"][r.ctx]}</td></tr>`).join("");
+  $("#sumBody").innerHTML=results.map((r,i)=>`<tr><td>${i+1}</td><td>${r.cur.d.name}</td><td>${r.guess.replace(/</g,"&lt;")}</td><td>${r.id===1?"✓":r.id===0.5?"½":"✗"}</td><td>${r.ctx===null?"—":["✗","½","✓"][r.ctx]}</td></tr>`).join("");
   window.scrollTo({top:0,behavior:"smooth"});
 }
 $("#startBtn").onclick=start;
