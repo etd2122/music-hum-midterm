@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Document ID Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,650;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --ink:#1d1b18; --muted:#5f5a52; --rule:#ddd8ce;
+  --accent:#7a2e2e; --accent-soft:#f4e7e4; --ok:#2c6e49; --ok-soft:#e3f1e8; --bad:#a3352a; --bad-soft:#fbeae7;
+  --f-display:"Source Serif 4", Georgia, serif; --f-body:"Public Sans", system-ui, sans-serif;
+}
+:root[data-theme="dark"]{ --bg:#15130f; --surface:#1e1b17; --ink:#ece7de; --muted:#a59e92; --rule:#36312a; --accent:#e09a8c; --accent-soft:#3a2420; --ok:#86c9a0; --ok-soft:#1b3326; --bad:#ec8a75; --bad-soft:#3a201c; color-scheme:dark; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);padding:0 16px 80px}
+a{color:var(--accent)}
+.wrap{max-width:760px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0 6px;font-size:.9rem}
+h1{font:650 2rem/1.15 var(--f-display);margin:14px 0 6px}
+.lede{color:var(--muted);margin:0 0 18px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .95rem var(--f-body);padding:10px 16px;border-radius:9px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.1);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.status{font-size:.88rem;color:var(--muted);margin-top:10px;min-height:1.4em}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.qhead .n{font:650 1.3rem var(--f-display)}
+.qhead .score{font-size:.9rem;color:var(--muted)}
+/* player area: the YouTube player sits under an opaque cover so the title/thumbnail stay hidden */
+.stage{position:relative;height:150px;border-radius:12px;overflow:hidden;background:var(--accent);margin-bottom:14px}
+.stage #yt{position:absolute;inset:0;width:100%;height:100%}
+.cover{position:absolute;inset:0;background:linear-gradient(135deg,#7a2e2e,#4a1c1c);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:10px;z-index:2}
+.bars{display:flex;gap:4px;align-items:flex-end;height:34px}
+.bars i{width:6px;background:#f3d9d3;border-radius:3px;height:8px}
+.playing .bars i{animation:b 0.9s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}.bars i:nth-child(4){animation-delay:.45s}.bars i:nth-child(5){animation-delay:.6s}
+@keyframes b{0%,100%{height:8px}50%{height:32px}}
+@media (prefers-reduced-motion: reduce){.playing .bars i{animation:none;height:20px}}
+.timer{font:700 1.6rem var(--f-display);font-variant-numeric:tabular-nums}
+.meter{position:absolute;left:0;bottom:0;height:5px;background:#f3d9d3;width:0;z-index:3;transition:width .25s linear}
+label.f{display:block;font-weight:700;font-size:.9rem;margin:14px 0 6px}
+select,textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:9px;background:var(--surface);color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+.result{margin-top:16px;border-radius:10px;padding:14px 16px;display:none}
+.result.show{display:block}
+.result.ok{background:var(--ok-soft);border-left:4px solid var(--ok)}
+.result.bad{background:var(--bad-soft);border-left:4px solid var(--bad)}
+.result h3{margin:0 0 6px;font:650 1.1rem var(--f-display)}
+.result p{margin:6px 0;font-size:.94rem}
+.result .src{font-size:.8rem;color:var(--muted)}
+.selfgrade{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.summary table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:10px}
+.summary td,.summary th{padding:7px 8px;border-bottom:1px solid var(--rule);text-align:left}
+.summary th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.big{font:650 2.4rem var(--f-display)}
+.hidden{display:none}
+.settings{margin-top:22px;font-size:.9rem}
+.settings summary{cursor:pointer;font-weight:600}
+.opt{display:flex;gap:8px;align-items:center;margin:8px 0}
+.excerpt{font:500 1.12rem/1.6 var(--f-display);font-style:italic;background:var(--bg);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:16px 18px;margin:0 0 6px}
+.note{font-size:.8rem;color:var(--muted);margin:0 0 4px}
+.model ul{margin:4px 0 0;padding-left:18px;font-size:.93rem}
+.hintbtn{font-size:.85rem}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a href="./">← Back to study guide</a><a href="practice.html">Listening test →</a></div>
+<h1>Document ID Practice Test</h1>
+<p class="lede">Like Part II: read a short passage, identify it by its <b>author/title label</b>, then briefly explain its <b>context and/or importance</b>.</p>
+
+<div class="panel" id="startPanel">
+  <div class="row"><button class="btn primary" id="startBtn">Start practice test</button></div>
+  <div class="opt"><input type="checkbox" id="optLong" checked><label for="optLong">Include the written context/importance answer</label></div>
+  <div class="opt"><input type="checkbox" id="optDouble"><label for="optDouble">Long version: 14 questions (two passages per document)</label></div>
+  <p class="status">Passages are paraphrased in the style of each reading (not exact quotes), so focus on the ideas and voice. They change each time you retake it.</p>
+</div>
+
+<div class="panel hidden" id="qPanel">
+  <div class="qhead"><span class="n" id="qNum">Question 1</span><span class="score" id="qScore"></span></div>
+  <p class="note">Passage (paraphrased)</p>
+  <blockquote class="excerpt" id="excerpt"></blockquote>
+  <button class="btn hintbtn" id="hintBtn" type="button">Show a hint</button>
+  <p class="status" id="hint"></p>
+  <label class="f" for="guess">Author / title</label>
+  <select id="guess"><option value="">— choose —</option></select>
+  <div id="ctxWrap">
+    <label class="f" for="ctx">Context &amp; importance (2–3 sentences)</label>
+    <textarea id="ctx" placeholder="Who wrote it, when/why, and why it matters to our course…"></textarea>
+  </div>
+  <div class="row" style="margin-top:14px"><button class="btn primary" id="checkBtn">Check answer</button></div>
+  <div class="result" id="result"></div>
+</div>
+
+<div class="panel summary hidden" id="sumPanel">
+  <div class="big" id="sumScore"></div>
+  <p class="status" id="sumNote"></p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Your guess</th><th>ID</th><th>Context</th></tr></thead><tbody id="sumBody"></tbody></table>
+  <div class="row" style="margin-top:16px"><button class="btn primary" id="againBtn">Take it again</button><a class="btn" href="./#documents">Review the documents</a></div>
+</div>
+</div>
+
+<script>
+const DOCS = [
+ {id:"plato", name:"Plato on Music",
+  passages:[
+   "Rhythm and harmony find their way into the innermost part of the soul and take hold of it most strongly. A young person raised on the right music will grow graceful and good; one raised on the wrong kind will be made the opposite.",
+   "We must banish the soft and mournful modes, which suit drinking parties and lamentation, and keep only the two that imitate the voice of a brave man in battle and a temperate man in peace.",
+   "The guardians of our city must watch that no innovation creeps into music, for when the modes of music change, the fundamental laws of the state change with them."],
+  hint:"Ancient Greece: the ideal state and its guardians.",
+  ctx:["Plato, <i>Republic</i> (Book III), ca. 375 BCE","Music shapes character and the soul; approved modes build courage and self-control, while soft/lamenting or overly complex music corrupts","Music (with gymnastics) is central to education, so it matters politically","Importance: earliest view that music has ethical and political power, starting the debate over whether music uplifts or corrupts"]},
+ {id:"hildegard", name:"Hildegard, Letter to the Prelates at Mainz",
+  passages:[
+   "Before he sinned, Adam’s voice sounded with all the sweetness of the angels’ praise. The holy prophets made songs and instruments so that we might remember that lost heavenly harmony.",
+   "Those who impose silence on a church and forbid it to sing God’s praises without just cause should beware, for they rob God of the honor due to Him in heaven.",
+   "The devil, hearing that humankind began to sing by divine inspiration, was so tormented that he has never ceased trying to disturb and destroy the beauty of that song."],
+  hint:"A 12th-century abbess writes to her church superiors.",
+  ctx:["Hildegard von Bingen, ca. 1178–79, to the prelates (church officials) of Mainz","Her convent was placed under interdict, forbidden to sing the Divine Office, after burying a nobleman they said was excommunicated","She argues music recalls Adam’s voice before the Fall and echoes angelic praise; silencing it does the devil’s work","Importance: a medieval woman challenging church authority; shows music as central to worship and theology"]},
+ {id:"augustine", name:"Augustine, Confessions",
+  passages:[
+   "How I wept at your hymns and songs, deeply moved by the voices of your church singing so sweetly! The sounds flowed into my ears and the truth flowed into my heart.",
+   "When I find that the singing itself moves me more than the words being sung, I confess that I sin, and then I would rather not hear the singer at all.",
+   "So I waver between the danger of pleasure and the good that I know it does. I am inclined to approve of singing in church, so that weaker minds may be roused to devotion through the delight of the ears."],
+  hint:"A first-person confession by an early Church Father.",
+  ctx:["St. Augustine of Hippo, <i>Confessions</i>, Book X, ca. 397–400","He loves sacred song (it moved him to tears) but fears its sensual pleasure distracts from the sacred words (sin)","Considers banning singing in church, then leans toward allowing it for weaker minds","Importance: classic statement of the tension between musical beauty and religious text; echoed by later critics of church polyphony (John of Salisbury, Pope John XXII)"]},
+ {id:"operas", name:"The Earliest Operas",
+  passages:[
+   "Seeing that the ancient Greeks and Romans were believed to have sung their tragedies throughout, I sought a kind of singing that would imitate speech, something between ordinary speech and song.",
+   "The fable was performed in music before the court on the occasion of the most noble wedding festivities, with the ladies and gentlemen of the court admiring how the singing moved the passions.",
+   "What subject could be better for this new manner of singing than Orpheus, whose song moved even the gods of the underworld to pity?"],
+  hint:"Florence and Mantua, around 1600: a brand-new genre.",
+  ctx:["Prefaces and accounts by the first opera composers, Florence &amp; Mantua, ca. 1600–1608","Humanists tried to revive ancient Greek drama, believed to be sung throughout, so they invented a speech-like singing style (recitative) to move the passions","Performed at court festivities and academies under aristocratic patronage; 2 of the 3 earliest operas tell the Orpheus myth (the power of music)","Importance: explains the birth of opera and the conditions behind Monteverdi’s <i>Orfeo</i> (1607)"]},
+ {id:"scheibe", name:"Scheibe on J.S. Bach",
+  passages:[
+   "This great man would be the admiration of whole nations if he had more agreeableness, and if he did not take away the natural element in his pieces by giving them a turgid and confused style.",
+   "He writes out every ornament and little grace in notes, which not only takes away the beauty of the harmony but makes the melody completely unclear. All the voices must work with each other and be equally difficult.",
+   "As a performer on the clavier and organ he is extraordinary, but his compositions bury beauty beneath too much art."],
+  hint:"An 18th-century critic on a great organist.",
+  ctx:["Johann Adolph Scheibe, <i>Der critische Musikus</i>, 1737","Praises Bach as a performer but criticizes his compositions as bombastic, confused, over-elaborate, all voices equally busy, ornaments written out","Ideal music for Scheibe: natural, simple, pleasing, melody-led","Importance: shows Bach out of step with Enlightenment taste, marking the shift from Baroque complexity to Classical clarity"]},
+ {id:"cuvelier", name:"Cuvelier on Joseph Bologne",
+  passages:[
+   "Saint-Georges is no more. The man whose bow drew such sweet sounds from the violin, and whose sword had no equal, has left his friends to mourn him.",
+   "He was kind, generous and modest; no one ever came to him in need and left unaided. His talents earned him admiration, but his character earned him love.",
+   "As a composer and violinist he delighted Paris; as a citizen he served the Republic with courage and devotion."],
+  hint:"An obituary from Paris, 1799.",
+  ctx:["J.-G.-A. Cuvelier, obituary for Joseph Bologne (Saint-Georges), Paris, Year VII (1799)","A friend praises his character (kind, generous, modest, beloved) and his talents (virtuoso violinist, composer, celebrated fencer) and his service to the Revolution","Importance: rare first-hand source on a Black composer whose archival record is unreliable; shows his fame in Paris’s growing public concert culture"]},
+ {id:"heiligenstadt", name:"Beethoven, Heiligenstadt Testament",
+  passages:[
+   "O you men who think or say that I am hostile, stubborn or misanthropic, how greatly you wrong me. You do not know the secret cause that makes me seem so.",
+   "What humiliation when someone standing beside me heard a flute in the distance and I heard nothing. Such incidents drove me almost to despair.",
+   "It was only my art that held me back. It seemed impossible to leave the world until I had brought forth all that I felt was within me."],
+  hint:"A letter to his brothers, 1802.",
+  ctx:["Ludwig van Beethoven, letter to his brothers, Heiligenstadt, October 1802","Confesses his growing deafness: devastating for a musician, and it forced him to withdraw from society and seem hostile","He nearly gave up, but his art held him back; he resolves to keep creating","Importance: written just before Symphony No. 5; shapes the “struggle to triumph” reading of his music and the Romantic image of the suffering genius"]}
+];
+const byId=Object.fromEntries(DOCS.map(d=>[d.id,d]));
+const $=s=>document.querySelector(s);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+$("#guess").innerHTML+=shuffle(DOCS).map(d=>`<option value="${d.id}">${d.name}</option>`).join("");
+let queue=[],qi=0,results=[],cur=null;
+
+function start(){
+  const per=$("#optDouble").checked?2:1;
+  queue=shuffle(DOCS.flatMap(d=>shuffle(d.passages).slice(0,per).map(p=>({d,p}))));
+  qi=0;results=[];
+  $("#startPanel").classList.add("hidden");$("#sumPanel").classList.add("hidden");$("#qPanel").classList.remove("hidden");
+  $("#ctxWrap").classList.toggle("hidden",!$("#optLong").checked);
+  loadQ();
+}
+function loadQ(){
+  cur=queue[qi];
+  $("#qNum").textContent=`Question ${qi+1} of ${queue.length}`;
+  $("#qScore").textContent=`${results.filter(r=>r.id).length} correct so far`;
+  $("#excerpt").textContent="“"+cur.p+"”";
+  $("#hint").textContent="";$("#guess").value="";$("#ctx").value="";
+  $("#result").className="result";$("#result").innerHTML="";$("#checkBtn").disabled=false;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("#hintBtn").onclick=()=>{ $("#hint").textContent="Hint: "+cur.d.hint; cur.hinted=true; };
+$("#checkBtn").onclick=()=>{
+  const g=$("#guess").value; if(!g){$("#guess").focus();return;}
+  const ok=g===cur.d.id, long=$("#optLong").checked;
+  const r=$("#result"); r.className="result show "+(ok?"ok":"bad");
+  r.innerHTML=`<h3>${ok?"Correct!":"Not quite"}</h3><p><b>Answer:</b> ${cur.d.name}</p>
+   <div class="model"><p><b>Model context &amp; importance:</b></p><ul>${cur.d.ctx.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+   ${long?`<p>Did your answer cover the who/when, the main idea, and why it matters?</p><div class="selfgrade"><button class="btn" data-f="2">Yes, all of it</button><button class="btn" data-f="1">Partly</button><button class="btn" data-f="0">Missed it</button></div>`:""}
+   <div class="row" style="margin-top:10px"><button class="btn primary" id="nextBtn">${qi+1<queue.length?"Next question →":"See results"}</button></div>`;
+  cur.res={cur,guess:g,id:ok,ctx:null};
+  $("#checkBtn").disabled=true;
+  r.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{cur.res.ctx=+b.dataset.f; b.parentNode.innerHTML=`<p>Marked: ${["missed","partly","yes"][cur.res.ctx]}.</p>`;});
+  $("#nextBtn").onclick=()=>{results.push(cur.res); qi++; qi<queue.length?loadQ():finish();};
+};
+function finish(){
+  $("#qPanel").classList.add("hidden");$("#sumPanel").classList.remove("hidden");
+  const right=results.filter(r=>r.id).length, graded=results.filter(r=>r.ctx!==null);
+  $("#sumScore").textContent=`${right} / ${results.length} IDs`;
+  $("#sumNote").textContent=graded.length?`Context answers: ${graded.filter(r=>r.ctx===2).length} full, ${graded.filter(r=>r.ctx===1).length} partial, ${graded.filter(r=>r.ctx===0).length} missed (self-graded).`:"";
+  $("#sumBody").innerHTML=results.map((r,i)=>`<tr><td>${i+1}</td><td>${r.cur.d.name}</td><td>${byId[r.guess].name}</td><td>${r.id?"✓":"✗"}</td><td>${r.ctx===null?"—":["✗","½","✓"][r.ctx]}</td></tr>`).join("");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("#startBtn").onclick=start;
+$("#againBtn").onclick=start;
+</script>
+</body>
+</html>
