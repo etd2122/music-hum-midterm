@@ -80,7 +80,8 @@ textarea{min-height:64px;resize:vertical}
   </div>
   <div class="opt"><input type="checkbox" id="optFollow" checked><label for="optFollow">Include follow-up questions</label></div>
   <div class="opt"><input type="checkbox" id="optRandom" checked><label for="optRandom">Start each clip at a random point (off = start from the beginning)</label></div>
-  <p class="status">One question per track on the playlist, shuffled. Turn your volume up. If a clip won’t play, use “Skip”.</p>
+  <details class="settings" style="margin-top:8px"><summary>Which recordings are included?</summary><ul id="trackList" style="font-size:.85rem"></ul></details>
+  <p class="status">Only the 11 pieces on the midterm list; everything else on the playlist is skipped. Shuffled. Turn your volume up. If a clip won’t play, use “Skip”.</p>
 </div>
 
 <!-- question screen -->
@@ -132,23 +133,23 @@ const PIECES = [
   tex:"Monophony", genre:"Gregorian chant", q:"Syllabic or melismatic?", qa:"Both, but mostly <b>melismatic</b> (the opening “Vi-de-runt” is syllabic)."},
  {id:"euchari", name:"Hildegard von Bingen, O Euchari", rx:/euchari/i, fb:"HRDI_rJr32E",
   tex:"Monophony", genre:"Sacred song (chant)", q:"How is this different from Viderunt Omnes?", qa:"Women’s voices, <b>wider range</b>, more leaps (disjunct), expressive melismas, and a named composer."},
- {id:"josquin", name:"Josquin des Prez, Ave Maria", rx:/ave maria|josquin/i, fb:"qXMZoKofu7g",
+ {id:"josquin", name:"Josquin des Prez, Ave Maria", rx:/josquin|ave maria.*virgo serena/i, fb:"qXMZoKofu7g",
   tex:"Imitative polyphony (with homophonic sections)", genre:"Motet", q:"What texture does it open with? Define it.", qa:"<b>Imitative polyphony</b>: each voice sings the same melody, entering at different times."},
- {id:"gesualdo", name:"Carlo Gesualdo, Moro lasso", rx:/moro|gesualdo/i, fb:"kx-1JOM9qS8",
+ {id:"gesualdo", name:"Carlo Gesualdo, Moro lasso", rx:/moro,? ?lasso/i, fb:"kx-1JOM9qS8",
   tex:"Shifts between homophony and polyphony", genre:"Madrigal", q:"What musical element makes this piece distinctive?", qa:"<b>Harmony</b>: chromatic, <b>dissonant</b> chords that paint the text (<b>word painting</b>)."},
- {id:"strozzi", name:"Barbara Strozzi, Che si può fare", rx:/che si|strozzi/i, fb:"2yL_65orJgQ",
+ {id:"strozzi", name:"Barbara Strozzi, Che si può fare", rx:/che si p/i, fb:"2yL_65orJgQ",
   tex:"Homophony (solo voice + continuo)", genre:"Aria / solo song (lament)", q:"How does the music reflect the text?", qa:"<b>Word painting</b>: the repeating descending bass and falling lines match hopelessness and disasters “raining down.”"},
- {id:"orfeo", name:"Claudio Monteverdi, Orfeo", rx:/orfeo|monteverdi|vi ricorda|tu se/i, fb:"u0qkP1kvEdQ",
+ {id:"orfeo", name:"Claudio Monteverdi, Orfeo", rx:/orfeo/i, fb:"u0qkP1kvEdQ",
   tex:"Homophony (solo voice + continuo)", genre:"Opera", q:"Aria or recitative? Which passion do you hear?", qa:"<b>Aria</b> = song; <b>recitative</b> = imitation of speech. Name a Descartes passion (joy, sadness…) and how the music shows it."},
  {id:"prelude", name:"J.S. Bach, Prelude in C Major", rx:/prelude/i, fb:null,
   tex:"Homophony (broken chords)", genre:"Prelude (keyboard)", q:"What drives the music forward?", qa:"<b>Harmony</b>: one repeating broken-chord figure; only the chords change."},
  {id:"fugue", name:"J.S. Bach, Fugue in C Major", rx:/fugue/i, fb:"qfJAiCSZgzU",
   tex:"Imitative polyphony", genre:"Fugue", q:"What is a fugue’s subject?", qa:"The main musical idea that each voice imitates. Fugue comes from <i>fugere</i>, “to flee.”"},
- {id:"bologne", name:"Joseph Bologne, Violin Concerto in A Major (III)", rx:/bologne|saint.?georges|st\.? ?georges?|chevalier/i, fb:"teEWVFRHOeI",
+ {id:"bologne", name:"Joseph Bologne, Violin Concerto in A Major (III)", rx:/(bologne|saint.?georges?|chevalier).*concert|concert.*(bologne|saint.?georges?|chevalier)/i, fb:"teEWVFRHOeI",
   tex:"Homophony", genre:"Violin concerto", q:"What is the form of this movement?", qa:"<b>Rondeau/rondo</b>: the opening A material keeps returning between contrasting episodes."},
- {id:"porgi", name:"W.A. Mozart, “Porgi amor” (Marriage of Figaro)", rx:/porgi|figaro|nozze/i, fb:"xoMEEZtB7V4",
+ {id:"porgi", name:"W.A. Mozart, “Porgi amor” (Marriage of Figaro)", rx:/porgi/i, fb:"xoMEEZtB7V4",
   tex:"Homophony", genre:"Opera buffa (aria)", q:"Aria, recitative, duet, or ensemble? How is character created?", qa:"<b>Aria</b>: slow tempo, soft dynamics, long sighing melody show the Countess’s dignified sorrow."},
- {id:"beet5", name:"Ludwig van Beethoven, Symphony No. 5 (I)", rx:/beethoven|symphony no\.? ?5|5th symphony|fifth/i, fb:"rRgXUFnfKIY",
+ {id:"beet5", name:"Ludwig van Beethoven, Symphony No. 5 (I)", rx:/(symphony|sym\.?|sinfonie)\s*(no\.?|nr\.?|n°)?\s*5\b|fifth symphony|5th symphony/i, fb:"rRgXUFnfKIY",
   tex:"Homophony (with imitative passages)", genre:"Symphony", q:"What form is this movement in? Name the sections.", qa:"<b>Sonata form</b>: exposition, development, recapitulation, built on one <b>motif</b>."}
 ];
 const byId = Object.fromEntries(PIECES.map(p=>[p.id,p]));
@@ -165,7 +166,7 @@ let cur=null, clipStart=0, played=0, tick=null, pendingSeek=false, loadTimer=nul
 function matchTitle(t){
   const hits = PIECES.filter(p=>p.rx.test(t)).map(p=>p.id);
   if(hits.includes("prelude")&&hits.includes("fugue")) return ["prelude","fugue"];
-  if(/perotin|dufay/i.test(t)) return [];
+  if(/perotin|p[ée]rotin|dufay|overture|ouverture/i.test(t)) return [];
   return hits.slice(0,2);
 }
 
@@ -179,12 +180,36 @@ function onReady(){ ready=true; tryReadPlaylist(); }
 function tryReadPlaylist(){
   if(mode!=="playlist") return;
   const ids = player.getPlaylist && player.getPlaylist();
-  if(ids && ids.length){
-    clearTimeout(loadTimer);
-    tracks = ids.map((vid,i)=>({vid,index:i,answer:null,title:null}));
-    $("#startBtn").disabled=false; $("#startBtn").textContent="Start practice test";
-    $("#loadStatus").textContent=`${ids.length} tracks loaded from the course playlist.`;
-  } else setTimeout(tryReadPlaylist,600);
+  if(ids && ids.length){ clearTimeout(loadTimer); scanTitles(ids); }
+  else setTimeout(tryReadPlaylist,600);
+}
+// Cue each playlist video just long enough to read its title, then keep only the 11 testable pieces.
+let scanning=false;
+function scanTitles(ids){
+  scanning=true; const found=[]; let i=0;
+  const step=()=>{
+    if(i>=ids.length){ scanning=false; return finishScan(found,ids.length); }
+    const vid=ids[i]; let tries=0;
+    $("#startBtn").textContent=`Checking playlist… ${i+1}/${ids.length}`;
+    player.cueVideoById(vid);
+    const poll=setInterval(()=>{
+      tries++;
+      const vd=player.getVideoData?player.getVideoData():null;
+      if(vd && vd.video_id===vid && vd.title){ clearInterval(poll); found.push({vid,title:vd.title}); i++; step(); }
+      else if(tries>25){ clearInterval(poll); i++; step(); }
+    },200);
+  };
+  step();
+}
+function finishScan(found,total){
+  tracks = found.map(f=>({vid:f.vid,title:f.title,answer:matchTitle(f.title)})).filter(t=>t.answer.length);
+  if(!tracks.length){ useFallback("Couldn’t match any playlist titles, so I'm using the lecture-slide clips."); return; }
+  const covered=new Set(tracks.flatMap(t=>t.answer));
+  const missing=PIECES.filter(p=>!covered.has(p.id)).map(p=>p.name);
+  $("#startBtn").disabled=false; $("#startBtn").textContent="Start practice test";
+  $("#loadStatus").innerHTML=`Using <b>${tracks.length}</b> testable tracks from the course playlist (skipped ${total-tracks.length} others).`+
+    (missing.length?` <br>Not found: ${missing.join("; ")}.`:"");
+  $("#trackList").innerHTML=tracks.map(t=>`<li>${t.title} → <b>${t.answer.map(a=>byId[a].name).join(" / ")}</b></li>`).join("");
 }
 function useFallback(msg){
   mode="fallback"; clearTimeout(loadTimer);
@@ -195,13 +220,13 @@ function useFallback(msg){
 $("#optFallback").onchange=e=>{ if(e.target.checked) useFallback("Using lecture-slide clips."); else location.reload(); };
 
 function onState(e){
-  if(!cur) return;
+  if(!cur||scanning) return;
   if(e.data===YT.PlayerState.PLAYING){
     if(pendingSeek){
       pendingSeek=false;
       const d=player.getDuration()||0;
       const vd=player.getVideoData?player.getVideoData():{};
-      if(mode==="playlist" && vd && vd.title){ cur.title=vd.title; cur.answer=matchTitle(vd.title); }
+      if(mode==="playlist" && vd && vd.title && !cur.title){ cur.title=vd.title; cur.answer=matchTitle(vd.title); }
       setFollow();
       clipStart = ($("#optRandom").checked && d>CLIP+15) ? Math.floor(5+Math.random()*(d-CLIP-10)) : 0;
       player.seekTo(clipStart,true);
@@ -213,6 +238,7 @@ function onState(e){
   } else if(e.data===YT.PlayerState.BUFFERING){ $("#pStatus").textContent="Loading clip…"; }
 }
 function onErr(e){
+  if(scanning) return;
   if(mode==="playlist" && !tracks.length){ useFallback("Playlist couldn’t be embedded, so I'm using lecture-slide clips."); return; }
   $("#pStatus").textContent="This video can’t be played here (embedding blocked). Press Skip.";
 }
@@ -241,7 +267,7 @@ function loadQ(){
 $("#playBtn").onclick=()=>{
   if(!ready) return;
   played=0; render(); pendingSeek=true; $("#playBtn").disabled=true;
-  if(mode==="playlist") player.playVideoAt(cur.index); else player.loadVideoById(cur.vid);
+  player.loadVideoById(cur.vid);
 };
 $("#replayBtn").onclick=()=>{ played=0; render(); player.seekTo(clipStart,true); player.playVideo(); $("#replayBtn").disabled=true; };
 $("#skipBtn").onclick=()=>{ results.push({cur,guess:null,id:false,follow:null,skipped:true}); next(); };
