@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Final Listening Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --ink:#1d1b18; --muted:#5f5a52; --rule:#ddd8ce;
+  --accent:#7a2e2e; --accent-soft:#f4e7e4; --ok:#2c6e49; --ok-soft:#e3f1e8; --bad:#a3352a; --bad-soft:#fbeae7;
+  --f-display:"Source Serif 4", Georgia, serif; --f-body:"Public Sans", system-ui, sans-serif;
+}
+:root[data-theme="dark"]{ --bg:#15130f; --surface:#1e1b17; --ink:#ece7de; --muted:#a59e92; --rule:#36312a; --accent:#e09a8c; --accent-soft:#3a2420; --ok:#86c9a0; --ok-soft:#1b3326; --bad:#ec8a75; --bad-soft:#3a201c; color-scheme:dark; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);padding:0 16px 80px}
+a{color:var(--accent)}
+.wrap{max-width:760px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0 6px;font-size:.9rem}
+h1{font:650 2rem/1.15 var(--f-display);margin:14px 0 6px}
+.lede{color:var(--muted);margin:0 0 18px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .95rem var(--f-body);padding:10px 16px;border-radius:9px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.1);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.status{font-size:.88rem;color:var(--muted);margin-top:10px;min-height:1.4em}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.qhead .n{font:650 1.3rem var(--f-display)}
+.qhead .score{font-size:.9rem;color:var(--muted)}
+/* player area: the YouTube player sits under an opaque cover so the title/thumbnail stay hidden */
+.stage{position:relative;height:150px;border-radius:12px;overflow:hidden;background:var(--accent);margin-bottom:14px}
+.stage #yt{position:absolute;inset:0;width:100%;height:100%}
+.cover{position:absolute;inset:0;background:linear-gradient(135deg,#7a2e2e,#4a1c1c);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:10px;z-index:2}
+.bars{display:flex;gap:4px;align-items:flex-end;height:34px}
+.bars i{width:6px;background:#f3d9d3;border-radius:3px;height:8px}
+.playing .bars i{animation:b 0.9s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}.bars i:nth-child(4){animation-delay:.45s}.bars i:nth-child(5){animation-delay:.6s}
+@keyframes b{0%,100%{height:8px}50%{height:32px}}
+@media (prefers-reduced-motion: reduce){.playing .bars i{animation:none;height:20px}}
+.timer{font:700 1.6rem var(--f-display);font-variant-numeric:tabular-nums}
+.meter{position:absolute;left:0;bottom:0;height:5px;background:#f3d9d3;width:0;z-index:3;transition:width .25s linear}
+label.f{display:block;font-weight:700;font-size:.9rem;margin:14px 0 6px}
+select,textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:9px;background:var(--surface);color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+.result{margin-top:16px;border-radius:10px;padding:14px 16px;display:none}
+.result.show{display:block}
+.result.ok{background:var(--ok-soft);border-left:4px solid var(--ok)}
+.result.bad{background:var(--bad-soft);border-left:4px solid var(--bad)}
+.result h3{margin:0 0 6px;font:650 1.1rem var(--f-display)}
+.result p{margin:6px 0;font-size:.94rem}
+.result .src{font-size:.8rem;color:var(--muted)}
+.selfgrade{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.summary table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:10px}
+.summary td,.summary th{padding:7px 8px;border-bottom:1px solid var(--rule);text-align:left}
+.summary th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.big{font:650 2.4rem var(--f-display)}
+.hidden{display:none}
+.settings{margin-top:22px;font-size:.9rem}
+.settings summary{cursor:pointer;font-weight:600}
+.opt{display:flex;gap:8px;align-items:center;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a href="final.html">← Final study guide</a><a href="final-readings.html">Reading ID test →</a></div>
+<h1>Final Exam · Listening Practice</h1>
+<p class="lede">Like the real exam: you hear a random <b>30-second</b> stretch of a piece from the professor’s YouTube playlist (video hidden), then <b>type</b> the <b>composer &amp; title</b> and answer a <b>follow-up</b>.</p>
+
+<!-- start screen -->
+<div class="panel" id="startPanel">
+  <div class="row">
+    <button class="btn primary" id="startBtn" disabled>Loading playlist…</button>
+    <span class="status" id="loadStatus" style="margin:0"></span>
+  </div>
+  <div class="opt"><input type="checkbox" id="optFollow" checked><label for="optFollow">Include follow-up questions</label></div>
+  <div class="opt"><input type="checkbox" id="optRandom" checked><label for="optRandom">Start each clip at a random point (off = start from the beginning)</label></div>
+  <details class="settings" style="margin-top:8px"><summary>Which recordings are included?</summary><ul id="trackList" style="font-size:.85rem"></ul></details>
+  <p class="status">Only the 20 pieces on the final list; everything else on the playlist is skipped. Shuffled. Turn your volume up. If a clip won’t play, use “Skip”.</p>
+</div>
+
+<!-- question screen -->
+<div class="panel hidden" id="qPanel">
+  <div class="qhead"><span class="n" id="qNum">Question 1</span><span class="score" id="qScore"></span></div>
+  <div class="stage" id="stage">
+    <div id="yt"></div>
+    <div class="cover"><div class="bars"><i></i><i></i><i></i><i></i><i></i></div><div class="timer" id="timer">0:30</div></div>
+    <div class="meter" id="meter"></div>
+  </div>
+  <div class="row">
+    <button class="btn primary" id="playBtn">▶ Play clip</button>
+    <button class="btn" id="replayBtn" disabled>↺ Replay</button>
+    <button class="btn" id="skipBtn">Skip</button>
+  </div>
+  <div class="status" id="pStatus"></div>
+
+  <label class="f" for="guess">Composer &amp; title</label>
+  <input id="guess" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. Stravinsky, The Rite of Spring" style="width:100%;font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:9px;background:var(--surface);color:var(--ink)">
+  <div id="followWrap">
+    <label class="f" for="follow" id="followQ">Follow-up</label>
+    <textarea id="follow" placeholder="Type your answer…"></textarea>
+  </div>
+  <div class="row" style="margin-top:14px"><button class="btn primary" id="checkBtn">Check answer</button></div>
+
+  <div class="result" id="result"></div>
+</div>
+
+<!-- summary -->
+<div class="panel summary hidden" id="sumPanel">
+  <div class="big" id="sumScore"></div>
+  <p class="status" id="sumNote"></p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Your guess</th><th>ID</th><th>Follow-up</th></tr></thead><tbody id="sumBody"></tbody></table>
+  <div class="row" style="margin-top:16px"><button class="btn primary" id="againBtn">Take it again</button><a class="btn" href="final.html#listening">Review the pieces</a></div>
+</div>
+
+<details class="settings">
+  <summary>Playback problems?</summary>
+  <p>This page plays tracks from the course YouTube playlist. Ad blockers or school Wi-Fi can block embedded YouTube. Try another browser or your phone.</p>
+</details>
+</div>
+
+<script>
+const PLAYLIST = "PLUXmdvXa4RAIGOG2WvUFP9cKpUFwkvxWZ";
+const CLIP = 30;
+const PIECES = [
+ {id:"erlkonig", era:"Romantic", name:"Franz Schubert, Erlkönig (Elf-King)", date:"1815", rx:/erlk(o|ö|oe)nig|erl.?king|elf.?king/i,
+  who:["schubert"], what:["erlkonig","erlkoenig","erlking","erl king","elf king","elf-king"],
+  tex:"Homophony (voice + piano)", genre:"Lied (German art song)",
+  hear:["One singer + piano; the piano pounds fast repeated triplets (galloping horse)","The singer voices 4 characters: narrator, father (low, calm), son (high, panicked), Elf-King (sweet, coaxing)","The son’s cries get higher and more dissonant each time","Ends abruptly: the music stops and the last line is almost spoken"],
+  facts:["Setting of Goethe’s ballad: a father rides through the night with his sick son, who is lured by the supernatural Elf-King and dies","Lied = German art song for voice and piano, a key Romantic genre","Composed when Schubert was about 18"],
+  q:"How does Schubert make one singer sound like several characters?", qa:"Each character gets its own <b>register</b>, mode and style: the father low and steady, the son high and rising in <b>dissonance</b>, the Elf-King in sweet, major-key melodies. The galloping piano <b>ostinato</b> is <b>word painting</b>."},
+ {id:"monatmai", era:"Romantic", name:"Robert Schumann, Im wunderschönen Monat Mai (In the beautiful month of May)", date:"1840", rx:/wundersch|monat mai|beautiful month/i,
+  who:["robert schumann","robert","schumann"], what:["wunderschonen","monat mai","beautiful month","month of may"],
+  tex:"Homophony (voice + piano)", genre:"Lied, first song of the cycle Dichterliebe",
+  hear:["Short, gentle song for voice and piano","Piano opens with a hazy, unresolved figure and keeps circling","Sweet, wistful melody; soft dynamics","Ends hanging, unresolved: no final cadence"],
+  facts:["Text by Heinrich Heine: in May, love blossomed and I confessed my longing","No. 1 of the song cycle <i>Dichterliebe</i> (A Poet’s Love)","Written in 1840, the “year of song,” when he married Clara Wieck"],
+  q:"How does the harmony reflect the text?", qa:"The piano never settles in a clear key and the song ends <b>unresolved</b> (on a dissonant chord), mirroring <b>longing</b> and unfulfilled desire."},
+ {id:"clara", era:"Romantic", name:"Clara Schumann, Piano Concerto", date:"1835 (Op. 7 in A minor)", rx:/clara.*concert|concert.*clara|wieck.*concert|concerto in a minor,? op\.? ?7/i,
+  who:["clara","clara schumann","clara wieck","wieck"], what:["piano concerto","concerto"],
+  tex:"Homophony (soloist + orchestra)", genre:"Piano concerto",
+  hear:["Solo piano with orchestra","Brilliant, virtuosic piano writing: fast runs, big chords","Dramatic, Romantic mood with lyrical moments","The piano often leads, the orchestra supports"],
+  facts:["Written as a teenager; she was one of the most famous concert pianists of the century","Married Robert Schumann; balanced career, composing and raising a large family","Concerto = showpiece for a virtuoso soloist with orchestra"],
+  q:"What genre is this, and what role does the soloist play?", qa:"<b>Piano concerto</b>: a virtuoso soloist set against an orchestra, showcasing <b>virtuosity</b>."},
+ {id:"hensel", era:"Romantic", name:"Fanny Hensel, Schwanenlied (Swansong)", date:"pub. 1846", rx:/schwanenlied|swan.?song|hensel/i,
+  who:["hensel","fanny","fanny hensel","mendelssohn"], what:["schwanenlied","swansong","swan song"],
+  tex:"Homophony (voice + piano)", genre:"Lied",
+  hear:["Soprano + piano in a gently rocking, lilting rhythm","Lyrical, flowing melody","Bittersweet, melancholy tone","Short strophic-feeling song"],
+  facts:["Text by Heine: a falling star, falling blossoms, and a swan singing as it dies, like love fading","Fanny Hensel (née Mendelssohn), Felix Mendelssohn’s sister; a gifted composer discouraged by her family from publishing","Published under her own name only near the end of her life"],
+  q:"How does the music fit the image of a dying swan?", qa:"The rocking accompaniment suggests gliding on water; the falling melodic lines and soft, fading <b>dynamics</b> paint the image of loss."},
+ {id:"chopin", era:"Romantic", name:"Frédéric Chopin, Nocturne", date:"1830s", rx:/chopin.*nocturne|nocturne.*chopin/i,
+  who:["chopin"], what:["nocturne"],
+  tex:"Homophony (melody + broken-chord accompaniment)", genre:"Nocturne (solo piano character piece)",
+  hear:["Solo piano","A long, singing, ornamented melody in the right hand","Left hand plays gentle broken chords underneath","Flexible tempo (rubato); dreamy, intimate night-music mood"],
+  facts:["Polish-born pianist-composer who lived in Paris; wrote almost entirely for piano","Preferred intimate salons to big concert halls","Nocturne = “night piece”; melody imitates bel canto opera singing"],
+  q:"What is rubato, and where do you hear it?", qa:"<b>Rubato</b>: flexible, “stolen” time, where the pianist stretches and rushes the tempo for expression, especially in the ornamented melody."},
+ {id:"liszt", era:"Romantic", name:"Franz Liszt, La Campanella (The Little Bell)", date:"1851", rx:/campanella/i,
+  who:["liszt"], what:["campanella","little bell"],
+  tex:"Homophony", genre:"Piano étude / virtuoso showpiece",
+  hear:["Solo piano, extremely virtuosic","High, repeated, ringing notes like a little bell","Huge leaps across the keyboard, very fast","Grows more and more dazzling toward the end"],
+  facts:["Based on a theme by violin virtuoso Paganini","Liszt was the first superstar pianist (“Lisztomania”)","Showcases <b>virtuosity</b> as spectacle"],
+  q:"What makes this piece a showpiece?", qa:"Extreme <b>virtuosity</b>: wide leaps, rapid repeated high notes imitating a bell (<b>word/sound painting</b>), and escalating difficulty."},
+ {id:"debussy", era:"Modernism", name:"Claude Debussy, Des pas sur la neige (Footprints in the snow)", date:"1910 (Préludes, Book I)", rx:/pas sur la neige|pas sur le neige|footprints in the snow/i,
+  who:["debussy"], what:["des pas","pas sur","neige","footprints","snow"],
+  tex:"Homophony / sparse layers", genre:"Piano prelude",
+  hear:["Solo piano, very slow and quiet","A repeated two-note pattern plodding underneath (footsteps)","Sparse, hazy, cold; lots of space and silence","No clear tune or strong cadences"],
+  facts:["French composer often linked to Impressionism (atmosphere, color, suggestion)","Title appears at the end of the score, so it suggests rather than tells","Avoids traditional development and functional harmony"],
+  q:"How does Debussy create the image of footprints in snow?", qa:"A slow, repeating <b>ostinato</b> suggests trudging steps; soft <b>dynamics</b>, sparse <b>texture</b> and ambiguous <b>harmony</b> create a frozen, lonely atmosphere."},
+ {id:"pierrot", era:"Modernism", name:"Arnold Schoenberg, Pierrot Lunaire", date:"1912", rx:/pierrot/i,
+  who:["schoenberg","schonberg"], what:["pierrot","lunaire"],
+  tex:"Polyphony (independent lines)", genre:"Melodrama / song cycle for voice and chamber ensemble",
+  hear:["A woman’s voice half-speaking, half-singing (Sprechstimme)","Small chamber ensemble (flute, clarinet, violin, cello, piano)","Atonal: no key center, lots of dissonance","Eerie, unsettling, fragmented"],
+  facts:["21 poems about Pierrot, a moonstruck clown","<b>Sprechstimme</b> = “speech-voice”","<b>Atonality</b>: Schoenberg abandoned tonal keys (“emancipation of the dissonance”)"],
+  q:"What vocal technique is used here?", qa:"<b>Sprechstimme</b>: a style between speech and song, with approximate pitches. Harmony is <b>atonal</b>."},
+ {id:"rite", era:"Modernism", name:"Igor Stravinsky, Le Sacre du Printemps (The Rite of Spring)", date:"1913 · Paris", rx:/sacre|rite of spring/i,
+  who:["stravinsky"], what:["rite of spring","sacre","printemps","rite"],
+  tex:"Layered polyphony / ostinatos", genre:"Ballet",
+  hear:["Huge orchestra","Pounding, dissonant chords with irregular, unpredictable accents","Repeating ostinatos layered on top of each other","(Opening: a strange, very high bassoon solo)"],
+  facts:["Ballet for Diaghilev’s Ballets Russes; choreography by Nijinsky","Premiere caused a near-riot in Paris","Scenario: pagan Russia; a young girl dances herself to death as a sacrifice to spring"],
+  q:"How does Stravinsky use rhythm?", qa:"Irregular, shifting <b>accents</b> and changing <b>meter</b> destroy a predictable <b>beat</b>; layered <b>ostinatos</b> and <b>polyrhythm</b> create primal violence."},
+ {id:"sensemaya", era:"Modernism", name:"Silvestre Revueltas, Sensemayá", date:"1938 · Mexico", rx:/sensemay/i,
+  who:["revueltas"], what:["sensemaya"],
+  tex:"Layered ostinatos building up", genre:"Orchestral tone poem",
+  hear:["Starts quiet with percussion and a low, creeping, snake-like melody (tuba/bass clarinet)","Hypnotic repeating ostinato in an asymmetrical meter (groups of 7)","Layers pile up into a loud, dissonant frenzy","Heavy percussion throughout"],
+  facts:["Based on a poem by Afro-Cuban poet Nicolás Guillén: a chant for killing a snake","Mexican composer; music full of ritual energy","Compare with Stravinsky’s ostinatos and primitivism"],
+  q:"How does the music depict the snake ritual?", qa:"A slithering low <b>melody</b>, a hypnotic <b>ostinato</b> in irregular <b>meter</b>, and a huge <b>crescendo</b> to a violent climax (the snake’s killing)."},
+ {id:"chavez", era:"Modernism", name:"Carlos Chávez, Sinfonía india", date:"1935–36", rx:/sinfon(i|í)a india|indian symphony/i, cap:270,
+  who:["chavez"], what:["sinfonia india","india","indian symphony","sinfonia"],
+  tex:"Homophony / layered rhythms", genre:"Symphony (one movement)",
+  hear:["Orchestra with lots of indigenous percussion (rattles, drums)","Bright, punchy melodies taken from indigenous songs","Constantly shifting, driving rhythms and meters","Energetic, sharp-edged sound"],
+  facts:["Uses melodies of indigenous peoples of Mexico (e.g. Yaqui, Huichol, Seri)","Mexican nationalism after the Revolution: a Mexican sound not copied from Europe","Only the first 4:30 of the playlist track is tested"],
+  q:"What makes this piece sound “Mexican” according to Chávez’s goals?", qa:"Indigenous <b>melodies</b> and <b>percussion</b> (<b>timbre</b>), shifting <b>meters</b>: building national music from pre-Hispanic roots rather than European models."},
+ {id:"deepriver", era:"20th-c. US", name:"Harry T. Burleigh, Deep River", date:"arr. 1916", rx:/deep river/i,
+  who:["burleigh"], what:["deep river"],
+  tex:"Homophony (voice + piano)", genre:"Spiritual arranged as an art song",
+  hear:["Solo voice (often a deep male or concert voice) + piano","Slow, solemn, hymn-like","Rich, Romantic piano harmonies","Long, sustained phrases: “Deep river, my home is over Jordan”"],
+  facts:["Burleigh was a Black singer-composer who studied with Dvořák in New York","His arrangements brought spirituals into the concert hall","Spirituals = religious songs created by enslaved African Americans"],
+  q:"How did Burleigh change the spiritual?", qa:"He turned a communal folk song into a concert <b>art song</b> with written-out piano <b>harmony</b> (like a Lied), for trained solo singers."},
+ {id:"stlouis", era:"20th-c. US", name:"W.C. Handy / Louis Armstrong / Bessie Smith, St. Louis Blues", date:"1914 (song) · 1925 (recording)", rx:/st\.? ?louis blues|saint louis blues/i,
+  who:["handy","armstrong","bessie smith","bessie","louis armstrong","wc handy"], what:["st louis blues","saint louis blues","louis blues"],
+  tex:"Homophony with call-and-response", genre:"Blues",
+  hear:["Bessie Smith’s powerful, bending voice","Louis Armstrong’s cornet answering each vocal line (call and response)","Slow, wheezy reed/pump organ accompaniment","Repeating blues chord pattern (12-bar blues)"],
+  facts:["Written by W.C. Handy, “Father of the Blues”","1925 recording: Bessie Smith (“Empress of the Blues”) with Louis Armstrong","Blues form: AAB lyrics over a 12-bar harmonic pattern"],
+  q:"What is call and response here?", qa:"Smith sings a line (call) and Armstrong’s cornet answers (response). Over a <b>12-bar blues</b> form."},
+ {id:"ellington", era:"20th-c. US", name:"Duke Ellington, It Don’t Mean a Thing (If It Ain’t Got That Swing)", date:"1931–32", rx:/don.?t mean a thing|aint got that swing|ain.t got that swing/i,
+  who:["ellington","duke"], what:["mean a thing","dont mean","swing"],
+  tex:"Homophony (big band + vocal)", genre:"Big band swing / jazz",
+  hear:["Big band: saxes, trumpets, trombones, rhythm section","Swung rhythm; strong, bouncy beat","Vocalist (Ivie Anderson) and “doo-wah” scat syllables","Muted, growling brass effects"],
+  facts:["Ellington led his orchestra at Harlem’s Cotton Club","Helped launch the Swing Era","Swing = uneven, lilting long-short rhythm feel"],
+  q:"What is swing?", qa:"A rhythmic feel where beats are divided unevenly (long-short), giving a lilting groove; the song’s own message: music must swing."},
+ {id:"strange", era:"20th-c. US", name:"Abel Meeropol / Billie Holiday, Strange Fruit", date:"1939", rx:/strange fruit/i,
+  who:["meeropol","holiday","billie","billie holiday"], what:["strange fruit"],
+  tex:"Homophony (voice + small band/piano)", genre:"Protest song (jazz ballad)",
+  hear:["Slow, quiet, mournful","Billie Holiday’s fragile, behind-the-beat phrasing","Sparse accompaniment; dark, haunting mood","Lyrics delivered with restrained intensity"],
+  facts:["Poem by Abel Meeropol, a Jewish schoolteacher from the Bronx, protesting the lynching of Black Americans","Holiday performed it at Café Society, an integrated club in New York","One of the first major civil-rights protest songs"],
+  q:"How does the performance bring the text to life?", qa:"Slow <b>tempo</b>, soft <b>dynamics</b>, sparse <b>texture</b> and Holiday’s restrained delivery make the horror of the imagery more powerful."},
+ {id:"nina", era:"20th-c. US", name:"Nina Simone, Mississippi Goddam", date:"1964", rx:/mississippi god/i,
+  who:["simone","nina","nina simone"], what:["mississippi","goddam","goddamn"],
+  tex:"Homophony (voice + piano/band)", genre:"Protest song",
+  hear:["Upbeat, jaunty show-tune feel","Simone’s piano and voice; talks to the audience","Sharp contrast between cheerful music and furious lyrics","Live recording (Carnegie Hall)"],
+  facts:["Written in response to the murder of Medgar Evers and the Birmingham church bombing (1963)","Simone: classically trained pianist turned civil-rights voice","Irony: she called it a show tune “but the show hasn’t been written for it yet”"],
+  q:"Why does the cheerful style matter?", qa:"The bouncy <b>tempo</b> and <b>major</b>-key show-tune style clash ironically with the angry text, sharpening the protest."},
+ {id:"cage", era:"20th-c. US", name:"John Cage, Sonata V (Sonatas and Interludes)", date:"1946–48", rx:/cage.*sonata|sonata.*cage|sonatas and interludes/i,
+  who:["cage"], what:["sonata v","sonata 5","sonata","sonatas and interludes"],
+  tex:"Homophony / sparse", genre:"Prepared piano sonata",
+  hear:["A piano that sounds like percussion or a gamelan","Clunky, buzzing, muted, metallic tones","Short, rhythmic, repeating patterns","Calm, contained mood"],
+  facts:["<b>Prepared piano</b>: screws, bolts, rubber placed between the strings","Inspired by Indian aesthetics (the permanent emotions)","Cage later embraced chance and silence (4′33″)"],
+  q:"What is a prepared piano?", qa:"A piano with objects inserted between the strings, transforming its <b>timbre</b> into percussive, gamelan-like sounds."},
+ {id:"oliveros", era:"20th-c. US", name:"Pauline Oliveros, Bye Bye Butterfly", date:"1965", rx:/bye bye butterfly/i,
+  who:["oliveros","pauline"], what:["bye bye butterfly","butterfly"],
+  tex:"Layered electronic sound", genre:"Electronic / tape music",
+  hear:["Electronic tones: oscillators, whistling, swooping pitches","Tape delay creates echoing loops","A distorted fragment of an old opera recording (Madama Butterfly) floats in","No beat or melody in the traditional sense"],
+  facts:["Made in real time at the San Francisco Tape Music Center","“Bye bye” to the 19th-century opera tradition and its gender roles","Oliveros later developed “Deep Listening”"],
+  q:"What is this piece’s relationship to earlier music?", qa:"It quotes and distorts Puccini’s <i>Madama Butterfly</i>, saying goodbye to 19th-century opera, through electronic <b>timbres</b> and tape delay."},
+ {id:"coltrane", era:"20th-c. US", name:"John Coltrane, Psalm from A Love Supreme", date:"1964", rx:/love supreme/i,
+  who:["coltrane"], what:["psalm","love supreme"],
+  tex:"Homophony (sax lead + quartet)", genre:"Spiritual jazz",
+  hear:["Tenor saxophone playing a slow, prayer-like line","Rumbling drums, piano chords, bass; no steady beat","Free, rubato feel","Meditative, solemn"],
+  facts:["Part IV of <i>A Love Supreme</i>, his devotional album","Coltrane “recites” his own poem on the saxophone, one note per syllable","Spiritual statement after his recovery and religious awakening"],
+  q:"How does Coltrane connect music and text?", qa:"His sax line follows the syllables of his printed devotional poem, a wordless “musical recitation” (like <b>syllabic</b> text-setting)."},
+ {id:"reich", era:"20th-c. US", name:"Steve Reich, Tehillim (Psalms)", date:"1981", rx:/tehillim/i,
+  who:["reich"], what:["tehillim","psalms"],
+  tex:"Polyphony (canons) over pulsing percussion", genre:"Vocal/ensemble work (minimalist roots)",
+  hear:["Women’s voices singing in Hebrew","Clapping and small drums (pulse)","Voices in canon, overlapping imitative lines","Bright, rhythmic, joyous; changing meters"],
+  facts:["Setting of Hebrew psalms (Tehillim = Psalms)","Reich is a founder of Minimalism; here more melodic than his process works","Rhythm follows the natural rhythm of the Hebrew text"],
+  q:"What texture do you hear?", qa:"<b>Polyphony</b>: voices in <b>canon</b> (imitative) over steady percussion <b>pulse</b>."}
+];
+const byId = Object.fromEntries(PIECES.map(p=>[p.id,p]));
+const $ = s=>document.querySelector(s);
+const shuffle = a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const fmt = s=>`0:${String(Math.max(0,Math.ceil(s))).padStart(2,"0")}`;
+
+
+// ---- free-response grading: needs the composer/author AND the title/work; forgives small typos ----
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim();
+function lev(a,b){const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;const d=Array.from({length:m+1},(_,i)=>[i]);for(let j=1;j<=n;j++)d[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n];}
+function hasKey(text,key){
+  const t=norm(text), k=norm(key); if(!k) return false;
+  if((" "+t+" ").includes(" "+k+" ")||(k.length>=5&&t.includes(k))) return true;
+  const tw=t.split(" "), kw=k.split(" ");
+  // every word of the key must appear (allowing 1 typo, or 2 for long words)
+  return kw.every(w=>tw.some(x=>x===w||(w.length>=4&&lev(x,w)<=(w.length>=7?2:1))));
+}
+const anyKey=(text,keys)=>keys.some(k=>hasKey(text,k));
+function gradeFree(text,item){ const a=anyKey(text,item.who), t=anyKey(text,item.what); return {score:a&&t?1:(a||t?0.5:0),who:a,what:t}; }
+
+const KEYS=Object.fromEntries(PIECES.map(p=>[p.id,{who:p.who,what:p.what}]));
+
+let player, ready=false, mode="playlist", tracks=[], queue=[], qi=0, results=[];
+let cur=null, clipStart=0, played=0, tick=null, pendingSeek=false, loadTimer=null;
+
+// Which piece(s) a playlist video title matches. Prelude & Fugue in one video → both accepted.
+function matchTitle(t){
+  return PIECES.filter(p=>p.rx.test(t)).map(p=>p.id).slice(0,1);
+}
+
+window.onYouTubeIframeAPIReady = function(){
+  player = new YT.Player("yt",{width:"100%",height:"100%",
+    playerVars:{listType:"playlist",list:PLAYLIST,controls:0,disablekb:1,rel:0,playsinline:1,iv_load_policy:3,fs:0},
+    events:{onReady:onReady,onStateChange:onState,onError:onErr}});
+  loadTimer=setTimeout(()=>{ if(!tracks.length) useFallback("Couldn’t load the course playlist here. Try another browser, turn off ad blockers, or use your phone."); },12000);
+};
+function onReady(){ ready=true; tryReadPlaylist(); }
+function tryReadPlaylist(){
+  if(mode!=="playlist") return;
+  const ids = player.getPlaylist && player.getPlaylist();
+  if(ids && ids.length){ clearTimeout(loadTimer); scanTitles(ids); }
+  else setTimeout(tryReadPlaylist,600);
+}
+// Cue each playlist video just long enough to read its title, then keep only the 20 final pieces.
+let scanning=false;
+function scanTitles(ids){
+  scanning=true; const found=[]; let i=0;
+  const step=()=>{
+    if(i>=ids.length){ scanning=false; return finishScan(found,ids.length); }
+    const vid=ids[i]; let tries=0;
+    $("#startBtn").textContent=`Checking playlist… ${i+1}/${ids.length}`;
+    player.cueVideoById(vid);
+    const poll=setInterval(()=>{
+      tries++;
+      const vd=player.getVideoData?player.getVideoData():null;
+      if(vd && vd.video_id===vid && vd.title){ clearInterval(poll); found.push({vid,title:vd.title}); i++; step(); }
+      else if(tries>25){ clearInterval(poll); i++; step(); }
+    },200);
+  };
+  step();
+}
+function finishScan(found,total){
+  tracks = found.map(f=>({vid:f.vid,title:f.title,answer:matchTitle(f.title)})).filter(t=>t.answer.length);
+  if(!tracks.length){ $("#trackList").innerHTML=found.map(f=>`<li>${f.title} (no match)</li>`).join(""); useFallback("The playlist loaded, but none of its titles matched the 20 final pieces yet. The professor may not have added them. Tell Claude what titles appear."); return; }
+  const covered=new Set(tracks.flatMap(t=>t.answer));
+  const missing=PIECES.filter(p=>!covered.has(p.id)).map(p=>p.name);
+  $("#startBtn").disabled=false; $("#startBtn").textContent="Start practice test";
+  $("#loadStatus").innerHTML=`Using <b>${tracks.length}</b> testable tracks from the course playlist (skipped ${total-tracks.length} others).`+
+    (missing.length?` <br>Not found: ${missing.join("; ")}.`:"");
+  $("#trackList").innerHTML=tracks.map(t=>`<li>${t.title} → <b>${t.answer.map(a=>byId[a].name).join(" / ")}</b></li>`).join("");
+}
+function useFallback(msg){
+  mode="fallback"; clearTimeout(loadTimer);
+  tracks=[]; $("#startBtn").disabled=true; $("#startBtn").textContent="Playlist unavailable";
+  $("#loadStatus").textContent = msg;
+}
+
+
+function onState(e){
+  if(!cur||scanning) return;
+  if(e.data===YT.PlayerState.PLAYING){
+    if(pendingSeek){
+      pendingSeek=false;
+      const capP = cur.answer&&cur.answer.length ? byId[cur.answer[0]].cap : null;
+      const d=Math.min(player.getDuration()||0, capP||1e9);  // e.g. Chávez: only the first 4:30 is tested
+      const vd=player.getVideoData?player.getVideoData():{};
+      if(mode==="playlist" && vd && vd.title && !cur.title){ cur.title=vd.title; cur.answer=matchTitle(vd.title); }
+      setFollow();
+      clipStart = ($("#optRandom").checked && d>CLIP+15) ? Math.floor(5+Math.random()*(d-CLIP-10)) : 0;
+      player.seekTo(clipStart,true);
+    }
+    $("#stage").classList.add("playing"); startTick();
+    $("#pStatus").textContent="Listening…";
+  } else if(e.data===YT.PlayerState.PAUSED||e.data===YT.PlayerState.ENDED){
+    $("#stage").classList.remove("playing"); stopTick();
+  } else if(e.data===YT.PlayerState.BUFFERING){ $("#pStatus").textContent="Loading clip…"; }
+}
+function onErr(e){
+  if(scanning) return;
+  if(mode==="playlist" && !tracks.length){ useFallback("The playlist couldn’t be embedded here. Try another browser or your phone."); return; }
+  $("#pStatus").textContent="This video can’t be played here (embedding blocked). Press Skip.";
+}
+function startTick(){ stopTick(); tick=setInterval(()=>{ played+=0.25; render(); if(played>=CLIP){ player.pauseVideo(); stopTick(); $("#pStatus").textContent="Time’s up. Make your guess (or replay)."; $("#replayBtn").disabled=false; } },250); }
+function stopTick(){ clearInterval(tick); tick=null; }
+function render(){ $("#timer").textContent=fmt(CLIP-played); $("#meter").style.width=Math.min(100,played/CLIP*100)+"%"; }
+
+function start(){
+  queue=shuffle(tracks); qi=0; results=[];
+  $("#startPanel").classList.add("hidden"); $("#sumPanel").classList.add("hidden"); $("#qPanel").classList.remove("hidden");
+  $("#followWrap").classList.toggle("hidden",!$("#optFollow").checked);
+  loadQ();
+}
+function loadQ(){
+  cur=queue[qi]; played=0; render(); stopTick(); pendingSeek=false;
+  $("#qNum").textContent=`Question ${qi+1} of ${queue.length}`;
+  const right=results.reduce((a,r)=>a+(+r.id||0),0); $("#qScore").textContent=`${right} correct so far`;
+  $("#guess").value=""; $("#follow").value=""; $("#result").className="result"; $("#result").innerHTML="";
+  $("#checkBtn").disabled=false; $("#replayBtn").disabled=true; $("#playBtn").disabled=false;
+  $("#pStatus").textContent="Press play when you’re ready.";
+  const kinds=[["What’s the texture?","tex"],["Name the genre.","genre"],[null,"q"]];
+  cur.fk = kinds[Math.floor(Math.random()*kinds.length)];
+  cur.followText=null; $("#followQ").textContent="Follow-up (shows once the clip starts)";
+  try{ player.stopVideo(); }catch(e){}
+}
+$("#playBtn").onclick=()=>{
+  if(!ready) return;
+  played=0; render(); pendingSeek=true; $("#playBtn").disabled=true;
+  player.loadVideoById(cur.vid);
+};
+$("#replayBtn").onclick=()=>{ played=0; render(); player.seekTo(clipStart,true); player.playVideo(); $("#replayBtn").disabled=true; };
+$("#skipBtn").onclick=()=>{ results.push({cur,guess:null,id:0,follow:null,skipped:true}); next(); };
+
+function setFollow(){
+  if(cur.followText) return;
+  const p = cur.answer && cur.answer.length ? byId[cur.answer[0]] : null;
+  if(cur.fk[0]) cur.followText=cur.fk[0];
+  else cur.followText = p ? p.q : "What’s the texture?";
+  if(!p && !cur.fk[0]) cur.fk=["What’s the texture?","tex"];
+  $("#followQ").textContent="Follow-up: "+cur.followText;
+}
+$("#checkBtn").onclick=()=>{
+  setFollow();
+  if(played<=0){ $("#pStatus").textContent="Play the clip first."; return; }
+  const g=$("#guess").value.trim(); if(!g){ $("#guess").focus(); return; }
+  try{ player.pauseVideo(); }catch(e){}
+  const ans=cur.answer||[]; const known=ans.length>0;
+  let best={score:0,who:false,what:false};
+  if(known) ans.forEach(a=>{const r=gradeFree(g,KEYS[a]); if(r.score>best.score) best=r;});
+  const ok = known ? best.score : null;
+  const p = known ? byId[ans[0]] : null;
+  const showFollow=$("#optFollow").checked;
+  let model = p ? (cur.fk[1]==="q" ? p.qa : (cur.fk[1]==="tex" ? p.tex : p.genre)) : "";
+  const r=$("#result");
+  r.className="result show "+(ok===0?"bad":"ok");
+  const miss = ok===0.5 ? `<p>Half credit: you got the ${best.who?"composer":"title"} but not the ${best.who?"title":"composer"}.</p>` : "";
+  r.innerHTML = `<h3>${ok===null?"Check this one yourself":ok===1?"Correct!":ok===0.5?"Half right":"Not quite"}</h3>
+    <p class="src">You wrote: ${g.replace(/</g,"&lt;")}</p>${miss}
+    ${ok!==null&&ok<1?`<div class="selfgrade"><button class="btn" data-ov="1">I actually had it right, count it</button></div>`:""}
+    ${p?`<p><b>Answer:</b> ${ans.map(a=>byId[a].name).join(" / ")}</p>`:""}
+    ${cur.title?`<p class="src">Track title: ${cur.title}</p>`:""}
+    ${ok===null?`<p>I couldn’t match this track title to a piece automatically. Did you get it right?</p><div class="selfgrade"><button class="btn" data-id="1">I got it</button><button class="btn" data-id="0">I missed it</button></div>`:""}
+    ${showFollow&&p?`<p><b>Follow-up (${cur.followText})</b><br>${model}</p><p>Did your follow-up answer match?</p><div class="selfgrade"><button class="btn" data-f="1">Yes</button><button class="btn" data-f="0">No</button></div>`:""}
+    <div class="row" style="margin-top:10px"><button class="btn primary" id="nextBtn">${qi+1<queue.length?"Next question →":"See results"}</button></div>`;
+  cur.res={cur,guess:g,id:ok,follow:null};
+  $("#checkBtn").disabled=true;
+  r.querySelectorAll("[data-ov]").forEach(b=>b.onclick=()=>{cur.res.id=1; b.parentNode.innerHTML="<p>Counted as correct.</p>";});
+  r.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>{cur.res.id=b.dataset.id==="1"?1:0; b.parentNode.innerHTML=`<p>Marked as ${cur.res.id?"correct":"missed"}.</p>`;});
+  r.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{cur.res.follow=b.dataset.f==="1"; b.parentNode.innerHTML=`<p>Follow-up marked ${cur.res.follow?"correct":"missed"}.</p>`;});
+  $("#nextBtn").onclick=()=>{ results.push(cur.res); next(); };
+};
+function next(){
+  qi++; if(qi<queue.length) loadQ(); else finish();
+}
+function finish(){
+  try{ player.stopVideo(); }catch(e){}
+  cur=null; $("#qPanel").classList.add("hidden"); $("#sumPanel").classList.remove("hidden");
+  const right=results.reduce((a,r)=>a+(+r.id||0),0), fr=results.filter(r=>r.follow===true).length, fa=results.filter(r=>r.follow!==null).length;
+  $("#sumScore").textContent=`${right} / ${results.length} IDs`;
+  $("#sumNote").textContent = fa ? `Follow-ups: ${fr} / ${fa} correct (self-graded).` : "";
+  $("#sumBody").innerHTML=results.map((r,i)=>{const a=r.cur.answer&&r.cur.answer.length?r.cur.answer.map(x=>byId[x].name).join(" / "):(r.cur.title||"?");
+    return `<tr><td>${i+1}</td><td>${a}</td><td>${r.skipped?"(skipped)":(r.guess||"").replace(/</g,"&lt;")}</td><td>${r.id===1||r.id===true?"✓":r.id===0.5?"½":"✗"}</td><td>${r.follow===null?"—":r.follow?"✓":"✗"}</td></tr>`}).join("");
+}
+$("#startBtn").onclick=start;
+$("#againBtn").onclick=()=>{ $("#sumPanel").classList.add("hidden"); start(); };
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>

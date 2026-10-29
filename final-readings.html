@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Final Reading ID Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,650;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --ink:#1d1b18; --muted:#5f5a52; --rule:#ddd8ce;
+  --accent:#7a2e2e; --accent-soft:#f4e7e4; --ok:#2c6e49; --ok-soft:#e3f1e8; --bad:#a3352a; --bad-soft:#fbeae7;
+  --f-display:"Source Serif 4", Georgia, serif; --f-body:"Public Sans", system-ui, sans-serif;
+}
+:root[data-theme="dark"]{ --bg:#15130f; --surface:#1e1b17; --ink:#ece7de; --muted:#a59e92; --rule:#36312a; --accent:#e09a8c; --accent-soft:#3a2420; --ok:#86c9a0; --ok-soft:#1b3326; --bad:#ec8a75; --bad-soft:#3a201c; color-scheme:dark; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);padding:0 16px 80px}
+a{color:var(--accent)}
+.wrap{max-width:760px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0 6px;font-size:.9rem}
+h1{font:650 2rem/1.15 var(--f-display);margin:14px 0 6px}
+.lede{color:var(--muted);margin:0 0 18px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .95rem var(--f-body);padding:10px 16px;border-radius:9px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.1);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.status{font-size:.88rem;color:var(--muted);margin-top:10px;min-height:1.4em}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.qhead .n{font:650 1.3rem var(--f-display)}
+.qhead .score{font-size:.9rem;color:var(--muted)}
+/* player area: the YouTube player sits under an opaque cover so the title/thumbnail stay hidden */
+.stage{position:relative;height:150px;border-radius:12px;overflow:hidden;background:var(--accent);margin-bottom:14px}
+.stage #yt{position:absolute;inset:0;width:100%;height:100%}
+.cover{position:absolute;inset:0;background:linear-gradient(135deg,#7a2e2e,#4a1c1c);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:10px;z-index:2}
+.bars{display:flex;gap:4px;align-items:flex-end;height:34px}
+.bars i{width:6px;background:#f3d9d3;border-radius:3px;height:8px}
+.playing .bars i{animation:b 0.9s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}.bars i:nth-child(4){animation-delay:.45s}.bars i:nth-child(5){animation-delay:.6s}
+@keyframes b{0%,100%{height:8px}50%{height:32px}}
+@media (prefers-reduced-motion: reduce){.playing .bars i{animation:none;height:20px}}
+.timer{font:700 1.6rem var(--f-display);font-variant-numeric:tabular-nums}
+.meter{position:absolute;left:0;bottom:0;height:5px;background:#f3d9d3;width:0;z-index:3;transition:width .25s linear}
+label.f{display:block;font-weight:700;font-size:.9rem;margin:14px 0 6px}
+select,textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:9px;background:var(--surface);color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+.result{margin-top:16px;border-radius:10px;padding:14px 16px;display:none}
+.result.show{display:block}
+.result.ok{background:var(--ok-soft);border-left:4px solid var(--ok)}
+.result.bad{background:var(--bad-soft);border-left:4px solid var(--bad)}
+.result h3{margin:0 0 6px;font:650 1.1rem var(--f-display)}
+.result p{margin:6px 0;font-size:.94rem}
+.result .src{font-size:.8rem;color:var(--muted)}
+.selfgrade{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.summary table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:10px}
+.summary td,.summary th{padding:7px 8px;border-bottom:1px solid var(--rule);text-align:left}
+.summary th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.big{font:650 2.4rem var(--f-display)}
+.hidden{display:none}
+.settings{margin-top:22px;font-size:.9rem}
+.settings summary{cursor:pointer;font-weight:600}
+.opt{display:flex;gap:8px;align-items:center;margin:8px 0}
+.excerpt{font:500 1.12rem/1.6 var(--f-display);font-style:italic;background:var(--bg);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:16px 18px;margin:0 0 6px}
+.note{font-size:.8rem;color:var(--muted);margin:0 0 4px}
+.model ul{margin:4px 0 0;padding-left:18px;font-size:.93rem}
+.hintbtn{font-size:.85rem}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<div class="top"><a href="final.html">← Final study guide</a><a href="final-listening.html">Listening test →</a></div>
+<h1>Final Exam · Reading ID Practice</h1>
+<p class="lede">Like Part II: read a short passage and <b>type the source title</b> as it appears on the final sheet. (No context explanation on the final.)</p>
+
+<div class="panel" id="startPanel">
+  <div class="row"><button class="btn primary" id="startBtn">Start practice test</button></div>
+  <div class="opt"><input type="checkbox" id="optDouble"><label for="optDouble">Long version: 22 questions (two passages per reading)</label></div>
+  <p class="status">Passages are paraphrased in the style of each reading (not exact quotes), so focus on the ideas and voice. They change each time you retake it.</p>
+</div>
+
+<div class="panel hidden" id="qPanel">
+  <div class="qhead"><span class="n" id="qNum">Question 1</span><span class="score" id="qScore"></span></div>
+  <p class="note">Passage (paraphrased)</p>
+  <blockquote class="excerpt" id="excerpt"></blockquote>
+  <button class="btn hintbtn" id="hintBtn" type="button">Show a hint</button>
+  <p class="status" id="hint"></p>
+  <label class="f" for="guess">Source title</label>
+  <input id="guess" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. Cage, Credo" style="width:100%;font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:9px;background:var(--surface);color:var(--ink)">
+  <div id="ctxWrap" class="hidden"></div>
+  <div class="row" style="margin-top:14px"><button class="btn primary" id="checkBtn">Check answer</button></div>
+  <div class="result" id="result"></div>
+</div>
+
+<div class="panel summary hidden" id="sumPanel">
+  <div class="big" id="sumScore"></div>
+  <p class="status" id="sumNote"></p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Your guess</th><th>ID</th></tr></thead><tbody id="sumBody"></tbody></table>
+  <div class="row" style="margin-top:16px"><button class="btn primary" id="againBtn">Take it again</button><a class="btn" href="final.html#readings">Review the readings</a></div>
+</div>
+</div>
+
+<script>
+const DOCS = [
+ {id:"sand", name:"Glimpses of Chopin Composing, Playing Piano (George Sand)", who:["chopin","sand","george sand"], what:["glimpses","composing"],
+  passages:["His ideas came suddenly and whole, at the piano or on a walk, and he rushed to the keyboard to hear them. Then began the most heartbreaking labor I have ever witnessed: weeks spent on a single page, trying to recapture what had come to him complete.",
+   "He would shut himself in his room for days, weeping, pacing, breaking his pens, repeating and altering one measure a hundred times, only to return in the end to what he had written at first.",
+   "His creation was spontaneous, almost miraculous. He found it without searching, but fixing it on paper threw him into despair."],
+  hint:"A novelist describes her companion at work.",
+  about:"George Sand (novelist, Chopin’s partner): effortless inspiration followed by agonized revision; the Romantic image of the tortured genius."},
+ {id:"liszt", name:"Liszt, the All-Conquering Pianist", who:["liszt"], what:["all conquering","conquering","pianist"],
+  passages:["When he finished, ladies hurled flowers and jewels onto the stage; some fainted, others fought over the gloves and handkerchief he left behind.",
+   "He tossed back his long hair and attacked the keys like a storm; strings snapped under his hands, and a second piano had to be brought out to finish the concert.",
+   "No performer has ever held such power over a crowd. He conquered an audience the way a general takes a city."],
+  hint:"Accounts of a superstar pianist’s concerts.",
+  about:"“Lisztomania”: the virtuoso as celebrity in the new public concert culture."},
+ {id:"traviata", name:"Traviata Sources", who:["traviata"], what:["traviata"],
+  passages:["For Venice I am setting The Lady of the Camellias. Others might refuse the subject on moral grounds, but I take it gladly: it is a story of our own time.",
+   "Last night’s premiere was a fiasco. Is it my fault or the singers’? Time will be the judge.",
+   "The censors insist that the action be moved back a century and the costumes changed. They cannot stand to see a fallen woman of today on the stage."],
+  hint:"Letters and reports about an 1853 Venetian opera.",
+  about:"Verdi’s <i>La Traviata</i> (1853), after Dumas: a contemporary courtesan heroine, censorship, and a failed premiere."},
+ {id:"guiraud", name:"Debussy, Interview with Guiraud", who:["debussy"], what:["guiraud","interview"],
+  passages:["Rules? I don’t need them. You only have to listen; pleasure is the only law.",
+   "I dream of a poem that only half-says things, where the characters don’t argue but simply live and endure, and where music begins where words fall short.",
+   "Why must every theme be worked out and developed endlessly? Music should be free and suggestive, like light and shadow, not a harmony lesson."],
+  hint:"A young French composer talks with his old conservatory teacher, ca. 1890.",
+  about:"Debussy rejects conservatory rules of harmony and development in favor of freedom, suggestion and pleasure."},
+ {id:"busoni", name:"Schoenberg, Letter to Busoni", who:["schoenberg","schonberg"], what:["busoni","letter"],
+  passages:["I strive for complete liberation from all forms, from every symbol of coherence and logic. Away with motivic working-out!",
+   "Harmony must not be the cement or the bricks of a building. It should be expression and nothing else.",
+   "My music must be brief, two notes rather than an edifice, and it must express what lies in us beneath consciousness."],
+  hint:"A 1909 letter from a Viennese composer to a pianist-composer friend.",
+  about:"Schoenberg (1909): Expressionism; freeing music from form, logic and tonal harmony (atonality)."},
+ {id:"stravinsky", name:"Stravinsky, What I Wished to Express in The Rite of Spring", who:["stravinsky"], what:["what i wished","wished to express","rite of spring","express"],
+  passages:["I wanted to express the sublime uprising of Nature renewing itself, the vast, obscure sensation all things feel when Nature renews its forms.",
+   "In the prelude, before the curtain rises, the orchestra alone conveys the dread every sensitive soul feels before the powers of nature.",
+   "At the end the wise elders gather, and the chosen maiden dances until she falls dead, a sacrifice to spring."],
+  hint:"A composer explains his ballet in a Paris journal, 1913.",
+  about:"Stravinsky describes the pagan scenario and the elemental force of spring behind the ballet."},
+ {id:"dubois", name:"DuBois, Of the Sorrow Songs", who:["dubois","du bois","w e b dubois"], what:["sorrow songs","sorrow"],
+  passages:["These songs are the music of an unhappy people, children of disappointment. They speak of death and suffering and an unspoken longing for a truer world.",
+   "Through all the sorrow of these songs runs a hope: a faith that someday, somewhere, people will be judged by their souls and not by their skins.",
+   "The slave songs are the one true American music and the greatest gift Black Americans have given this nation."],
+  hint:"From <i>The Souls of Black Folk</i>, 1903.",
+  about:"W.E.B. Du Bois: spirituals as America’s most important music, carrying sorrow and hope."},
+ {id:"hurston", name:"Hurston, Spirituals and Neo-Spirituals", who:["hurston"], what:["spirituals","neo spirituals","neo-spirituals"],
+  passages:["There has never been a genuine presentation of the spirituals to the public. Glee clubs and concert singers put on their tuxedos and sing arrangements, but that is not the real thing.",
+   "Real spirituals are not solos or polished arrangements. They are made new every time a congregation sings them, with jagged harmonies and shifting keys.",
+   "These neo-spirituals are fine music, but they are the work of trained musicians, not the songs of the people."],
+  hint:"A folklorist and novelist on Black religious song, 1934.",
+  about:"Zora Neale Hurston: true spirituals are improvised and communal; concert arrangements are “neo-spirituals.”"},
+ {id:"chavez", name:"Chávez, A Latin American Composer", who:["chavez"], what:["latin american composer","latin american"],
+  passages:["We must stop imitating Europe. The Latin American composer has to find his voice in the music of his own land and its indigenous roots.",
+   "The music of Mexico’s ancient peoples is not a museum curiosity. It is a living foundation on which a new art can be built.",
+   "To become universal, a composer must first be truly national and speak with the accent of the American continent."],
+  hint:"A Mexican composer-conductor on national music.",
+  about:"Chávez: Latin American composers should build on indigenous traditions instead of copying Europe."},
+ {id:"cage", name:"Cage, Credo", who:["cage"], what:["credo"],
+  passages:["Most of what surrounds us is noise: a truck, the rain, radio static. When we stop ignoring it and actually listen, we find it fascinating.",
+   "The use of noise to make music will keep growing until we have a music made with electrical instruments that can produce any and every sound.",
+   "Where composers once organized music through harmony, the composer of the future will organize sound itself, noise included, through rhythm."],
+  hint:"A 1937 manifesto about the future of music.",
+  about:"Cage: noise and all sound as musical material; predicts electronic music."},
+ {id:"reich", name:"Minimalism (Reich, Music as a Gradual Process)", who:["minimalism","reich"], what:["minimalism","gradual process","music as a gradual process"],
+  passages:["I am interested in perceptible processes. I want to be able to hear the process happening throughout the music.",
+   "Performing and hearing a gradual musical process is like pulling back a swing, letting it go, and watching it slowly come to rest.",
+   "Once the process is set up and running, it plays itself out. The composer doesn’t control every sound."],
+  hint:"A 1968 essay by an American composer.",
+  about:"Reich: music as a slow, audible process (phasing); a founding statement of Minimalism."}
+];
+const byId=Object.fromEntries(DOCS.map(d=>[d.id,d]));
+const $=s=>document.querySelector(s);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+// ---- free-response grading: needs the composer/author AND the title/work; forgives small typos ----
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim();
+function lev(a,b){const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;const d=Array.from({length:m+1},(_,i)=>[i]);for(let j=1;j<=n;j++)d[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n];}
+function hasKey(text,key){
+  const t=norm(text), k=norm(key); if(!k) return false;
+  if((" "+t+" ").includes(" "+k+" ")||(k.length>=5&&t.includes(k))) return true;
+  const tw=t.split(" "), kw=k.split(" ");
+  // every word of the key must appear (allowing 1 typo, or 2 for long words)
+  return kw.every(w=>tw.some(x=>x===w||(w.length>=4&&lev(x,w)<=(w.length>=7?2:1))));
+}
+const anyKey=(text,keys)=>keys.some(k=>hasKey(text,k));
+function gradeFree(text,item){ const a=anyKey(text,item.who), t=anyKey(text,item.what); return {score:a&&t?1:(a||t?0.5:0),who:a,what:t}; }
+
+const KEYS=Object.fromEntries(DOCS.map(d=>[d.id,{who:d.who,what:d.what}]));
+let queue=[],qi=0,results=[],cur=null;
+
+function start(){
+  const per=$("#optDouble").checked?2:1;
+  queue=shuffle(DOCS.flatMap(d=>shuffle(d.passages).slice(0,per).map(p=>({d,p}))));
+  qi=0;results=[];
+  $("#startPanel").classList.add("hidden");$("#sumPanel").classList.add("hidden");$("#qPanel").classList.remove("hidden");
+  loadQ();
+}
+function loadQ(){
+  cur=queue[qi];
+  $("#qNum").textContent=`Question ${qi+1} of ${queue.length}`;
+  $("#qScore").textContent=`${results.reduce((a,r)=>a+r.id,0)} correct so far`;
+  $("#excerpt").textContent="“"+cur.p+"”";
+  $("#hint").textContent="";$("#guess").value="";
+  $("#result").className="result";$("#result").innerHTML="";$("#checkBtn").disabled=false;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("#hintBtn").onclick=()=>{ $("#hint").innerHTML="Hint: "+cur.d.hint; cur.hinted=true; };
+$("#checkBtn").onclick=()=>{
+  const g=$("#guess").value.trim(); if(!g){$("#guess").focus();return;}
+  const gr=gradeFree(g,KEYS[cur.d.id]), ok=gr.score, long=false;
+  const r=$("#result"); r.className="result show "+(ok?"ok":"bad");
+  r.innerHTML=`<h3>${ok===1?"Correct!":ok===0.5?"Half right":"Not quite"}</h3><p><b>Answer:</b> ${cur.d.name}</p>
+   <p class="src">You wrote: ${g.replace(/</g,"&lt;")}</p>
+   ${ok===0.5?`<p>Half credit: include both the author and the title.</p>`:""}
+   ${ok<1?`<div class="selfgrade"><button class="btn" data-ov="1">I actually had it right, count it</button></div>`:""}
+   <p class="src">About it: ${cur.d.about}</p>
+   ${long?`<p>Did your answer cover the who/when, the main idea, and why it matters?</p><div class="selfgrade"><button class="btn" data-f="2">Yes, all of it</button><button class="btn" data-f="1">Partly</button><button class="btn" data-f="0">Missed it</button></div>`:""}
+   <div class="row" style="margin-top:10px"><button class="btn primary" id="nextBtn">${qi+1<queue.length?"Next question →":"See results"}</button></div>`;
+  cur.res={cur,guess:g,id:ok,ctx:null};
+  $("#checkBtn").disabled=true;
+  r.querySelectorAll("[data-ov]").forEach(b=>b.onclick=()=>{cur.res.id=1; b.parentNode.innerHTML="<p>Counted as correct.</p>";});
+  r.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{cur.res.ctx=+b.dataset.f; b.parentNode.innerHTML=`<p>Marked: ${["missed","partly","yes"][cur.res.ctx]}.</p>`;});
+  $("#nextBtn").onclick=()=>{results.push(cur.res); qi++; qi<queue.length?loadQ():finish();};
+};
+function finish(){
+  $("#qPanel").classList.add("hidden");$("#sumPanel").classList.remove("hidden");
+  const right=results.reduce((a,r)=>a+r.id,0), graded=results.filter(r=>r.ctx!==null);
+  $("#sumScore").textContent=`${right} / ${results.length} IDs`;
+  $("#sumNote").textContent=graded.length?`Context answers: ${graded.filter(r=>r.ctx===2).length} full, ${graded.filter(r=>r.ctx===1).length} partial, ${graded.filter(r=>r.ctx===0).length} missed (self-graded).`:"";
+  $("#sumBody").innerHTML=results.map((r,i)=>`<tr><td>${i+1}</td><td>${r.cur.d.name}</td><td>${r.guess.replace(/</g,"&lt;")}</td><td>${r.id===1?"✓":r.id===0.5?"½":"✗"}</td></tr>`).join("");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("#startBtn").onclick=start;
+$("#againBtn").onclick=start;
+</script>
+</body>
+</html>

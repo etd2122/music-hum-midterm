@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Music Hum Final Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,650;1,8..60,500&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --ink:#1d1b18; --muted:#5f5a52; --rule:#ddd8ce;
+  --accent:#7a2e2e; --accent-soft:#f4e7e4; --tip:#7a5a00; --tip-soft:#fbf2dc;
+  --ok:#2c6e49; --ok-soft:#e3f1e8;
+  --med:#5b4a8a; --ren:#2f6b5e; --bar:#8a5a1f; --cla:#2d5a8a; --rom:#8a3d5c; --mod:#2f6b5e; --us:#2d5a8a;
+  --f-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15130f; --surface:#1e1b17; --ink:#ece7de; --muted:#a59e92; --rule:#36312a;
+  --accent:#e09a8c; --accent-soft:#3a2420; --tip:#e7c06a; --tip-soft:#33291a;
+  --ok:#86c9a0; --ok-soft:#1b3326; --med:#b4a5e6; --ren:#8fd0bf; --bar:#e2b071; --cla:#97bfe8; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#15130f; --surface:#1e1b17; --ink:#ece7de; --muted:#a59e92; --rule:#36312a;
+  --accent:#e09a8c; --accent-soft:#3a2420; --tip:#e7c06a; --tip-soft:#33291a;
+  --ok:#86c9a0; --ok-soft:#1b3326; --med:#b4a5e6; --ren:#8fd0bf; --bar:#e2b071; --cla:#97bfe8; color-scheme:dark; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);padding-inline:16px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.shell{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:230px minmax(0,1fr);gap:40px}
+nav.rail{position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto;padding-block:28px}
+.rail .brand{font:650 1.1rem/1.25 var(--f-display);margin:0 0 4px}
+.rail .sub{font-size:.8rem;color:var(--muted);margin:0 0 18px}
+.rail h4{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+.rail a{display:block;text-decoration:none;color:var(--ink);font-size:.9rem;padding:3px 8px;border-left:2px solid transparent}
+.rail a:hover{border-left-color:var(--accent);color:var(--accent)}
+.rail .tools{margin-top:22px;display:flex;flex-direction:column;gap:8px}
+.rail .tools .btn{padding:9px 14px;border:1px solid var(--rule);justify-content:center}
+.rail .tools .btn.primary{border-color:var(--accent);color:#fff}
+main{padding-block:28px 80px;min-width:0}
+h1{font:650 2.3rem/1.12 var(--f-display);margin:0 0 10px;text-wrap:balance}
+h2{font:650 1.6rem/1.2 var(--f-display);margin:56px 0 6px;padding-top:8px;scroll-margin-top:12px}
+h3{font:650 1.2rem/1.25 var(--f-display);margin:0}
+.lede{color:var(--muted);max-width:68ch;margin:0 0 20px}
+.section-note{color:var(--muted);max-width:70ch;margin:0 0 18px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 .9rem var(--f-body);padding:9px 14px;border-radius:8px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.1);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.format{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
+.format .panel h3{font-size:1.05rem;margin-bottom:6px}
+.format .panel p{margin:0;font-size:.93rem;color:var(--muted)}
+.callout{background:var(--tip-soft);border-left:3px solid var(--tip);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:.94rem}
+.callout b{color:var(--tip)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 6px}
+.era{border-top:4px solid var(--c);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;border-left:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.era .name{font:650 1rem var(--f-display);color:var(--c)}
+.era .dates{font-size:.78rem;color:var(--muted);margin-bottom:8px}
+.era ul{margin:0;padding:0;list-style:none;font-size:.86rem}
+.era li{padding:3px 0;border-top:1px dashed var(--rule)}
+.era li:first-child{border-top:0}
+.era a{text-decoration:none;color:var(--ink)}
+.era a:hover{color:var(--accent)}
+/* piece cards */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 18px;padding:12px 14px;background:var(--surface);border:1px solid var(--rule);border-radius:10px}
+.toolbar label{font-size:.9rem;display:flex;align-items:center;gap:6px;cursor:pointer}
+.toolbar .progress{margin-left:auto;font-size:.85rem;color:var(--muted)}
+.piece{background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--c);border-radius:12px;padding:18px 20px;margin:0 0 18px;scroll-margin-top:12px}
+.piece header{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.chip{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);padding:2px 8px;border-radius:99px;margin-bottom:6px}
+.piece .who{font-size:.95rem;color:var(--muted);margin:2px 0 0}
+.piece .who b{color:var(--ink)}
+.mask .piece .idtext{filter:blur(7px);user-select:none;transition:filter .2s}
+.mask .piece.revealed .idtext{filter:none;user-select:auto}
+.reveal{display:none}
+.mask .reveal{display:inline-flex}
+.mask .piece.revealed .reveal{display:none}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.tag{font-size:.78rem;border:1px solid var(--rule);border-radius:6px;padding:2px 8px;background:var(--bg)}
+.tag b{font-weight:700;color:var(--muted);margin-right:4px;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
+.cols h4{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.cols ul{margin:0;padding-left:18px;font-size:.93rem}
+.cols li{margin:3px 0}
+.listen{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.listen a{font-size:.85rem;text-decoration:none;border:1px solid var(--rule);border-radius:99px;padding:5px 12px;background:var(--bg);color:var(--ink)}
+.listen a::before{content:"▶ ";color:var(--accent);font-size:.75em}
+.listen a:hover{border-color:var(--accent);color:var(--accent)}
+.listen a.search::before{content:"⌕ "}
+.ulterms{margin:14px 0 0;padding:10px 14px 10px 30px;background:var(--accent-soft);border-radius:8px;font-size:.93rem}
+.ulterms .ullabel{font-weight:700;color:var(--accent)}
+.ulterms b{text-decoration:underline;text-underline-offset:2px}
+details.q{margin-top:12px;border:1px solid var(--rule);border-radius:8px;background:var(--bg)}
+details.q summary{cursor:pointer;padding:9px 12px;font-size:.92rem;font-weight:600}
+details.q div{padding:0 12px 10px;font-size:.92rem}
+details.q p{margin:6px 0}
+.got{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted);cursor:pointer;white-space:nowrap}
+.got input{accent-color:var(--ok);width:16px;height:16px}
+.piece.known{background:linear-gradient(0deg,var(--ok-soft),var(--ok-soft)) padding-box}
+/* compare table */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:720px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600}
+/* glossary */
+.search{width:100%;max-width:420px;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;font:inherit;background:var(--surface);color:var(--ink)}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:14px}
+.term{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:12px 14px}
+.term dt{font-weight:700}
+.term dt small{font-weight:400;color:var(--muted);font-size:.75rem;margin-left:6px}
+.term dd{margin:4px 0 0;font-size:.9rem;color:var(--muted)}
+/* elements */
+.elements{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.elements .panel h3{font-size:1.05rem;margin-bottom:4px}
+.elements .panel p{font-size:.9rem;color:var(--muted);margin:0 0 8px}
+.elements .listen{margin-top:6px}
+.elements .listen a{font-size:.78rem;padding:3px 10px}
+/* docs */
+.doc{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.doc .meta{font-size:.85rem;color:var(--muted);margin:2px 0 10px}
+.doc .clue{background:var(--accent-soft);border-radius:8px;padding:10px 12px;font-size:.9rem;margin-top:10px}
+.doc .clue b{color:var(--accent)}
+.doc .cols{margin-top:4px}
+footer{color:var(--muted);font-size:.82rem;margin-top:60px;border-top:1px solid var(--rule);padding-top:16px}
+.mock{display:grid;gap:12px}
+.mock .stage{font:650 1.25rem var(--f-display)}
+.mock .ans{display:none;border-top:1px dashed var(--rule);padding-top:10px}
+.mock.show .ans{display:block}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;gap:0}
+  nav.rail{position:static;max-height:none;padding-block:18px 0;border-bottom:1px solid var(--rule)}
+  .rail .links{display:flex;flex-wrap:wrap;gap:4px 10px}
+  .rail h4{display:none}
+  .rail a{border-left:0;padding:2px 0}
+  .rail .tools{flex-direction:row;flex-wrap:wrap;margin:12px 0 14px}
+  .timeline{grid-template-columns:1fr 1fr}
+  .cols{grid-template-columns:1fr}
+  h1{font-size:1.85rem}
+}
+@media (max-width:440px){ .timeline{grid-template-columns:1fr} }
+.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:12px 0}
+.checklist .panel h3{font-size:1rem;margin-bottom:4px}
+.checklist .panel p{font-size:.88rem;color:var(--muted);margin:0}
+ol.outline{padding-left:20px} ol.outline li{margin:6px 0}
+.readings{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.readings .panel h3{font-size:1rem;margin-bottom:4px}
+.readings .panel p{font-size:.88rem;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<div class="shell" id="top">
+<nav class="rail" aria-label="Sections">
+  <p class="brand">Music Hum Final</p>
+  <p class="sub">Prof. Wermager · study guide</p>
+  <div class="links">
+    <h4>Overview</h4>
+    <a href="#format">Exam format</a>
+    <h4>Part I · Listening</h4>
+    <a href="#listening">Listening IDs (20)</a>
+    <a href="final-listening.html"><b>▶ 30-sec practice test</b></a>
+    <h4>Part II · Readings</h4>
+    <a href="#readings">Reading IDs (11)</a>
+    <a href="final-readings.html"><b>✎ Reading ID practice test</b></a>
+    <h4>Part III · Essay</h4>
+    <a href="#essay">Music-text analysis</a>
+    <h4>Other</h4>
+    <a href="./">Midterm guide</a>
+  </div>
+  <div class="tools">
+    <a class="btn primary" href="https://www.youtube.com/playlist?list=PLUXmdvXa4RAIGOG2WvUFP9cKpUFwkvxWZ" target="_blank" rel="noopener">YouTube playlist</a>
+  </div>
+</nav>
+<main>
+<h1>Music Humanities — Final Exam Study Guide</h1>
+<p class="lede">The 20 listening IDs, the 11 reading IDs, and a game plan for the music-text essay, plus two practice tests.</p>
+<div class="row">
+  <a class="btn primary" href="final-listening.html">▶ Listening practice test</a>
+  <a class="btn" href="final-readings.html">✎ Reading ID practice test</a>
+  <a class="btn" href="https://www.youtube.com/playlist?list=PLUXmdvXa4RAIGOG2WvUFP9cKpUFwkvxWZ" target="_blank" rel="noopener">Open the exam playlist</a>
+</div>
+
+<h2 id="format">Exam format</h2>
+<div class="format">
+  <div class="panel"><h3>Part I · Composers &amp; Titles</h3><p>Identify composer and title from the playlist recordings. You <b>may or may not</b> get a follow-up question, drawn from the <b>underlined terms on the slides</b>. Chávez: only the first 4:30 of the track.</p></div>
+  <div class="panel"><h3>Part II · Reading ID</h3><p>Identify short excerpts by the <b>source titles listed</b>. Unlike the midterm, <b>no context explanation</b>.</p></div>
+  <div class="panel"><h3>Part III · Music-Text Analysis</h3><p>An unfamiliar song + its text, played 4 times. Write an essay on how the composer brings the text to musical life, using musical elements as evidence.</p></div>
+</div>
+<div class="callout"><b>Heads up:</b> the follow-ups below are my best guesses at likely terms. Upload the final-unit slides and I’ll swap in the exact underlined terms.</div>
+
+<h2 id="listening">Part I · Listening IDs</h2>
+<p class="section-note">Grouped as on the exam sheet. Each card: what you’ll hear, context, and a practice follow-up.</p>
+<div id="pieces"></div>
+
+<h2 id="readings">Part II · Reading IDs</h2>
+<p class="section-note">Learn the <b>exact titles</b>; that’s all you need to write. The clue is what to look for in the excerpt.</p>
+<div class="readings" id="readingGrid"></div>
+
+<h2 id="essay">Part III · Music-text analysis</h2>
+<p class="section-note">You hear the song four times. Use each hearing for a different job, and tie every musical observation to a specific word, line or idea in the text.</p>
+<div class="panel"><h3 style="margin-bottom:8px">A plan for the four hearings</h3>
+<ol class="outline">
+  <li><b>Before hearing 1:</b> read the text. Mark the speaker, the mood, the turning point, and vivid images (motion, nature, emotions, death, love).</li>
+  <li><b>Hearing 1, big picture:</b> genre &amp; forces (voice + piano? orchestra?), overall mood, form (strophic/repeating verses vs. through-composed), where the climax is.</li>
+  <li><b>Hearing 2, melody &amp; text-setting:</b> syllabic vs. melismatic, high/low register on key words, conjunct vs. disjunct, word painting.</li>
+  <li><b>Hearing 3, accompaniment &amp; harmony:</b> what the piano/orchestra depicts, consonance vs. dissonance, major vs. minor shifts, ostinatos, texture changes.</li>
+  <li><b>Hearing 4, confirm &amp; time-stamp:</b> tempo &amp; dynamics changes, the ending (resolved or not?), and grab 2–3 precise moments as evidence.</li>
+</ol></div>
+<h3 style="margin:22px 0 4px">Elements checklist: ask of every line</h3>
+<div class="checklist" id="checklist"></div>
+<div class="panel"><h3 style="margin-bottom:8px">Essay structure</h3>
+<ol class="outline">
+  <li><b>Intro / thesis:</b> name the text’s central idea and claim how the music shapes it (e.g. “The composer turns a calm poem into a growing nightmare through an accompaniment that…”).</li>
+  <li><b>Body 1–3:</b> one musical strategy per paragraph (e.g. accompaniment as image; melody &amp; text-setting; harmony &amp; form), each with a specific moment in the text and what you hear there.</li>
+  <li><b>Turning point:</b> show how the music changes when the text changes.</li>
+  <li><b>Ending:</b> how the final bars resolve (or don’t) and what that says about the text.</li>
+  <li><b>Use course vocabulary</b> and compare briefly to pieces we studied (Erlkönig, Im wunderschönen Monat Mai, Schwanenlied, Deep River, Strange Fruit…).</li>
+</ol></div>
+<div class="callout"><b>Practice:</b> try the four-hearing routine on art songs not on our list, e.g. Schubert’s “Gretchen am Spinnrade” or “Der Lindenbaum,” or Robert Schumann’s “Ich grolle nicht.” Find the text and a recording, set a timer, and write a 4-paragraph essay.</div>
+
+<footer>Built from the final exam information sheet. <a href="#top">Back to top ↑</a></footer>
+</main>
+</div>
+<script>
+const PIECES = [
+ {id:"erlkonig", era:"Romantic", name:"Franz Schubert, Erlkönig (Elf-King)", date:"1815", rx:/erlk(o|ö|oe)nig|erl.?king|elf.?king/i,
+  who:["schubert"], what:["erlkonig","erlkoenig","erlking","erl king","elf king","elf-king"],
+  tex:"Homophony (voice + piano)", genre:"Lied (German art song)",
+  hear:["One singer + piano; the piano pounds fast repeated triplets (galloping horse)","The singer voices 4 characters: narrator, father (low, calm), son (high, panicked), Elf-King (sweet, coaxing)","The son’s cries get higher and more dissonant each time","Ends abruptly: the music stops and the last line is almost spoken"],
+  facts:["Setting of Goethe’s ballad: a father rides through the night with his sick son, who is lured by the supernatural Elf-King and dies","Lied = German art song for voice and piano, a key Romantic genre","Composed when Schubert was about 18"],
+  q:"How does Schubert make one singer sound like several characters?", qa:"Each character gets its own <b>register</b>, mode and style: the father low and steady, the son high and rising in <b>dissonance</b>, the Elf-King in sweet, major-key melodies. The galloping piano <b>ostinato</b> is <b>word painting</b>."},
+ {id:"monatmai", era:"Romantic", name:"Robert Schumann, Im wunderschönen Monat Mai (In the beautiful month of May)", date:"1840", rx:/wundersch|monat mai|beautiful month/i,
+  who:["robert schumann","robert","schumann"], what:["wunderschonen","monat mai","beautiful month","month of may"],
+  tex:"Homophony (voice + piano)", genre:"Lied, first song of the cycle Dichterliebe",
+  hear:["Short, gentle song for voice and piano","Piano opens with a hazy, unresolved figure and keeps circling","Sweet, wistful melody; soft dynamics","Ends hanging, unresolved: no final cadence"],
+  facts:["Text by Heinrich Heine: in May, love blossomed and I confessed my longing","No. 1 of the song cycle <i>Dichterliebe</i> (A Poet’s Love)","Written in 1840, the “year of song,” when he married Clara Wieck"],
+  q:"How does the harmony reflect the text?", qa:"The piano never settles in a clear key and the song ends <b>unresolved</b> (on a dissonant chord), mirroring <b>longing</b> and unfulfilled desire."},
+ {id:"clara", era:"Romantic", name:"Clara Schumann, Piano Concerto", date:"1835 (Op. 7 in A minor)", rx:/clara.*concert|concert.*clara|wieck.*concert|concerto in a minor,? op\.? ?7/i,
+  who:["clara","clara schumann","clara wieck","wieck"], what:["piano concerto","concerto"],
+  tex:"Homophony (soloist + orchestra)", genre:"Piano concerto",
+  hear:["Solo piano with orchestra","Brilliant, virtuosic piano writing: fast runs, big chords","Dramatic, Romantic mood with lyrical moments","The piano often leads, the orchestra supports"],
+  facts:["Written as a teenager; she was one of the most famous concert pianists of the century","Married Robert Schumann; balanced career, composing and raising a large family","Concerto = showpiece for a virtuoso soloist with orchestra"],
+  q:"What genre is this, and what role does the soloist play?", qa:"<b>Piano concerto</b>: a virtuoso soloist set against an orchestra, showcasing <b>virtuosity</b>."},
+ {id:"hensel", era:"Romantic", name:"Fanny Hensel, Schwanenlied (Swansong)", date:"pub. 1846", rx:/schwanenlied|swan.?song|hensel/i,
+  who:["hensel","fanny","fanny hensel","mendelssohn"], what:["schwanenlied","swansong","swan song"],
+  tex:"Homophony (voice + piano)", genre:"Lied",
+  hear:["Soprano + piano in a gently rocking, lilting rhythm","Lyrical, flowing melody","Bittersweet, melancholy tone","Short strophic-feeling song"],
+  facts:["Text by Heine: a falling star, falling blossoms, and a swan singing as it dies, like love fading","Fanny Hensel (née Mendelssohn), Felix Mendelssohn’s sister; a gifted composer discouraged by her family from publishing","Published under her own name only near the end of her life"],
+  q:"How does the music fit the image of a dying swan?", qa:"The rocking accompaniment suggests gliding on water; the falling melodic lines and soft, fading <b>dynamics</b> paint the image of loss."},
+ {id:"chopin", era:"Romantic", name:"Frédéric Chopin, Nocturne", date:"1830s", rx:/chopin.*nocturne|nocturne.*chopin/i,
+  who:["chopin"], what:["nocturne"],
+  tex:"Homophony (melody + broken-chord accompaniment)", genre:"Nocturne (solo piano character piece)",
+  hear:["Solo piano","A long, singing, ornamented melody in the right hand","Left hand plays gentle broken chords underneath","Flexible tempo (rubato); dreamy, intimate night-music mood"],
+  facts:["Polish-born pianist-composer who lived in Paris; wrote almost entirely for piano","Preferred intimate salons to big concert halls","Nocturne = “night piece”; melody imitates bel canto opera singing"],
+  q:"What is rubato, and where do you hear it?", qa:"<b>Rubato</b>: flexible, “stolen” time, where the pianist stretches and rushes the tempo for expression, especially in the ornamented melody."},
+ {id:"liszt", era:"Romantic", name:"Franz Liszt, La Campanella (The Little Bell)", date:"1851", rx:/campanella/i,
+  who:["liszt"], what:["campanella","little bell"],
+  tex:"Homophony", genre:"Piano étude / virtuoso showpiece",
+  hear:["Solo piano, extremely virtuosic","High, repeated, ringing notes like a little bell","Huge leaps across the keyboard, very fast","Grows more and more dazzling toward the end"],
+  facts:["Based on a theme by violin virtuoso Paganini","Liszt was the first superstar pianist (“Lisztomania”)","Showcases <b>virtuosity</b> as spectacle"],
+  q:"What makes this piece a showpiece?", qa:"Extreme <b>virtuosity</b>: wide leaps, rapid repeated high notes imitating a bell (<b>word/sound painting</b>), and escalating difficulty."},
+ {id:"debussy", era:"Modernism", name:"Claude Debussy, Des pas sur la neige (Footprints in the snow)", date:"1910 (Préludes, Book I)", rx:/pas sur la neige|pas sur le neige|footprints in the snow/i,
+  who:["debussy"], what:["des pas","pas sur","neige","footprints","snow"],
+  tex:"Homophony / sparse layers", genre:"Piano prelude",
+  hear:["Solo piano, very slow and quiet","A repeated two-note pattern plodding underneath (footsteps)","Sparse, hazy, cold; lots of space and silence","No clear tune or strong cadences"],
+  facts:["French composer often linked to Impressionism (atmosphere, color, suggestion)","Title appears at the end of the score, so it suggests rather than tells","Avoids traditional development and functional harmony"],
+  q:"How does Debussy create the image of footprints in snow?", qa:"A slow, repeating <b>ostinato</b> suggests trudging steps; soft <b>dynamics</b>, sparse <b>texture</b> and ambiguous <b>harmony</b> create a frozen, lonely atmosphere."},
+ {id:"pierrot", era:"Modernism", name:"Arnold Schoenberg, Pierrot Lunaire", date:"1912", rx:/pierrot/i,
+  who:["schoenberg","schonberg"], what:["pierrot","lunaire"],
+  tex:"Polyphony (independent lines)", genre:"Melodrama / song cycle for voice and chamber ensemble",
+  hear:["A woman’s voice half-speaking, half-singing (Sprechstimme)","Small chamber ensemble (flute, clarinet, violin, cello, piano)","Atonal: no key center, lots of dissonance","Eerie, unsettling, fragmented"],
+  facts:["21 poems about Pierrot, a moonstruck clown","<b>Sprechstimme</b> = “speech-voice”","<b>Atonality</b>: Schoenberg abandoned tonal keys (“emancipation of the dissonance”)"],
+  q:"What vocal technique is used here?", qa:"<b>Sprechstimme</b>: a style between speech and song, with approximate pitches. Harmony is <b>atonal</b>."},
+ {id:"rite", era:"Modernism", name:"Igor Stravinsky, Le Sacre du Printemps (The Rite of Spring)", date:"1913 · Paris", rx:/sacre|rite of spring/i,
+  who:["stravinsky"], what:["rite of spring","sacre","printemps","rite"],
+  tex:"Layered polyphony / ostinatos", genre:"Ballet",
+  hear:["Huge orchestra","Pounding, dissonant chords with irregular, unpredictable accents","Repeating ostinatos layered on top of each other","(Opening: a strange, very high bassoon solo)"],
+  facts:["Ballet for Diaghilev’s Ballets Russes; choreography by Nijinsky","Premiere caused a near-riot in Paris","Scenario: pagan Russia; a young girl dances herself to death as a sacrifice to spring"],
+  q:"How does Stravinsky use rhythm?", qa:"Irregular, shifting <b>accents</b> and changing <b>meter</b> destroy a predictable <b>beat</b>; layered <b>ostinatos</b> and <b>polyrhythm</b> create primal violence."},
+ {id:"sensemaya", era:"Modernism", name:"Silvestre Revueltas, Sensemayá", date:"1938 · Mexico", rx:/sensemay/i,
+  who:["revueltas"], what:["sensemaya"],
+  tex:"Layered ostinatos building up", genre:"Orchestral tone poem",
+  hear:["Starts quiet with percussion and a low, creeping, snake-like melody (tuba/bass clarinet)","Hypnotic repeating ostinato in an asymmetrical meter (groups of 7)","Layers pile up into a loud, dissonant frenzy","Heavy percussion throughout"],
+  facts:["Based on a poem by Afro-Cuban poet Nicolás Guillén: a chant for killing a snake","Mexican composer; music full of ritual energy","Compare with Stravinsky’s ostinatos and primitivism"],
+  q:"How does the music depict the snake ritual?", qa:"A slithering low <b>melody</b>, a hypnotic <b>ostinato</b> in irregular <b>meter</b>, and a huge <b>crescendo</b> to a violent climax (the snake’s killing)."},
+ {id:"chavez", era:"Modernism", name:"Carlos Chávez, Sinfonía india", date:"1935–36", rx:/sinfon(i|í)a india|indian symphony/i, cap:270,
+  who:["chavez"], what:["sinfonia india","india","indian symphony","sinfonia"],
+  tex:"Homophony / layered rhythms", genre:"Symphony (one movement)",
+  hear:["Orchestra with lots of indigenous percussion (rattles, drums)","Bright, punchy melodies taken from indigenous songs","Constantly shifting, driving rhythms and meters","Energetic, sharp-edged sound"],
+  facts:["Uses melodies of indigenous peoples of Mexico (e.g. Yaqui, Huichol, Seri)","Mexican nationalism after the Revolution: a Mexican sound not copied from Europe","Only the first 4:30 of the playlist track is tested"],
+  q:"What makes this piece sound “Mexican” according to Chávez’s goals?", qa:"Indigenous <b>melodies</b> and <b>percussion</b> (<b>timbre</b>), shifting <b>meters</b>: building national music from pre-Hispanic roots rather than European models."},
+ {id:"deepriver", era:"20th-c. US", name:"Harry T. Burleigh, Deep River", date:"arr. 1916", rx:/deep river/i,
+  who:["burleigh"], what:["deep river"],
+  tex:"Homophony (voice + piano)", genre:"Spiritual arranged as an art song",
+  hear:["Solo voice (often a deep male or concert voice) + piano","Slow, solemn, hymn-like","Rich, Romantic piano harmonies","Long, sustained phrases: “Deep river, my home is over Jordan”"],
+  facts:["Burleigh was a Black singer-composer who studied with Dvořák in New York","His arrangements brought spirituals into the concert hall","Spirituals = religious songs created by enslaved African Americans"],
+  q:"How did Burleigh change the spiritual?", qa:"He turned a communal folk song into a concert <b>art song</b> with written-out piano <b>harmony</b> (like a Lied), for trained solo singers."},
+ {id:"stlouis", era:"20th-c. US", name:"W.C. Handy / Louis Armstrong / Bessie Smith, St. Louis Blues", date:"1914 (song) · 1925 (recording)", rx:/st\.? ?louis blues|saint louis blues/i,
+  who:["handy","armstrong","bessie smith","bessie","louis armstrong","wc handy"], what:["st louis blues","saint louis blues","louis blues"],
+  tex:"Homophony with call-and-response", genre:"Blues",
+  hear:["Bessie Smith’s powerful, bending voice","Louis Armstrong’s cornet answering each vocal line (call and response)","Slow, wheezy reed/pump organ accompaniment","Repeating blues chord pattern (12-bar blues)"],
+  facts:["Written by W.C. Handy, “Father of the Blues”","1925 recording: Bessie Smith (“Empress of the Blues”) with Louis Armstrong","Blues form: AAB lyrics over a 12-bar harmonic pattern"],
+  q:"What is call and response here?", qa:"Smith sings a line (call) and Armstrong’s cornet answers (response). Over a <b>12-bar blues</b> form."},
+ {id:"ellington", era:"20th-c. US", name:"Duke Ellington, It Don’t Mean a Thing (If It Ain’t Got That Swing)", date:"1931–32", rx:/don.?t mean a thing|aint got that swing|ain.t got that swing/i,
+  who:["ellington","duke"], what:["mean a thing","dont mean","swing"],
+  tex:"Homophony (big band + vocal)", genre:"Big band swing / jazz",
+  hear:["Big band: saxes, trumpets, trombones, rhythm section","Swung rhythm; strong, bouncy beat","Vocalist (Ivie Anderson) and “doo-wah” scat syllables","Muted, growling brass effects"],
+  facts:["Ellington led his orchestra at Harlem’s Cotton Club","Helped launch the Swing Era","Swing = uneven, lilting long-short rhythm feel"],
+  q:"What is swing?", qa:"A rhythmic feel where beats are divided unevenly (long-short), giving a lilting groove; the song’s own message: music must swing."},
+ {id:"strange", era:"20th-c. US", name:"Abel Meeropol / Billie Holiday, Strange Fruit", date:"1939", rx:/strange fruit/i,
+  who:["meeropol","holiday","billie","billie holiday"], what:["strange fruit"],
+  tex:"Homophony (voice + small band/piano)", genre:"Protest song (jazz ballad)",
+  hear:["Slow, quiet, mournful","Billie Holiday’s fragile, behind-the-beat phrasing","Sparse accompaniment; dark, haunting mood","Lyrics delivered with restrained intensity"],
+  facts:["Poem by Abel Meeropol, a Jewish schoolteacher from the Bronx, protesting the lynching of Black Americans","Holiday performed it at Café Society, an integrated club in New York","One of the first major civil-rights protest songs"],
+  q:"How does the performance bring the text to life?", qa:"Slow <b>tempo</b>, soft <b>dynamics</b>, sparse <b>texture</b> and Holiday’s restrained delivery make the horror of the imagery more powerful."},
+ {id:"nina", era:"20th-c. US", name:"Nina Simone, Mississippi Goddam", date:"1964", rx:/mississippi god/i,
+  who:["simone","nina","nina simone"], what:["mississippi","goddam","goddamn"],
+  tex:"Homophony (voice + piano/band)", genre:"Protest song",
+  hear:["Upbeat, jaunty show-tune feel","Simone’s piano and voice; talks to the audience","Sharp contrast between cheerful music and furious lyrics","Live recording (Carnegie Hall)"],
+  facts:["Written in response to the murder of Medgar Evers and the Birmingham church bombing (1963)","Simone: classically trained pianist turned civil-rights voice","Irony: she called it a show tune “but the show hasn’t been written for it yet”"],
+  q:"Why does the cheerful style matter?", qa:"The bouncy <b>tempo</b> and <b>major</b>-key show-tune style clash ironically with the angry text, sharpening the protest."},
+ {id:"cage", era:"20th-c. US", name:"John Cage, Sonata V (Sonatas and Interludes)", date:"1946–48", rx:/cage.*sonata|sonata.*cage|sonatas and interludes/i,
+  who:["cage"], what:["sonata v","sonata 5","sonata","sonatas and interludes"],
+  tex:"Homophony / sparse", genre:"Prepared piano sonata",
+  hear:["A piano that sounds like percussion or a gamelan","Clunky, buzzing, muted, metallic tones","Short, rhythmic, repeating patterns","Calm, contained mood"],
+  facts:["<b>Prepared piano</b>: screws, bolts, rubber placed between the strings","Inspired by Indian aesthetics (the permanent emotions)","Cage later embraced chance and silence (4′33″)"],
+  q:"What is a prepared piano?", qa:"A piano with objects inserted between the strings, transforming its <b>timbre</b> into percussive, gamelan-like sounds."},
+ {id:"oliveros", era:"20th-c. US", name:"Pauline Oliveros, Bye Bye Butterfly", date:"1965", rx:/bye bye butterfly/i,
+  who:["oliveros","pauline"], what:["bye bye butterfly","butterfly"],
+  tex:"Layered electronic sound", genre:"Electronic / tape music",
+  hear:["Electronic tones: oscillators, whistling, swooping pitches","Tape delay creates echoing loops","A distorted fragment of an old opera recording (Madama Butterfly) floats in","No beat or melody in the traditional sense"],
+  facts:["Made in real time at the San Francisco Tape Music Center","“Bye bye” to the 19th-century opera tradition and its gender roles","Oliveros later developed “Deep Listening”"],
+  q:"What is this piece’s relationship to earlier music?", qa:"It quotes and distorts Puccini’s <i>Madama Butterfly</i>, saying goodbye to 19th-century opera, through electronic <b>timbres</b> and tape delay."},
+ {id:"coltrane", era:"20th-c. US", name:"John Coltrane, Psalm from A Love Supreme", date:"1964", rx:/love supreme/i,
+  who:["coltrane"], what:["psalm","love supreme"],
+  tex:"Homophony (sax lead + quartet)", genre:"Spiritual jazz",
+  hear:["Tenor saxophone playing a slow, prayer-like line","Rumbling drums, piano chords, bass; no steady beat","Free, rubato feel","Meditative, solemn"],
+  facts:["Part IV of <i>A Love Supreme</i>, his devotional album","Coltrane “recites” his own poem on the saxophone, one note per syllable","Spiritual statement after his recovery and religious awakening"],
+  q:"How does Coltrane connect music and text?", qa:"His sax line follows the syllables of his printed devotional poem, a wordless “musical recitation” (like <b>syllabic</b> text-setting)."},
+ {id:"reich", era:"20th-c. US", name:"Steve Reich, Tehillim (Psalms)", date:"1981", rx:/tehillim/i,
+  who:["reich"], what:["tehillim","psalms"],
+  tex:"Polyphony (canons) over pulsing percussion", genre:"Vocal/ensemble work (minimalist roots)",
+  hear:["Women’s voices singing in Hebrew","Clapping and small drums (pulse)","Voices in canon, overlapping imitative lines","Bright, rhythmic, joyous; changing meters"],
+  facts:["Setting of Hebrew psalms (Tehillim = Psalms)","Reich is a founder of Minimalism; here more melodic than his process works","Rhythm follows the natural rhythm of the Hebrew text"],
+  q:"What texture do you hear?", qa:"<b>Polyphony</b>: voices in <b>canon</b> (imitative) over steady percussion <b>pulse</b>."}
+];
+
+const DOCS = [
+ {id:"sand", name:"Glimpses of Chopin Composing, Playing Piano (George Sand)", who:["chopin","sand","george sand"], what:["glimpses","composing"],
+  passages:["His ideas came suddenly and whole, at the piano or on a walk, and he rushed to the keyboard to hear them. Then began the most heartbreaking labor I have ever witnessed: weeks spent on a single page, trying to recapture what had come to him complete.",
+   "He would shut himself in his room for days, weeping, pacing, breaking his pens, repeating and altering one measure a hundred times, only to return in the end to what he had written at first.",
+   "His creation was spontaneous, almost miraculous. He found it without searching, but fixing it on paper threw him into despair."],
+  hint:"A novelist describes her companion at work.",
+  about:"George Sand (novelist, Chopin’s partner): effortless inspiration followed by agonized revision; the Romantic image of the tortured genius."},
+ {id:"liszt", name:"Liszt, the All-Conquering Pianist", who:["liszt"], what:["all conquering","conquering","pianist"],
+  passages:["When he finished, ladies hurled flowers and jewels onto the stage; some fainted, others fought over the gloves and handkerchief he left behind.",
+   "He tossed back his long hair and attacked the keys like a storm; strings snapped under his hands, and a second piano had to be brought out to finish the concert.",
+   "No performer has ever held such power over a crowd. He conquered an audience the way a general takes a city."],
+  hint:"Accounts of a superstar pianist’s concerts.",
+  about:"“Lisztomania”: the virtuoso as celebrity in the new public concert culture."},
+ {id:"traviata", name:"Traviata Sources", who:["traviata"], what:["traviata"],
+  passages:["For Venice I am setting The Lady of the Camellias. Others might refuse the subject on moral grounds, but I take it gladly: it is a story of our own time.",
+   "Last night’s premiere was a fiasco. Is it my fault or the singers’? Time will be the judge.",
+   "The censors insist that the action be moved back a century and the costumes changed. They cannot stand to see a fallen woman of today on the stage."],
+  hint:"Letters and reports about an 1853 Venetian opera.",
+  about:"Verdi’s <i>La Traviata</i> (1853), after Dumas: a contemporary courtesan heroine, censorship, and a failed premiere."},
+ {id:"guiraud", name:"Debussy, Interview with Guiraud", who:["debussy"], what:["guiraud","interview"],
+  passages:["Rules? I don’t need them. You only have to listen; pleasure is the only law.",
+   "I dream of a poem that only half-says things, where the characters don’t argue but simply live and endure, and where music begins where words fall short.",
+   "Why must every theme be worked out and developed endlessly? Music should be free and suggestive, like light and shadow, not a harmony lesson."],
+  hint:"A young French composer talks with his old conservatory teacher, ca. 1890.",
+  about:"Debussy rejects conservatory rules of harmony and development in favor of freedom, suggestion and pleasure."},
+ {id:"busoni", name:"Schoenberg, Letter to Busoni", who:["schoenberg","schonberg"], what:["busoni","letter"],
+  passages:["I strive for complete liberation from all forms, from every symbol of coherence and logic. Away with motivic working-out!",
+   "Harmony must not be the cement or the bricks of a building. It should be expression and nothing else.",
+   "My music must be brief, two notes rather than an edifice, and it must express what lies in us beneath consciousness."],
+  hint:"A 1909 letter from a Viennese composer to a pianist-composer friend.",
+  about:"Schoenberg (1909): Expressionism; freeing music from form, logic and tonal harmony (atonality)."},
+ {id:"stravinsky", name:"Stravinsky, What I Wished to Express in The Rite of Spring", who:["stravinsky"], what:["what i wished","wished to express","rite of spring","express"],
+  passages:["I wanted to express the sublime uprising of Nature renewing itself, the vast, obscure sensation all things feel when Nature renews its forms.",
+   "In the prelude, before the curtain rises, the orchestra alone conveys the dread every sensitive soul feels before the powers of nature.",
+   "At the end the wise elders gather, and the chosen maiden dances until she falls dead, a sacrifice to spring."],
+  hint:"A composer explains his ballet in a Paris journal, 1913.",
+  about:"Stravinsky describes the pagan scenario and the elemental force of spring behind the ballet."},
+ {id:"dubois", name:"DuBois, Of the Sorrow Songs", who:["dubois","du bois","w e b dubois"], what:["sorrow songs","sorrow"],
+  passages:["These songs are the music of an unhappy people, children of disappointment. They speak of death and suffering and an unspoken longing for a truer world.",
+   "Through all the sorrow of these songs runs a hope: a faith that someday, somewhere, people will be judged by their souls and not by their skins.",
+   "The slave songs are the one true American music and the greatest gift Black Americans have given this nation."],
+  hint:"From <i>The Souls of Black Folk</i>, 1903.",
+  about:"W.E.B. Du Bois: spirituals as America’s most important music, carrying sorrow and hope."},
+ {id:"hurston", name:"Hurston, Spirituals and Neo-Spirituals", who:["hurston"], what:["spirituals","neo spirituals","neo-spirituals"],
+  passages:["There has never been a genuine presentation of the spirituals to the public. Glee clubs and concert singers put on their tuxedos and sing arrangements, but that is not the real thing.",
+   "Real spirituals are not solos or polished arrangements. They are made new every time a congregation sings them, with jagged harmonies and shifting keys.",
+   "These neo-spirituals are fine music, but they are the work of trained musicians, not the songs of the people."],
+  hint:"A folklorist and novelist on Black religious song, 1934.",
+  about:"Zora Neale Hurston: true spirituals are improvised and communal; concert arrangements are “neo-spirituals.”"},
+ {id:"chavez", name:"Chávez, A Latin American Composer", who:["chavez"], what:["latin american composer","latin american"],
+  passages:["We must stop imitating Europe. The Latin American composer has to find his voice in the music of his own land and its indigenous roots.",
+   "The music of Mexico’s ancient peoples is not a museum curiosity. It is a living foundation on which a new art can be built.",
+   "To become universal, a composer must first be truly national and speak with the accent of the American continent."],
+  hint:"A Mexican composer-conductor on national music.",
+  about:"Chávez: Latin American composers should build on indigenous traditions instead of copying Europe."},
+ {id:"cage", name:"Cage, Credo", who:["cage"], what:["credo"],
+  passages:["Most of what surrounds us is noise: a truck, the rain, radio static. When we stop ignoring it and actually listen, we find it fascinating.",
+   "The use of noise to make music will keep growing until we have a music made with electrical instruments that can produce any and every sound.",
+   "Where composers once organized music through harmony, the composer of the future will organize sound itself, noise included, through rhythm."],
+  hint:"A 1937 manifesto about the future of music.",
+  about:"Cage: noise and all sound as musical material; predicts electronic music."},
+ {id:"reich", name:"Minimalism (Reich, Music as a Gradual Process)", who:["minimalism","reich"], what:["minimalism","gradual process","music as a gradual process"],
+  passages:["I am interested in perceptible processes. I want to be able to hear the process happening throughout the music.",
+   "Performing and hearing a gradual musical process is like pulling back a swing, letting it go, and watching it slowly come to rest.",
+   "Once the process is set up and running, it plays itself out. The composer doesn’t control every sound."],
+  hint:"A 1968 essay by an American composer.",
+  about:"Reich: music as a slow, audible process (phasing); a founding statement of Minimalism."}
+];
+
+const ERAS={"Romantic":{c:"var(--rom)",label:"Romantic"},"Modernism":{c:"var(--mod)",label:"Modernism"},"20th-c. US":{c:"var(--us)",label:"20th-Century United States"}};
+const $=s=>document.querySelector(s);
+$("#pieces").innerHTML=Object.entries(ERAS).map(([era,e])=>`<h3 style="margin:26px 0 10px;color:${e.c}">${e.label}</h3>`+
+ PIECES.filter(p=>p.era===era).map(p=>{const q=encodeURIComponent(p.name.replace(/\s*\(.*?\)/g,""));
+ return `<article class="piece" id="${p.id}" style="--c:${e.c}">
+  <header><div><span class="chip">${era} · ${p.date}</span><h3>${p.name}</h3></div></header>
+  <div class="tags"><span class="tag"><b>Genre</b>${p.genre}</span><span class="tag"><b>Texture</b>${p.tex}</span></div>
+  <div class="cols"><div><h4>What you’ll hear</h4><ul>${p.hear.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+  <div><h4>Context &amp; key facts</h4><ul>${p.facts.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+  <details class="q"><summary>Practice follow-up: ${p.q}</summary><div><p>${p.qa}</p></div></details>
+  <div class="listen"><a class="search" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Search YouTube</a><a class="search" href="https://open.spotify.com/search/${q}" target="_blank" rel="noopener">Search Spotify</a></div>
+ </article>`}).join("")).join("");
+$("#readingGrid").innerHTML=DOCS.map(d=>`<div class="panel"><h3>${d.name}</h3><p><b>Clue:</b> ${d.hint}</p><p style="margin-top:4px">${d.about}</p></div>`).join("");
+const CK=[["Text-setting","Syllabic or melismatic? Which words get stretched or emphasized?"],["Melody","Rising/falling on key words? Conjunct or disjunct? Highest note = climax?"],["Harmony","Consonant vs. dissonant moments; major/minor shifts at emotional turns; unresolved ending?"],["Accompaniment","Does the piano/orchestra depict an image (water, galloping, bells, footsteps)?"],["Texture","Thin vs. full; does it change with the text?"],["Rhythm & meter","Steady or unsettled? Ostinato? Rubato?"],["Tempo","Changes at turning points?"],["Dynamics","Crescendo to a climax? Sudden quiet on a key word?"],["Timbre & register","Voice type, low vs. high register, instrument colors"],["Form","Strophic (same music each verse) or through-composed (new music following the story)?"]];
+$("#checklist").innerHTML=CK.map(([h,p])=>`<div class="panel"><h3>${h}</h3><p>${p}</p></div>`).join("");
+</script>
+</body>
+</html>
