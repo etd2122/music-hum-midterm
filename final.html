@@ -146,6 +146,9 @@ footer{color:var(--muted);font-size:.82rem;margin-top:60px;border-top:1px solid 
   h1{font-size:1.85rem}
 }
 @media (max-width:440px){ .timeline{grid-template-columns:1fr} }
+.ulterms{margin:14px 0 0;padding:10px 14px 10px 30px;background:var(--accent-soft);border-radius:8px;font-size:.93rem}
+.ulterms .ullabel{font-weight:700;color:var(--accent)}
+.ulterms b{text-decoration:underline;text-underline-offset:2px}
 .checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:12px 0}
 .checklist .panel h3{font-size:1rem;margin-bottom:4px}
 .checklist .panel p{font-size:.88rem;color:var(--muted);margin:0}
@@ -166,6 +169,7 @@ ol.outline{padding-left:20px} ol.outline li{margin:6px 0}
     <h4>Part I · Listening</h4>
     <a href="#listening">Listening IDs (20)</a>
     <a href="final-listening.html"><b>▶ 30-sec practice test</b></a>
+    <a href="#terms">Underlined terms</a>
     <h4>Part II · Readings</h4>
     <a href="#readings">Reading IDs (11)</a>
     <a href="final-readings.html"><b>✎ Reading ID practice test</b></a>
@@ -193,11 +197,15 @@ ol.outline{padding-left:20px} ol.outline li{margin:6px 0}
   <div class="panel"><h3>Part II · Reading ID</h3><p>Identify short excerpts by the <b>source titles listed</b>. Unlike the midterm, <b>no context explanation</b>.</p></div>
   <div class="panel"><h3>Part III · Music-Text Analysis</h3><p>An unfamiliar song + its text, played 4 times. Write an essay on how the composer brings the text to musical life, using musical elements as evidence.</p></div>
 </div>
-<div class="callout"><b>Heads up:</b> the follow-ups below are my best guesses at likely terms. Upload the final-unit slides and I’ll swap in the exact underlined terms.</div>
+<div class="callout"><b>Follow-ups come from the underlined slide terms.</b> Each card lists them, and all of them are collected in <a href="#terms">Underlined terms</a>. The “Lecture clip” links are the YouTube videos from the slides; final run-throughs should be on the playlist.</div>
 
 <h2 id="listening">Part I · Listening IDs</h2>
 <p class="section-note">Grouped as on the exam sheet. Each card: what you’ll hear, context, and a practice follow-up.</p>
 <div id="pieces"></div>
+
+<h2 id="terms">Underlined terms from the final-unit slides</h2>
+<p class="section-note">The vocabulary pool for Part I follow-ups.</p>
+<dl class="gloss" id="gloss"></dl>
 
 <h2 id="readings">Part II · Reading IDs</h2>
 <p class="section-note">Learn the <b>exact titles</b>; that’s all you need to write. The clue is what to look for in the excerpt.</p>
@@ -233,123 +241,155 @@ const PIECES = [
  {id:"erlkonig", era:"Romantic", name:"Franz Schubert, Erlkönig (Elf-King)", date:"1815", rx:/erlk(o|ö|oe)nig|erl.?king|elf.?king/i,
   who:["schubert"], what:["erlkonig","erlkoenig","erlking","erl king","elf king","elf-king"],
   tex:"Homophony (voice + piano)", genre:"Lied (German art song)",
-  hear:["One singer + piano; the piano pounds fast repeated triplets (galloping horse)","The singer voices 4 characters: narrator, father (low, calm), son (high, panicked), Elf-King (sweet, coaxing)","The son’s cries get higher and more dissonant each time","Ends abruptly: the music stops and the last line is almost spoken"],
-  facts:["Setting of Goethe’s ballad: a father rides through the night with his sick son, who is lured by the supernatural Elf-King and dies","Lied = German art song for voice and piano, a key Romantic genre","Composed when Schubert was about 18"],
-  q:"How does Schubert make one singer sound like several characters?", qa:"Each character gets its own <b>register</b>, mode and style: the father low and steady, the son high and rising in <b>dissonance</b>, the Elf-King in sweet, major-key melodies. The galloping piano <b>ostinato</b> is <b>word painting</b>."},
+  ul:[["Lied","German “song” (plural Lieder): solo voice with piano accompaniment as equal partners; settings of Romantic poetry; intimate setting; important genre of early Romanticism, fusing music and literature"]],
+  hear:["One singer + piano; the piano pounds fast repeated notes (the galloping horse)","The singer voices 4 characters: narrator, father (low, calm), son (high, panicked), Elf-King (sweet, coaxing)","The son’s cries get higher and more dissonant each time","Ends abruptly: the music stops and the last line is almost spoken"],
+  facts:["Poem by Johann Wolfgang von Goethe (1782): a father rides through the night with his son, who is lured by the supernatural Elf-King and dies","Schubert (1797–1828), Austrian, one of the most prolific and influential composers of Lieder","Romanticism: “music is most of all longing” (Schlegel); nature outside and feeling inside become linked"],
+  q:"What genre is this? Define it.", qa:"<b>Lied</b>: German art song for solo voice and piano as equal partners, setting Romantic poetry. One singer voices all four characters through changes in register and mood.",
+  links:[["Erlkönig (slide 10)","C3nxyS8wf8E"],["Erlkönig with text (slide 12)","8noeFpdfWcQ"]]},
  {id:"monatmai", era:"Romantic", name:"Robert Schumann, Im wunderschönen Monat Mai (In the beautiful month of May)", date:"1840", rx:/wundersch|monat mai|beautiful month/i,
   who:["robert schumann","robert","schumann"], what:["wunderschonen","monat mai","beautiful month","month of may"],
-  tex:"Homophony (voice + piano)", genre:"Lied, first song of the cycle Dichterliebe",
+  tex:"Homophony (voice + piano)", genre:"Lied, first song of the song cycle Dichterliebe",
+  ul:[["Lied","German art song for solo voice and piano (equal partners), setting Romantic poetry"]],
   hear:["Short, gentle song for voice and piano","Piano opens with a hazy, unresolved figure and keeps circling","Sweet, wistful melody; soft dynamics","Ends hanging, unresolved: no final cadence"],
-  facts:["Text by Heinrich Heine: in May, love blossomed and I confessed my longing","No. 1 of the song cycle <i>Dichterliebe</i> (A Poet’s Love)","Written in 1840, the “year of song,” when he married Clara Wieck"],
-  q:"How does the harmony reflect the text?", qa:"The piano never settles in a clear key and the song ends <b>unresolved</b> (on a dissonant chord), mirroring <b>longing</b> and unfulfilled desire."},
+  facts:["Opens the 1840 song cycle <i>Dichterliebe</i> (“A Poet’s Love”); poetry by Heinrich Heine","Text: in May, as the buds burst and birds sang, love arose and I confessed my “yearning and longing”","Song cycle (Liederkreis): a collection of poems set to music that tell a story or share a theme","Schumann (1810–1856): best known for piano music and Lieder"],
+  q:"How does the harmony reflect “yearning and longing”?", qa:"The piano never settles firmly in its key and the song ends <b>unresolved</b> (on a dissonant chord), so the music itself “longs.” Genre: <b>Lied</b>, from a song cycle."},
  {id:"clara", era:"Romantic", name:"Clara Schumann, Piano Concerto", date:"1835 (Op. 7 in A minor)", rx:/clara.*concert|concert.*clara|wieck.*concert|concerto in a minor,? op\.? ?7/i,
   who:["clara","clara schumann","clara wieck","wieck"], what:["piano concerto","concerto"],
   tex:"Homophony (soloist + orchestra)", genre:"Piano concerto",
+  ul:[["Salons","18th/19th-century domestic gatherings for intellectual and artistic exchange; a key avenue for women’s creativity where their public life was limited (from the Clara & Fanny lecture)"]],
   hear:["Solo piano with orchestra","Brilliant, virtuosic piano writing: fast runs, big chords","Dramatic, Romantic mood with lyrical moments","The piano often leads, the orchestra supports"],
-  facts:["Written as a teenager; she was one of the most famous concert pianists of the century","Married Robert Schumann; balanced career, composing and raising a large family","Concerto = showpiece for a virtuoso soloist with orchestra"],
-  q:"What genre is this, and what role does the soloist play?", qa:"<b>Piano concerto</b>: a virtuoso soloist set against an orchestra, showcasing <b>virtuosity</b>."},
- {id:"hensel", era:"Romantic", name:"Fanny Hensel, Schwanenlied (Swansong)", date:"pub. 1846", rx:/schwanenlied|swan.?song|hensel/i,
+  facts:["Clara Wieck Schumann (1819–1896): German pianist virtuosa, teacher, editor and composer; child prodigy","“Priestess of the Piano”; pioneered performing from memory","Married Robert Schumann in 1840: marriage and creative partnership","Critics praised her work but framed it through gender (“male earnestness… feminine feeling”)"],
+  q:"What genre is this, and what role does the soloist play?", qa:"<b>Piano concerto</b>: a virtuoso soloist set against an orchestra. Clara was one of Europe’s most celebrated pianists."},
+ {id:"hensel", era:"Romantic", name:"Fanny Hensel, Schwanenlied (Swansong)", date:"1846", rx:/schwanenlied|swan.?song|hensel/i,
   who:["hensel","fanny","fanny hensel","mendelssohn"], what:["schwanenlied","swansong","swan song"],
   tex:"Homophony (voice + piano)", genre:"Lied",
-  hear:["Soprano + piano in a gently rocking, lilting rhythm","Lyrical, flowing melody","Bittersweet, melancholy tone","Short strophic-feeling song"],
-  facts:["Text by Heine: a falling star, falling blossoms, and a swan singing as it dies, like love fading","Fanny Hensel (née Mendelssohn), Felix Mendelssohn’s sister; a gifted composer discouraged by her family from publishing","Published under her own name only near the end of her life"],
-  q:"How does the music fit the image of a dying swan?", qa:"The rocking accompaniment suggests gliding on water; the falling melodic lines and soft, fading <b>dynamics</b> paint the image of loss."},
- {id:"chopin", era:"Romantic", name:"Frédéric Chopin, Nocturne", date:"1830s", rx:/chopin.*nocturne|nocturne.*chopin/i,
+  ul:[["Salons","18th/19th-century domestic gatherings for intellectual and artistic exchange; a key avenue for women’s influence and creativity in societies where their public life was limited"]],
+  hear:["Soprano + piano in a gently rocking, lilting rhythm","Lyrical, flowing melody","Bittersweet, melancholy tone","Short, song-like and intimate"],
+  facts:["German Lied with poetry by Heinrich Heine","Part of her Op. 1, her first and only publication under her own name in her lifetime, published in 1846 without consulting her brother or family","Fanny Mendelssohn Hensel (1805–1847): pianist, composer, conductor and salonnière; sister of Felix Mendelssohn","Higher class than Clara, so less chance to perform publicly or publish; her father said music could be only “an ornament” for her"],
+  q:"Where did Fanny Hensel’s music mostly live, and why?", qa:"In <b>salons</b>, private domestic gatherings, because her class and gender limited public performance and publication. Genre: <b>Lied</b>."},
+ {id:"chopin", era:"Romantic", name:"Frédéric Chopin, Nocturne", date:"No. 1 in B-flat minor, 1832", rx:/chopin.*nocturne|nocturne.*chopin/i,
   who:["chopin"], what:["nocturne"],
-  tex:"Homophony (melody + broken-chord accompaniment)", genre:"Nocturne (solo piano character piece)",
-  hear:["Solo piano","A long, singing, ornamented melody in the right hand","Left hand plays gentle broken chords underneath","Flexible tempo (rubato); dreamy, intimate night-music mood"],
-  facts:["Polish-born pianist-composer who lived in Paris; wrote almost entirely for piano","Preferred intimate salons to big concert halls","Nocturne = “night piece”; melody imitates bel canto opera singing"],
-  q:"What is rubato, and where do you hear it?", qa:"<b>Rubato</b>: flexible, “stolen” time, where the pianist stretches and rushes the tempo for expression, especially in the ornamented melody."},
- {id:"liszt", era:"Romantic", name:"Franz Liszt, La Campanella (The Little Bell)", date:"1851", rx:/campanella/i,
+  tex:"Homophony (melody + accompaniment)", genre:"Nocturne (piano miniature)",
+  ul:[["Nocturne","Piano miniature, often in ABA form; from French “of the night.” Lyrical, singing melodies over richly harmonized accompaniment (homophony); expressive, heightened by rubato"],["Rubato","Expressive alteration of rhythm or tempo"]],
+  hear:["Solo piano","A long, singing, ornamented melody in the right hand","Left hand plays flowing broken chords underneath","Flexible tempo (rubato); dreamy, melancholy night-music mood"],
+  facts:["Polish composer (1810–1849) of mostly piano miniatures; lived most of his life in Paris","Introverted, intimate, lyrical model of Romantic pianist (vs. Liszt’s public virtuosity)","Reading: George Sand’s “Glimpses of Chopin Composing, Playing Piano”"],
+  q:"Define rubato and nocturne.", qa:"<b>Nocturne</b>: lyrical piano miniature “of the night,” often ABA, melody + accompaniment. <b>Rubato</b>: expressive alteration of rhythm or tempo.",
+  links:[["Chopin (slide 2, clip 1)","SreMxXuXjA4"],["Chopin (slide 2, clip 2)","gfgVWyjHkCo"]]},
+ {id:"liszt", era:"Romantic", name:"Franz Liszt, La Campanella (The Little Bell)", date:"1838", rx:/campanella/i,
   who:["liszt"], what:["campanella","little bell"],
-  tex:"Homophony", genre:"Piano étude / virtuoso showpiece",
-  hear:["Solo piano, extremely virtuosic","High, repeated, ringing notes like a little bell","Huge leaps across the keyboard, very fast","Grows more and more dazzling toward the end"],
-  facts:["Based on a theme by violin virtuoso Paganini","Liszt was the first superstar pianist (“Lisztomania”)","Showcases <b>virtuosity</b> as spectacle"],
-  q:"What makes this piece a showpiece?", qa:"Extreme <b>virtuosity</b>: wide leaps, rapid repeated high notes imitating a bell (<b>word/sound painting</b>), and escalating difficulty."},
+  tex:"Homophony", genre:"Virtuoso piano piece (theme and variations)",
+  ul:[["Theme and variations","Form that lets the soloist show off in successive variations of the main melody (the theme)"]],
+  hear:["Solo piano, extremely virtuosic","High, repeated, ringing notes like a little bell","Huge leaps across the keyboard, very fast","The tune returns in ever more dazzling variations"],
+  facts:["Solo-piano arrangement of the finale of Paganini’s Violin Concerto No. 2","Paganini: violin virtuoso rumored to have sold his soul to the devil","Liszt (1811–1886), Hungarian virtuoso; Heine called the sensation “Lisztomania”","His superhuman technique redefined virtuosity and even the structure of modern pianos"],
+  q:"What is the form, and how does it serve the performer?", qa:"<b>Theme and variations</b>: the main melody returns in successive variations, each letting the soloist show off more <b>virtuosity</b>; the high repeated notes imitate a little bell.",
+  links:[["La Campanella (Alice Sara Ott)","0-czNkyPQDA"],["Paganini, Violin Concerto No. 2 (III)","ra-mRawdH3o"]]},
  {id:"debussy", era:"Modernism", name:"Claude Debussy, Des pas sur la neige (Footprints in the snow)", date:"1910 (Préludes, Book I)", rx:/pas sur la neige|pas sur le neige|footprints in the snow/i,
-  who:["debussy"], what:["des pas","pas sur","neige","footprints","snow"],
+  who:["debussy"], what:["des pas","de pas","pas sur","neige","footprints","snow"],
   tex:"Homophony / sparse layers", genre:"Piano prelude",
-  hear:["Solo piano, very slow and quiet","A repeated two-note pattern plodding underneath (footsteps)","Sparse, hazy, cold; lots of space and silence","No clear tune or strong cadences"],
-  facts:["French composer often linked to Impressionism (atmosphere, color, suggestion)","Title appears at the end of the score, so it suggests rather than tells","Avoids traditional development and functional harmony"],
-  q:"How does Debussy create the image of footprints in snow?", qa:"A slow, repeating <b>ostinato</b> suggests trudging steps; soft <b>dynamics</b>, sparse <b>texture</b> and ambiguous <b>harmony</b> create a frozen, lonely atmosphere."},
+  ul:[["Impressionism","In music, a style characterized by suggestion and atmosphere: harmony used for tone color rather than traditional rules; expanded scales (pentatonic, whole-tone); sonic blending (pedal); freedom of rhythm (meter often obscured)"]],
+  hear:["Solo piano, very slow and quiet","A repeated two-note pattern plodding underneath (footsteps)","Sparse, hazy, cold; lots of space and silence","No clear tune, strong beat or cadences"],
+  facts:["French composer (1862–1918); key modernist who broke free of earlier rules of harmony and form","Modernism (“Make it new!”): moving beyond tonality, isolation and alienation of the individual","Reading: Debussy’s interview with Guiraud"],
+  q:"What style is this, and what are its features?", qa:"<b>Impressionism</b>: suggestion and atmosphere; harmony as tone color, expanded scales, pedal blending, obscured meter. The slow repeated figure suggests footsteps in snow."},
  {id:"pierrot", era:"Modernism", name:"Arnold Schoenberg, Pierrot Lunaire", date:"1912", rx:/pierrot/i,
   who:["schoenberg","schonberg"], what:["pierrot","lunaire"],
-  tex:"Polyphony (independent lines)", genre:"Melodrama / song cycle for voice and chamber ensemble",
-  hear:["A woman’s voice half-speaking, half-singing (Sprechstimme)","Small chamber ensemble (flute, clarinet, violin, cello, piano)","Atonal: no key center, lots of dissonance","Eerie, unsettling, fragmented"],
-  facts:["21 poems about Pierrot, a moonstruck clown","<b>Sprechstimme</b> = “speech-voice”","<b>Atonality</b>: Schoenberg abandoned tonal keys (“emancipation of the dissonance”)"],
-  q:"What vocal technique is used here?", qa:"<b>Sprechstimme</b>: a style between speech and song, with approximate pitches. Harmony is <b>atonal</b>."},
+  tex:"Polyphony (independent lines)", genre:"Expressionist song cycle",
+  ul:[["Expressionism","Deeply subjective representation of an individual’s inner psyche in all its turbulence; musically, abrupt shocking contrasts and extreme harmonic and timbral experimentation"],["Atonal music","Music no longer centered on a pitch/key according to the rules of the past 300 years; Schoenberg’s “emancipation of dissonance”"],["Sprechstimme","“Speech singing,” called for in Pierrot Lunaire"]],
+  hear:["A woman’s voice half-speaking, half-singing (Sprechstimme)","Small chamber ensemble (flute, clarinet, violin, cello, piano)","Atonal: no key center, lots of dissonance","Eerie, unsettling, abrupt contrasts"],
+  facts:["Expressionist poetry by Albert Giraud, from the perspective of insane Pierrot, the sad clown of commedia dell’arte","Age of psychoanalysis (Freud)","Schoenberg later developed serialism (12-tone technique)","Reading: Schoenberg’s letter to Busoni"],
+  q:"Name the vocal technique and the harmonic language.", qa:"<b>Sprechstimme</b> (speech-singing) and <b>atonal</b> harmony (“emancipation of dissonance”); the style is <b>Expressionism</b>."},
  {id:"rite", era:"Modernism", name:"Igor Stravinsky, Le Sacre du Printemps (The Rite of Spring)", date:"1913 · Paris", rx:/sacre|rite of spring/i,
   who:["stravinsky"], what:["rite of spring","sacre","printemps","rite"],
-  tex:"Layered polyphony / ostinatos", genre:"Ballet",
-  hear:["Huge orchestra","Pounding, dissonant chords with irregular, unpredictable accents","Repeating ostinatos layered on top of each other","(Opening: a strange, very high bassoon solo)"],
-  facts:["Ballet for Diaghilev’s Ballets Russes; choreography by Nijinsky","Premiere caused a near-riot in Paris","Scenario: pagan Russia; a young girl dances herself to death as a sacrifice to spring"],
-  q:"How does Stravinsky use rhythm?", qa:"Irregular, shifting <b>accents</b> and changing <b>meter</b> destroy a predictable <b>beat</b>; layered <b>ostinatos</b> and <b>polyrhythm</b> create primal violence."},
- {id:"sensemaya", era:"Modernism", name:"Silvestre Revueltas, Sensemayá", date:"1938 · Mexico", rx:/sensemay/i,
+  tex:"“Blocks” of sound; layered ostinatos", genre:"Ballet",
+  ul:[["Ballet Russes","A ballet company that took Paris by storm in the early 20th century"],["Ostinato","A short, simple repeated musical phrase; Italian for “stubborn”"]],
+  hear:["Huge orchestra with a dry, percussive sound","Pounding, dissonant chords with irregular, unpredictable accents (“Augurs of Spring”)","Short, folk-like melodies repeated as ostinatos","(Opening prelude: a strange, very high bassoon solo)"],
+  facts:["Ballet depicting a pagan fertility ritual in which a young girl dances herself to death as a sacrifice for the harvest","Choreography by Vaslav Nijinsky: angular, aggressive movements","Premiere caused a near-riot","Features: complex, relentless rhythm; constantly shifting meter; harmony both modern and modal"],
+  q:"What is an ostinato, and how is rhythm used?", qa:"<b>Ostinato</b>: a short repeated phrase (“stubborn”). Rhythm is the driving force: relentless, with irregular accents and constantly shifting <b>meter</b>. Ballet for the <b>Ballet Russes</b>.",
+  links:[["Prelude (slide 2)","lPLVT4jCMXs"],["Musical features (slide 4)","mn_GyzLffVc"],["Nijinsky choreography","C_7ndqgwxcM"]]},
+ {id:"sensemaya", era:"Modernism", name:"Silvestre Revueltas, Sensemayá", date:"1938", rx:/sensemay/i,
   who:["revueltas"], what:["sensemaya"],
-  tex:"Layered ostinatos building up", genre:"Orchestral tone poem",
-  hear:["Starts quiet with percussion and a low, creeping, snake-like melody (tuba/bass clarinet)","Hypnotic repeating ostinato in an asymmetrical meter (groups of 7)","Layers pile up into a loud, dissonant frenzy","Heavy percussion throughout"],
-  facts:["Based on a poem by Afro-Cuban poet Nicolás Guillén: a chant for killing a snake","Mexican composer; music full of ritual energy","Compare with Stravinsky’s ostinatos and primitivism"],
-  q:"How does the music depict the snake ritual?", qa:"A slithering low <b>melody</b>, a hypnotic <b>ostinato</b> in irregular <b>meter</b>, and a huge <b>crescendo</b> to a violent climax (the snake’s killing)."},
- {id:"chavez", era:"Modernism", name:"Carlos Chávez, Sinfonía india", date:"1935–36", rx:/sinfon(i|í)a india|indian symphony/i, cap:270,
+  tex:"Layered ostinatos building up", genre:"Tone poem",
+  ul:[["Tone poem","An instrumental piece of music illustrating/evoking a poem; the genre of Sensemayá"]],
+  hear:["Starts quiet with percussion and a low, creeping, snake-like melody (tuba, bass clarinet)","Hypnotic repeating ostinato in an irregular meter","Themes layer up into a loud, dissonant frenzy","Heavy percussion throughout"],
+  facts:["Inspired by Nicolás Guillén’s poem “Sensemayá” (1934): Afro-Cuban national poet of Cuba; evokes Palo religious rites (a chant to kill a snake)","Revueltas: Mexican composer, conductor, violinist; met Guillén through the leftist group LEAR","Latin American modernism: national identity, pre-colonial culture, politics"],
+  q:"What genre is this? Define it.", qa:"<b>Tone poem</b>: an instrumental piece illustrating a poem, here Guillén’s ritual chant, through a snake-like <b>melody</b>, <b>ostinato</b> and a huge <b>crescendo</b>.",
+  links:[["Sensemayá (slide 11; restart 5:30 for all layers)","lqxKbUmVXVo"],["Guillén’s poem (slide 9)","jAo35AhaMJ8"]]},
+ {id:"chavez", era:"Modernism", name:"Carlos Chávez, Sinfonía india", date:"1936", rx:/sinfon(i|í)a india|indian symphony/i, cap:270,
   who:["chavez"], what:["sinfonia india","india","indian symphony","sinfonia"],
   tex:"Homophony / layered rhythms", genre:"Symphony (one movement)",
-  hear:["Orchestra with lots of indigenous percussion (rattles, drums)","Bright, punchy melodies taken from indigenous songs","Constantly shifting, driving rhythms and meters","Energetic, sharp-edged sound"],
-  facts:["Uses melodies of indigenous peoples of Mexico (e.g. Yaqui, Huichol, Seri)","Mexican nationalism after the Revolution: a Mexican sound not copied from Europe","Only the first 4:30 of the playlist track is tested"],
-  q:"What makes this piece sound “Mexican” according to Chávez’s goals?", qa:"Indigenous <b>melodies</b> and <b>percussion</b> (<b>timbre</b>), shifting <b>meters</b>: building national music from pre-Hispanic roots rather than European models."},
+  ul:[],
+  hear:["Orchestra with an expanded section of indigenous percussion","Bright, punchy melodies taken from indigenous songs","Constantly shifting, driving rhythms and meters","Energetic, sharp-edged sound"],
+  facts:["Indigenous instruments (contemporary or recreated) in the percussion section","Melodies drawn from ethnographic folklore studies throughout Mexico","Premiered on radio by the CBS Symphony, then the Boston Symphony; Mexican premiere later in 1936","Only the first 4:30 of the playlist track is tested","Reading: Chávez, “A Latin American Composer”"],
+  q:"What makes this a Latin American modernist work?", qa:"Indigenous <b>melodies</b> and <b>percussion</b> (<b>timbre</b>) with shifting <b>meters</b>: modernist language used to reclaim Mexican, pre-colonial culture.",
+  links:[["Sinfonía india (slide 7)","RYAo6DEnjbU"]]},
  {id:"deepriver", era:"20th-c. US", name:"Harry T. Burleigh, Deep River", date:"arr. 1916", rx:/deep river/i,
   who:["burleigh"], what:["deep river"],
   tex:"Homophony (voice + piano)", genre:"Spiritual arranged as an art song",
-  hear:["Solo voice (often a deep male or concert voice) + piano","Slow, solemn, hymn-like","Rich, Romantic piano harmonies","Long, sustained phrases: “Deep river, my home is over Jordan”"],
-  facts:["Burleigh was a Black singer-composer who studied with Dvořák in New York","His arrangements brought spirituals into the concert hall","Spirituals = religious songs created by enslaved African Americans"],
-  q:"How did Burleigh change the spiritual?", qa:"He turned a communal folk song into a concert <b>art song</b> with written-out piano <b>harmony</b> (like a Lied), for trained solo singers."},
+  ul:[["Spirituals","A genre of sacred song created by and for African Americans that originated in oral tradition; often used religious imagery to express experiences of enslavement and hope"],["Harlem Renaissance","Flourishing of African American arts, literature and music based in Harlem, ca. 1910s–1930s"]],
+  hear:["Solo voice (often a concert singer, e.g. Marian Anderson) + piano","Slow, solemn, hymn-like","Rich, Romantic piano harmonies","Long phrases: “Deep river, my home is over Jordan”"],
+  facts:["From Burleigh’s <i>Jubilee Songs of America</i> (1916)","Burleigh synthesized the oral tradition of spirituals with Romantic art-song techniques","Soloist at St. George’s Episcopal (50 years) and Temple Emanu-El (25 years); key Harlem Renaissance figure","Readings: Du Bois and Hurston on what makes a spiritual “authentic”"],
+  q:"What is a spiritual, and what did Burleigh do with it?", qa:"<b>Spiritual</b>: sacred song created by and for African Americans in oral tradition. Burleigh arranged it as a concert art song with Romantic piano harmony (<b>Harlem Renaissance</b>).",
+  links:[["Deep River (slide 8)","ktz6WAKCR3g"]]},
  {id:"stlouis", era:"20th-c. US", name:"W.C. Handy / Louis Armstrong / Bessie Smith, St. Louis Blues", date:"1914 (song) · 1925 (recording)", rx:/st\.? ?louis blues|saint louis blues/i,
   who:["handy","armstrong","bessie smith","bessie","louis armstrong","wc handy"], what:["st louis blues","saint louis blues","louis blues"],
-  tex:"Homophony with call-and-response", genre:"Blues",
-  hear:["Bessie Smith’s powerful, bending voice","Louis Armstrong’s cornet answering each vocal line (call and response)","Slow, wheezy reed/pump organ accompaniment","Repeating blues chord pattern (12-bar blues)"],
-  facts:["Written by W.C. Handy, “Father of the Blues”","1925 recording: Bessie Smith (“Empress of the Blues”) with Louis Armstrong","Blues form: AAB lyrics over a 12-bar harmonic pattern"],
-  q:"What is call and response here?", qa:"Smith sings a line (call) and Armstrong’s cornet answers (response). Over a <b>12-bar blues</b> form."},
- {id:"ellington", era:"20th-c. US", name:"Duke Ellington, It Don’t Mean a Thing (If It Ain’t Got That Swing)", date:"1931–32", rx:/don.?t mean a thing|aint got that swing|ain.t got that swing/i,
+  tex:"Homophony with call and response", genre:"Blues",
+  ul:[["Blues","Emerging from the Black experience of the Jim Crow South, a folk-song genre expressing struggle and survival; key influence on jazz in the 1910s–20s"],["12-bar blues","A repeated harmonic bass line over which singers and instrumentalists improvise; lyrics in AAB form"],["Blue note","An expressive pitch slightly lower than the scale pitch"],["Improvisation / collaboration","Jazz is a performance practice emphasizing improvisation (musicians improvise over the lead sheet’s harmonies) and collaboration"]],
+  hear:["Bessie Smith’s powerful voice, bending pitches (blue notes)","Louis Armstrong’s cornet answering each vocal line","Slow, wheezy reed-organ accompaniment","AAB lyrics: “I hate to see the evening sun go down” (twice), then the answer line"],
+  facts:["W.C. Handy, “Father of the Blues,” published the first written blues after traveling the Mississippi Delta","Founded Pace & Handy Sheet Music (Harry Pace later formed Black Swan Records)","1925 recording by Bessie Smith and Louis Armstrong"],
+  q:"What is the form of the blues, and how do Smith and Armstrong interact?", qa:"<b>12-bar blues</b> with <b>AAB</b> lyrics; Armstrong answers Smith’s lines (improvisation and collaboration), with <b>blue notes</b> in her singing.",
+  links:[["St. Louis Blues (Smith & Armstrong)","zNuAN_Z2i3E"]]},
+ {id:"ellington", era:"20th-c. US", name:"Duke Ellington, It Don’t Mean a Thing (If It Ain’t Got That Swing)", date:"1931", rx:/don.?t mean a thing|aint got that swing|ain.t got that swing/i,
   who:["ellington","duke"], what:["mean a thing","dont mean","swing"],
-  tex:"Homophony (big band + vocal)", genre:"Big band swing / jazz",
-  hear:["Big band: saxes, trumpets, trombones, rhythm section","Swung rhythm; strong, bouncy beat","Vocalist (Ivie Anderson) and “doo-wah” scat syllables","Muted, growling brass effects"],
-  facts:["Ellington led his orchestra at Harlem’s Cotton Club","Helped launch the Swing Era","Swing = uneven, lilting long-short rhythm feel"],
-  q:"What is swing?", qa:"A rhythmic feel where beats are divided unevenly (long-short), giving a lilting groove; the song’s own message: music must swing."},
- {id:"strange", era:"20th-c. US", name:"Abel Meeropol / Billie Holiday, Strange Fruit", date:"1939", rx:/strange fruit/i,
+  tex:"Homophony (big band + vocal)", genre:"Swing (big band jazz)",
+  ul:[["Swing","A faster form of jazz meant for dancing (1930s–40s); expanded ensembles with percussion, brass and reed sections, often centered on an arranger/conductor like Ellington; 32-bar AABA form"],["Scat","Jazz singing technique: nonsense syllables sung to an improvised melody"]],
+  hear:["Big band: saxes, trumpets, trombones, rhythm section","Swung rhythm; strong, bouncy dance beat","Vocalist (Ivie Anderson, 1931) and “doo-wah” scat syllables","Muted, growling brass"],
+  facts:["Swing vs. blues: 32 bars, AABA form (vs. 12 bars, AAB)","Possibly less freedom for improvisation than earlier jazz","Slides also show a 1966 version with Ella Fitzgerald"],
+  q:"Define swing and scat.", qa:"<b>Swing</b>: danceable big-band jazz of the 1930s–40s in 32-bar AABA form. <b>Scat</b>: improvised nonsense-syllable singing.",
+  links:[["Ellington & Anderson, 1931","jM3DNpnNv5k"],["Ellington & Fitzgerald, 1966","kxfMRhyzu3g"]]},
+ {id:"strange", era:"20th-c. US", name:"Abel Meeropol / Billie Holiday, Strange Fruit", date:"1937 (song) · 1939 (recording)", rx:/strange fruit/i,
   who:["meeropol","holiday","billie","billie holiday"], what:["strange fruit"],
-  tex:"Homophony (voice + small band/piano)", genre:"Protest song (jazz ballad)",
-  hear:["Slow, quiet, mournful","Billie Holiday’s fragile, behind-the-beat phrasing","Sparse accompaniment; dark, haunting mood","Lyrics delivered with restrained intensity"],
-  facts:["Poem by Abel Meeropol, a Jewish schoolteacher from the Bronx, protesting the lynching of Black Americans","Holiday performed it at Café Society, an integrated club in New York","One of the first major civil-rights protest songs"],
-  q:"How does the performance bring the text to life?", qa:"Slow <b>tempo</b>, soft <b>dynamics</b>, sparse <b>texture</b> and Holiday’s restrained delivery make the horror of the imagery more powerful."},
- {id:"nina", era:"20th-c. US", name:"Nina Simone, Mississippi Goddam", date:"1964", rx:/mississippi god/i,
+  tex:"Homophony (voice + small band/piano)", genre:"Protest song",
+  ul:[],
+  hear:["Slow, quiet, mournful","Billie Holiday’s fragile, behind-the-beat phrasing","Sparse accompaniment; dark, haunting mood","Pastoral imagery turned to horror, delivered with restraint"],
+  facts:["Music and lyrics by Abel Meeropol, a Bronx teacher, in 1937; a protest against lynching","Holiday began performing it at Café Society, an integrated club in Greenwich Village","Columbia Records refused to record it; she recorded it with Commodore Records in 1939, and it became a surprise hit"],
+  q:"What musical tools convey the protest?", qa:"Slow <b>tempo</b>, soft <b>dynamics</b>, sparse <b>texture</b> and Holiday’s restrained delivery let the horrifying text land with full force."},
+ {id:"nina", era:"20th-c. US", name:"Nina Simone, Mississippi Goddam", date:"1963", rx:/mississippi god/i,
   who:["simone","nina","nina simone"], what:["mississippi","goddam","goddamn"],
   tex:"Homophony (voice + piano/band)", genre:"Protest song",
-  hear:["Upbeat, jaunty show-tune feel","Simone’s piano and voice; talks to the audience","Sharp contrast between cheerful music and furious lyrics","Live recording (Carnegie Hall)"],
-  facts:["Written in response to the murder of Medgar Evers and the Birmingham church bombing (1963)","Simone: classically trained pianist turned civil-rights voice","Irony: she called it a show tune “but the show hasn’t been written for it yet”"],
-  q:"Why does the cheerful style matter?", qa:"The bouncy <b>tempo</b> and <b>major</b>-key show-tune style clash ironically with the angry text, sharpening the protest."},
+  ul:[],
+  hear:["Upbeat, jaunty show-tune feel","Simone’s piano and voice; she talks to the audience","Sharp contrast between cheerful music and furious lyrics","Live recording"],
+  facts:["Written after the murders of Medgar Evers in Mississippi and of Addie Mae Collins, Cynthia Wesley, Carole Robertson and Denise McNair in Alabama","Censored in several states, allegedly for profanity","Simone (1933–2003): singer, composer, pianist, activist, author"],
+  q:"How is this different from “Strange Fruit” as protest?", qa:"Instead of slow and mournful, it uses a fast, cheerful show-tune <b>style</b> and <b>major</b> key that clash ironically with angry, direct lyrics."},
  {id:"cage", era:"20th-c. US", name:"John Cage, Sonata V (Sonatas and Interludes)", date:"1946–48", rx:/cage.*sonata|sonata.*cage|sonatas and interludes/i,
   who:["cage"], what:["sonata v","sonata 5","sonata","sonatas and interludes"],
   tex:"Homophony / sparse", genre:"Prepared piano sonata",
+  ul:[["Prepared piano","Objects placed between the piano strings to alter the instrument’s timbre"],["Indeterminacy","Chance music: some aspects of the work are left to chance or the interpreter’s choice, “free of individual taste and memory”"]],
   hear:["A piano that sounds like percussion or a gamelan","Clunky, buzzing, muted, metallic tones","Short, rhythmic, repeating patterns","Calm, contained mood"],
-  facts:["<b>Prepared piano</b>: screws, bolts, rubber placed between the strings","Inspired by Indian aesthetics (the permanent emotions)","Cage later embraced chance and silence (4′33″)"],
-  q:"What is a prepared piano?", qa:"A piano with objects inserted between the strings, transforming its <b>timbre</b> into percussive, gamelan-like sounds."},
- {id:"oliveros", era:"20th-c. US", name:"Pauline Oliveros, Bye Bye Butterfly", date:"1965", rx:/bye bye butterfly/i,
+  facts:["Cage (1912–1992): American avant-garde composer who questioned traditional aesthetics","Also wrote 4′33″ (1952): is silence/ambient sound music?","Reading: Cage, “The Future of Music: Credo”"],
+  q:"What is a prepared piano?", qa:"<b>Prepared piano</b>: objects placed between the strings to change the piano’s <b>timbre</b> into percussive, gamelan-like sounds.",
+  links:[["Sonata V (slide 8)","jRHoKZRYBlY"]]},
+ {id:"oliveros", era:"20th-c. US", name:"Pauline Oliveros, Bye Bye Butterfly", date:"1967", rx:/bye bye butterfly/i,
   who:["oliveros","pauline"], what:["bye bye butterfly","butterfly"],
   tex:"Layered electronic sound", genre:"Electronic / tape music",
-  hear:["Electronic tones: oscillators, whistling, swooping pitches","Tape delay creates echoing loops","A distorted fragment of an old opera recording (Madama Butterfly) floats in","No beat or melody in the traditional sense"],
-  facts:["Made in real time at the San Francisco Tape Music Center","“Bye bye” to the 19th-century opera tradition and its gender roles","Oliveros later developed “Deep Listening”"],
-  q:"What is this piece’s relationship to earlier music?", qa:"It quotes and distorts Puccini’s <i>Madama Butterfly</i>, saying goodbye to 19th-century opera, through electronic <b>timbres</b> and tape delay."},
- {id:"coltrane", era:"20th-c. US", name:"John Coltrane, Psalm from A Love Supreme", date:"1964", rx:/love supreme/i,
+  ul:[],
+  hear:["Electronic tones: oscillators, whistling, swooping pitches","Tape delay creates echoing loops","A distorted fragment of an old opera recording (Puccini’s Madama Butterfly) floats in","No beat or melody in the traditional sense"],
+  facts:["Oliveros (1932–2016): experimental and electronic pioneer; founder of the San Francisco Tape Music Center","Known for “deep listening” and “sonic awareness”","Lecture question: what is music?"],
+  q:"How does this piece challenge the definition of music?", qa:"It uses electronic <b>timbres</b>, tape delay and a distorted opera quote instead of melody or beat, saying “bye bye” to 19th-century opera and asking what music is."},
+ {id:"coltrane", era:"20th-c. US", name:"John Coltrane, Psalm from A Love Supreme", date:"1965", rx:/love supreme/i,
   who:["coltrane"], what:["psalm","love supreme"],
-  tex:"Homophony (sax lead + quartet)", genre:"Spiritual jazz",
+  tex:"Homophony (sax lead + quartet)", genre:"Free/spiritual jazz",
+  ul:[["Bebop","Jazz style of complex harmony and extreme virtuosity, pushing earlier jazz’s boundaries (e.g. Giant Steps, 1960)"],["Free jazz","Developed in reaction to bebop’s harmonic and formal structures; experimentation with absence of set form or set harmony (e.g. A Love Supreme, 1965)"]],
   hear:["Tenor saxophone playing a slow, prayer-like line","Rumbling drums, piano chords, bass; no steady beat","Free, rubato feel","Meditative, solemn"],
-  facts:["Part IV of <i>A Love Supreme</i>, his devotional album","Coltrane “recites” his own poem on the saxophone, one note per syllable","Spiritual statement after his recovery and religious awakening"],
-  q:"How does Coltrane connect music and text?", qa:"His sax line follows the syllables of his printed devotional poem, a wordless “musical recitation” (like <b>syllabic</b> text-setting)."},
+  facts:["Coltrane (1926–1967): pivotal in the move from bebop to free jazz","“Psalm” is the final part of his devotional album; the sax “recites” his printed prayer-poem","Psalms: songs of praise, lament, thanksgiving and hope addressed to God"],
+  q:"Which jazz style does this represent, and how does it differ from bebop?", qa:"<b>Free jazz</b>: no set form or harmony, unlike <b>bebop</b>’s complex harmony and virtuosity. It sounds psalm-like through its slow, prayerful recitation.",
+  links:[["Psalm (slide 4)","yjZc7KIFlNs"]]},
  {id:"reich", era:"20th-c. US", name:"Steve Reich, Tehillim (Psalms)", date:"1981", rx:/tehillim/i,
   who:["reich"], what:["tehillim","psalms"],
-  tex:"Polyphony (canons) over pulsing percussion", genre:"Vocal/ensemble work (minimalist roots)",
-  hear:["Women’s voices singing in Hebrew","Clapping and small drums (pulse)","Voices in canon, overlapping imitative lines","Bright, rhythmic, joyous; changing meters"],
-  facts:["Setting of Hebrew psalms (Tehillim = Psalms)","Reich is a founder of Minimalism; here more melodic than his process works","Rhythm follows the natural rhythm of the Hebrew text"],
-  q:"What texture do you hear?", qa:"<b>Polyphony</b>: voices in <b>canon</b> (imitative) over steady percussion <b>pulse</b>."}
+  tex:"Polyphony (canons) over pulsing percussion", genre:"Minimalism (vocal/ensemble work)",
+  ul:[["Minimalism","Style of minimal musical material with an emphasis on change and process: consonant, consistent harmony; steady beat; additive layers; a reaction to the complexity of serial music"]],
+  hear:["Women’s voices singing in Hebrew","Clapping, small drums and steady pulse","Voices in canon (imitative, overlapping)","Bright, joyous; changing meters following the text"],
+  facts:["Reich (b. 1936): American pioneer of minimalism (with Glass, Riley, Eastman)","Fuses minimalism with his Jewish heritage; Tehillim = Psalms/Praises","Psalm 150: praise with trumpet, harp, timbrel, dancing, cymbals","Reading: Reich, “Music as a Gradual Process”"],
+  q:"What style is this, and what are its features?", qa:"<b>Minimalism</b>: minimal material, steady beat, consonant harmony, additive layers and gradual process; here with voices in canon over percussion.",
+  links:[["Tehillim (slide 8)","UiGlOL_ogA0"]]}
 ];
 
 const DOCS = [
@@ -430,10 +470,13 @@ $("#pieces").innerHTML=Object.entries(ERAS).map(([era,e])=>`<h3 style="margin:26
   <div class="tags"><span class="tag"><b>Genre</b>${p.genre}</span><span class="tag"><b>Texture</b>${p.tex}</span></div>
   <div class="cols"><div><h4>What you’ll hear</h4><ul>${p.hear.map(x=>`<li>${x}</li>`).join("")}</ul></div>
   <div><h4>Context &amp; key facts</h4><ul>${p.facts.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+  ${p.ul.length?`<ul class="ulterms"><li><span class="ullabel">Underlined on the slides:</span> ${p.ul.map(([t,d])=>`<b>${t}</b> (${d})`).join(" · ")}</li></ul>`:`<ul class="ulterms"><li><span class="ullabel">Underlined on the slides:</span> none on this piece’s slides. Expect a musical-element question (texture, tempo, dynamics…).</li></ul>`}
   <details class="q"><summary>Practice follow-up: ${p.q}</summary><div><p>${p.qa}</p></div></details>
-  <div class="listen"><a class="search" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Search YouTube</a><a class="search" href="https://open.spotify.com/search/${q}" target="_blank" rel="noopener">Search Spotify</a></div>
+  <div class="listen">${(p.links||[]).map(([l,id])=>`<a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">${l}</a>`).join("")}<a class="search" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Search YouTube</a><a class="search" href="https://open.spotify.com/search/${q}" target="_blank" rel="noopener">Search Spotify</a></div>
  </article>`}).join("")).join("");
 $("#readingGrid").innerHTML=DOCS.map(d=>`<div class="panel"><h3>${d.name}</h3><p><b>Clue:</b> ${d.hint}</p><p style="margin-top:4px">${d.about}</p></div>`).join("");
+const seen=new Set();
+$("#gloss").innerHTML=PIECES.flatMap(p=>p.ul.map(([t,d])=>[t,d,p.name.split(",")[0]])).filter(([t])=>!seen.has(t)&&seen.add(t)).map(([t,d,w])=>`<div class="term"><dt>${t}<small>${w}</small></dt><dd>${d}</dd></div>`).join("");
 const CK=[["Text-setting","Syllabic or melismatic? Which words get stretched or emphasized?"],["Melody","Rising/falling on key words? Conjunct or disjunct? Highest note = climax?"],["Harmony","Consonant vs. dissonant moments; major/minor shifts at emotional turns; unresolved ending?"],["Accompaniment","Does the piano/orchestra depict an image (water, galloping, bells, footsteps)?"],["Texture","Thin vs. full; does it change with the text?"],["Rhythm & meter","Steady or unsettled? Ostinato? Rubato?"],["Tempo","Changes at turning points?"],["Dynamics","Crescendo to a climax? Sudden quiet on a key word?"],["Timbre & register","Voice type, low vs. high register, instrument colors"],["Form","Strophic (same music each verse) or through-composed (new music following the story)?"]];
 $("#checklist").innerHTML=CK.map(([h,p])=>`<div class="panel"><h3>${h}</h3><p>${p}</p></div>`).join("");
 </script>
